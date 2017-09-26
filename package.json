@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:end": "mocha",
+    "test:backend": "mocha",
     "start": "node server.js",
     "lint": "eslint src/"
   },
