@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "mocha",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -26,11 +28,11 @@
     "style-loader": "^0.18.2",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2"
+    "express": "^4.15.5",
+    "mocha": "^3.5.3"
   },
   "dependencies": {
     "react": "^15.6.2",
-    "react-dom": "^15.6.2"
-    "express": "^4.15.5",
-    "mocha": "^3.5.3"
+    "react-dom": "^15.6.2"    
   }
 }
