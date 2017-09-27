@@ -9,7 +9,7 @@ const app = express();
 app.use(express.static(path.resolve(__dirname, '../../dist')));
 
 app.get('/', (req, res) => {
-  res.send('index.html');
+  res.send('../../index.html');
 });
 
 app.get('/heartbeat', (req, res) => {
