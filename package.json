@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:backend": "mocha",
+    "build": "webpack --colors",
     "start": "node server.js",
     "lint": "eslint src/"
   },
