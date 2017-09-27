@@ -6,7 +6,7 @@
   "scripts": {
     "test:backend": "mocha",
     "test:frontend": "jest --colors",
-    "start": "node server.js",
+    "start": "node ./src/server/index.js",
     "lint": "eslint src/"
   },
   "repository": {
