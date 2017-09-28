@@ -8,9 +8,9 @@ const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../../dist')));
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
+//app.get('/', (req, res) => {
+//  res.sendFile(__dirname + '/index.html');
+//});
 
 app.get('/heartbeat', (req, res) => {
   res.json({status: 'ok'});
