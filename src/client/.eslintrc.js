@@ -3,4 +3,4 @@ module.exports = {
     'jest': true,
     'browser': true,
   },
-}
+};
