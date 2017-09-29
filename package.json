@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm-run-all --sequential build start:backend",
+    "start:backend": "node ./src/server/index.js",
+    "build": "webpack -d --colors --config webpack.prod.js",
+    "dev:frontend": "webpack-dev-server --colors --config webpack.dev.js --port 8080",
+    "dev:backend": "nodemon ./src/server/index.js",
     "test:backend": "mocha",
     "test:frontend": "jest --colors",
-    "build": "webpack -d --colors",
-    "start": "node ./src/server/index.js",
     "lint": "eslint **/*.js --colors"
   },
   "repository": {
@@ -34,10 +37,13 @@
     "jest-cli": "^21.2.0",
     "mocha": "^3.5.3",
     "node-sass": "^4.5.3",
+    "npm-run-all": "^4.1.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.8.2"
+    "webpack-dev-server": "^2.8.2",
+    "webpack-merge": "^4.1.0"
   },
   "dependencies": {
     "react": "^15.6.2",
