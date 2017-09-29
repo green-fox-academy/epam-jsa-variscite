@@ -11,7 +11,7 @@
     "dev:backend": "nodemon ./src/server/index.js",
     "test:backend": "mocha",
     "test:frontend": "jest --colors",
-    "lint": "eslint **/*.js --colors"
+    "lint": "eslint . --ext .js"
   },
   "repository": {
     "type": "git",

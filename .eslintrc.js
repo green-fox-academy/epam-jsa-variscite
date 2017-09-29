@@ -1,8 +1,7 @@
 module.exports = {
   'env': {
     'es6': true,
-    'browser': true,
-    'node': true
+    'node': true,
   },
   'extends': [
     'eslint:recommended',
@@ -16,7 +15,7 @@ module.exports = {
     'sourceType': 'module',
   },
   'rules': {
-      'indent': [2,2,]
+    'indent': [2, 2],
   },
   'plugins': [
     'react',
