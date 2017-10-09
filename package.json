@@ -10,6 +10,7 @@
     "dev:frontend": "webpack-dev-server --colors --config webpack.dev.js --port 8080",
     "dev:backend": "nodemon ./src/server/index.js",
     "test:backend": "mocha",
+    "heroku-prebuild": "npm install --only=dev",
     "test:frontend": "jest --colors",
     "lint": "eslint . --ext .js"
   },
