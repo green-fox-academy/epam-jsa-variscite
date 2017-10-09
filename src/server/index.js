@@ -14,7 +14,7 @@ app.use(express.static(path.resolve(__dirname, '../../dist')));
 app.get('/heartbeat', (req, res) => {
   var response;
   var MongoClient = mongodb.MongoClient;
-  var url = process.env.url;
+  var url = process.env.URL;
   MongoClient.connect(url, function (err, db) {
     var adminDb = db.admin();
     adminDb.serverStatus(function(err, info) {
