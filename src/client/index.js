@@ -1,2 +1,5 @@
 const ReactDOM = require('react-dom');
-ReactDOM.render(<p>Hello World!</p>, document.getElementById('root'));
+const React = require('react');
+import SignupComponent from './signupComponent.js';
+
+ReactDOM.render(<SignupComponent />, document.getElementById('root'));
