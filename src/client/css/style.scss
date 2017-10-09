@@ -1,0 +1,81 @@
+$btnColor: #4A90E2;
+$formColor: #FFFFFF;
+$bgColor: rgb(246,249,255);
+$defaultColor: #9B9B9B;
+$titleFont: Helvetica-Bold;
+
+* {
+  background: $bgColor;
+}
+
+header{
+  width: 100%;
+  height: 57.2px;
+  background: $btnColor;
+
+  button {
+    margin: 13.55px 0 13.55px 13.55px;
+  }
+
+  .logo {
+    height: 29.9px;
+    width: 29.9px;
+    border: none;
+    font-size: 16px;
+    color: $btnColor;
+  }
+
+  .login {
+    position: absolute;
+    left: 89%;
+    top: 10px;
+    background: $btnColor;
+    font-size: 16px;
+    color: $formColor;
+    border: none;
+  }
+}
+
+.signup-form {
+  height: 350px;
+  width: 300px;
+  background: $formColor;
+  margin:0 auto;
+  font-family: $titleFont;
+
+  h1 {
+    text-align: center;
+    font-size: 22px;
+    background: $formColor;
+  }
+
+  input {
+    width: 80%;
+    height: 30px;
+    margin: 5% 0 4% 10%;
+    background: $formColor;
+    display: inline-block;
+    color: $defaultColor;
+    padding: 5px 2px;   
+    border: none;
+    border-bottom: 1px solid;
+    font-size: 12px;
+  }
+
+  span {
+    color: red;
+    margin-left: 5px;
+    background: $formColor; 
+  }
+
+  button {
+    background: $btnColor;
+    color: $formColor;
+    width: 100%;
+    height: 8%;
+    font-size: 14px;
+    border: none;
+
+  }
+
+}
