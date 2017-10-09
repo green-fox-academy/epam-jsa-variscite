@@ -14,7 +14,7 @@ app.use(express.static(path.resolve(__dirname, '../../dist')));
 app.get('/heartbeat', (req, res) => {
   var response;
   var MongoClient = mongodb.MongoClient;
-  var url = process.env.DB_ADDRESS;
+  var url = process.env.DB_URL;
   MongoClient.connect(url, function (err, db) {
     var adminDb = db.admin();
     adminDb.serverStatus(function(err, info) {
@@ -24,6 +24,7 @@ app.get('/heartbeat', (req, res) => {
     })
   }); 
 });
+
 /* eslint no-console: "off" */
 app.listen(PORT, function() {
   console.log(`app is listening on port ${PORT}`);
