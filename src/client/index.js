@@ -1,15 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Header from './components/Header'
-
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Header />
-      </div>
-    );
-  }
-}
+import App from './App';
 
 ReactDOM.render(<App />, document.getElementById('root'));

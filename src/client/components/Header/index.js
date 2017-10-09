@@ -3,9 +3,11 @@ import React from 'react';
 class Header extends React.Component {
   render() {
     return (
-      <div>
-        <Header />
-      </div>
+      <header>
+        <button className="logo" value="v"/>
+      </header>
     );
   }
 }
+
+export default Header;
