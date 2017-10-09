@@ -12,7 +12,7 @@
     "test:backend": "mocha",
     "heroku-prebuild": "npm install --only=dev",
     "test:frontend": "jest --colors",
-    "lint": "eslint . --ext .js"
+    "lint": "eslint . --ext .js --color"
   },
   "repository": {
     "type": "git",
