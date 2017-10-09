@@ -1,8 +1,6 @@
 'use strict';
 
 const ReactDOM = require('react-dom');
-/* eslint-disable */
-const React = require('react');
-/* eslint-enable */
+const React = require('react'); // eslint-disable-line no-unused-vars
 
 ReactDOM.render(<p>Hello World!</p>, document.getElementById('root'));
