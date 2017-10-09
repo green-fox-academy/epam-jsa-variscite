@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 const mongodb = require('mongodb');
@@ -12,7 +14,7 @@ app.use(express.static(path.resolve(__dirname, '../../dist')));
 app.get('/heartbeat', (req, res) => {
   var response;
   var MongoClient = mongodb.MongoClient;
-  var url = 'mongodb://localhost:27017/epam'; 
+  var url = process.env.url;
   MongoClient.connect(url, function (err, db) {
     var adminDb = db.admin();
     adminDb.serverStatus(function(err, info) {
