@@ -48,6 +48,7 @@
   },
   "dependencies": {
     "dotenv": "^4.0.0",
+    "mongodb": "^2.2.31",
     "react": "^15.6.2",
     "react-dom": "^15.6.2"
   }
