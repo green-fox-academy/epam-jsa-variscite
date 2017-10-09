@@ -5,6 +5,10 @@ $defaultColor: #9B9B9B;
 $titleFont: Helvetica-Bold;
 
 * {
+  margin: 0;
+}
+
+body {
   background: $bgColor;
 }
 
@@ -23,12 +27,13 @@ header{
     border: none;
     font-size: 16px;
     color: $btnColor;
+    background: $bgColor;
   }
 
   .login {
     position: absolute;
     left: 89%;
-    top: 10px;
+    top: 5px;
     background: $btnColor;
     font-size: 16px;
     color: $formColor;
@@ -37,13 +42,15 @@ header{
 }
 
 .signup-form {
-  height: 350px;
+  height: 370px;
   width: 300px;
   background: $formColor;
   margin:0 auto;
+  margin-top: 5%;
   font-family: $titleFont;
 
   h1 {
+    padding-top: 5%;
     text-align: center;
     font-size: 22px;
     background: $formColor;
