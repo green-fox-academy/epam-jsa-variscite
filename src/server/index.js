@@ -12,17 +12,16 @@ const app = express();
 app.use(express.static(path.resolve(__dirname, '../../dist')));
 
 app.get('/heartbeat', (req, res) => {
-  var response;
-  var MongoClient = mongodb.MongoClient;
-  var url = process.env.DB_URL;
-  MongoClient.connect(url, function (err, db) {
-    var adminDb = db.admin();
+  let MongoClient = mongodb.MongoClient;
+  let url = process.env.DB_URL;
+  MongoClient.connect(url, function(err, db) {
+    let adminDb = db.admin();
     adminDb.serverStatus(function(err, info) {
       console.log(info.version);
       res.json(info.version);
       db.close();
-    })
-  }); 
+    });
+  });
 });
 
 /* eslint no-console: "off" */
