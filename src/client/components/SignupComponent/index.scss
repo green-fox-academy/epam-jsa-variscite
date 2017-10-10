@@ -1,5 +1,6 @@
 $bluecolor: #4A90E2;
 $greencolor: #36A420;
+$redcolor: #be4b49;
 
 html, body {
     margin: 0;
@@ -24,7 +25,7 @@ h1 {
 
 main {
     width: 36em;
-    height: 25em;
+    height: 30em;
     margin: 0 auto;
     margin-top: 4em;
     margin-bottom: 5em;
@@ -58,6 +59,15 @@ input {
     background-color: $bluecolor;
     color: white;
     border: none;
+}
+
+label {
+    width: 66%;
+    height: 3em;
+    color: $redcolor;
+    font-size: 0.8em;
+    display: inline-block;
+
 }
 
 

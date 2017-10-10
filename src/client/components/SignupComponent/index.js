@@ -7,7 +7,8 @@ class SignupComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'status': 'being'
+      'status': 'being',
+      'alert': ''
     };
   }
   submitHandler(ev) {
@@ -28,10 +29,33 @@ class SignupComponent extends React.Component {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', function() {
       if(xhr.readyState === XMLHttpRequest.DONE) {
-          console.log(jsonData);
+        if(xhr.status === 400) {
+          let error = JSON.parse(xhr.responseText).errorType;
+          if(error === 'contentType'){
+            this.setState({'alert': 'You entered the wrong content, please retry.'});
+          }else if(error === 'missingField'){
+            this.setState({'alert': 'You missed some field, please retry.'});
+          }else if(error === 'fieldWrong'){
+            this.setState({'alert': 'You enter something wrong, please retry.'});
+          }
+        } else if(xhr.status === 409) {
+        	let error = JSON.parse(xhr.responseText).errorType;
+        	if(error === 'phoneError'){
+              this.setState({'alert': 'Your phone has been used, please retry.'});
+            }else if(error === 'usernameError'){
+              this.setState({'alert': 'Your username has been used, please retry.'});
+            }else if(error === 'emailError'){
+              this.setState({'alert': 'Your email has been used, please retry.'});
+            }
+        } else if(xhr.status === 404) {
+        	this.setState({'alert': 'Something wrong, please retry.'});
+
+        } else if(xhr.status === 201) {
+            this.setState({'alert': ''});
+        }
       }
-    });
-    xhr.open('POST', 'http://localhost:8080/');
+    }.bind(this));
+    xhr.open('POST', 'http://localhost:1234/');
     xhr.setRequestHeader("Accept","application/json");
     xhr.setRequestHeader("Content-Type","application/json");
     this.setState({'status': 'loading'});
@@ -43,7 +67,7 @@ class SignupComponent extends React.Component {
     return (
       <main >
         <h3>Create A New Account</h3>
-        <SignupForm isLoading={this.state.status === 'loading'} onSubmit={this.submitHandler.bind(this)}/>
+        <SignupForm isLoading={this.state.status === 'loading'} onSubmit={this.submitHandler.bind(this)} alert={this.state.alert}/>
       </main>
     )
   };
