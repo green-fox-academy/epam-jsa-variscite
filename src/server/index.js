@@ -27,8 +27,8 @@ app.get('/heartbeat', (req, res) => {
 
 app.use(bodyParser.json());
 app.post('/api/login', (req, res) => {
-    console.log(req.body);
-    res.json('Okay');
+  console.log(req.body);
+  res.json('Okay');
 });
 
 /* eslint no-console: "off" */
