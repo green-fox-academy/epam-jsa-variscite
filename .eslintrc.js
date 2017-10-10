@@ -16,6 +16,9 @@ module.exports = {
   },
   'rules': {
     'indent': [2, 2],
+    'react/jsx-uses-vars': 2,
+    'react/jsx-uses-react': 2,
+    'require-jsdoc': 'off',
   },
   'plugins': [
     'react',
