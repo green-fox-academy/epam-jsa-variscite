@@ -1,0 +1,65 @@
+$bluecolor: #4A90E2;
+$greencolor: #36A420;
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #E9EBEE;
+}
+
+h1 {
+    width: 4em;
+    margin-right: 0;
+    font-size: 2.5em;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    padding: 0.4em 0.2em 0 3em;
+    display: inline-block;
+}
+
+main {
+    width: 36em;
+    height: 25em;
+    margin: 0 auto;
+    margin-top: 4em;
+    margin-bottom: 5em;
+    text-align: center; 
+    display: flex;
+    flex-flow: column;  
+    background-color: white; 
+    
+}
+
+h3 {
+    margin-top: 2em;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+input {
+    width: 64%;
+    height: 2em;
+    margin: 0 auto;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+.textInput {
+    padding-left: 0.6em;
+}
+
+.signupButton {
+    width: 66%;
+    height: 3em;
+    background-color: $bluecolor;
+    color: white;
+    border: none;
+}
+
+
+
+
