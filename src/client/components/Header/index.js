@@ -2,6 +2,7 @@ import React from 'react';
 import Logo from '../Logo';
 import SearchBar from '../SearchBar';
 import OtherOptions from '../OtherOptions';
+import './index.scss';
 
 class Header extends React.Component {
   render() {
