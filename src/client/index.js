@@ -1,8 +1,6 @@
-'use strict';
-
-const ReactDOM = require('react-dom');
-const React = require('react'); // eslint-disable-line no-unused-vars
-
-import App from './app.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
 
 ReactDOM.render(<App />, document.getElementById('root'));
+

@@ -20,7 +20,7 @@ class LoginComponent extends React.Component {
     } else if (status === 500) {
       this.handleUnknownError(response);
     } else if (status === 200) {
-      console.log(response);
+      this.setState({redirect: true});
     }
   }
 
@@ -74,7 +74,8 @@ class LoginComponent extends React.Component {
     return (
       <main >
         <h3>Log in to Variscite</h3>
-        <LoginForm isLoading={this.state.status === 'loading'} onSubmit={this.submitLogin.bind(this)} />
+        <LoginForm isLoading={this.state.status === 'loading'}
+          onSubmit={this.submitLogin.bind(this)} />
         <p className='or'>or</p>
         <button className="newAccount">Create New Account</button>
       </main>
