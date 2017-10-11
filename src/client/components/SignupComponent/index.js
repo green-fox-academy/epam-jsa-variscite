@@ -1,5 +1,4 @@
 require('./index.scss');
-const ReactDOM = require('react-dom');
 const React = require('react');
 import SignupForm from '../SignupForm';
 
@@ -8,7 +7,7 @@ class SignupComponent extends React.Component {
     super(props);
     this.state = {
       'status': 'being',
-      'alert': ''
+      'alert': '',
     };
   }
   submitHandler(ev) {
@@ -23,41 +22,43 @@ class SignupComponent extends React.Component {
       fullname: fullname,
       email: email,
       phonenumber: phonenumber,
-      password: password
+      password: password,
     };
     let jsonData = JSON.stringify(obj);
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', function() {
-      if(xhr.readyState === XMLHttpRequest.DONE) {
-        if(xhr.status === 400) {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 400) {
           let error = JSON.parse(xhr.responseText).errorType;
-          if(error === 'contentType'){
-            this.setState({'alert': 'You entered the wrong content, please retry.'});
-          }else if(error === 'missingField'){
+          if (error === 'contentType') {
+            this.setState({'alert': 'You entered the wrong content, 
+            	please retry.'});
+          } else if (error === 'missingField') {
             this.setState({'alert': 'You missed some field, please retry.'});
-          }else if(error === 'fieldWrong'){
-            this.setState({'alert': 'You enter something wrong, please retry.'});
+          } else if (error === 'fieldWrong') {
+            this.setState({'alert': 'You enter something wrong, 
+            	please retry.'});
           }
-        } else if(xhr.status === 409) {
+        } else if (xhr.status === 409) {
         	let error = JSON.parse(xhr.responseText).errorType;
-        	if(error === 'phoneError'){
-              this.setState({'alert': 'Your phone has been used, please retry.'});
-            }else if(error === 'usernameError'){
-              this.setState({'alert': 'Your username has been used, please retry.'});
-            }else if(error === 'emailError'){
-              this.setState({'alert': 'Your email has been used, please retry.'});
-            }
-        } else if(xhr.status === 404) {
+        	if (error === 'phoneError') {
+            this.setState({'alert': 'Your phone has been used, please retry.'});
+          } else if (error === 'usernameError') {
+            this.setState({'alert': 'Your username has been used,
+             please retry.'});
+          } else if (error === 'emailError') {
+            this.setState({'alert': 'Your email has been used, please retry.'});
+          }
+        } else if (xhr.status === 404) {
         	this.setState({'alert': 'Something wrong, please retry.'});
-
-        } else if(xhr.status === 201) {
-            this.setState({'alert': ''});
+        } else if (xhr.status === 201) {
+          this.setState({'alert': ''});
         }
       }
     }.bind(this));
     xhr.open('POST', 'http://localhost:1234/');
-    xhr.setRequestHeader("Accept","application/json");
-    xhr.setRequestHeader("Content-Type","application/json");
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
     this.setState({'status': 'loading'});
     xhr.send(jsonData);
   }
@@ -67,10 +68,11 @@ class SignupComponent extends React.Component {
     return (
       <main >
         <h3>Create A New Account</h3>
-        <SignupForm isLoading={this.state.status === 'loading'} onSubmit={this.submitHandler.bind(this)} alert={this.state.alert}/>
+        <SignupForm isLoading={this.state.status === 'loading'} 
+          onSubmit={this.submitHandler.bind(this)} alert={this.state.alert}/>
       </main>
-    )
-  };
+    );
+  }
 }
 
 export default SignupComponent;
