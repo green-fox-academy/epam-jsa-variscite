@@ -2,7 +2,7 @@
 
 import {Link} from 'react-router-dom';
 const React = require('react');
-const LoginForm = require('../login-form/index.js');
+const LoginForm = require('../LoginForm/index.js');
 
 class LoginComponent extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ class LoginComponent extends React.Component {
     } else if (status === 403) {
       this.handleMisMatch(response);
     } else if (status === 500) {
-      this.handleUnknownError(response);
+      this.handleServerError(response);
     } else if (status === 200) {
       window.location.href = '/feed';
     }
@@ -47,7 +47,7 @@ class LoginComponent extends React.Component {
     }
   }
 
-  handleUnknownError(response) {
+  handleServerError(response) {
     if (response.errorType === 'Unknown') {
       let errorMessage = 'Unknown Error!';
       this.setState({'error': errorMessage});
@@ -61,18 +61,12 @@ class LoginComponent extends React.Component {
     };
   }
 
-  // validateData(data) {
-  //   let reg = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
-  //   if (!reg.test(data.username)) {
-  //     this.setState({'isUsernameValid': true});
-  //   }
-  // }
-
   sendData(data) {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         this.handleLoginResponse(xhr.status, xhr.response);
+        this.setState({'status': 'being'});
       }
     }.bind(this));
     xhr.open('POST', '/api/login');
@@ -84,24 +78,19 @@ class LoginComponent extends React.Component {
 
   submitLogin(event) {
     event.preventDefault();
-    let LoginInfo = this.collectData(event);
-    // this.validateData(LoginInfo);
-    this.sendData(LoginInfo);
-  }
-
-  createNewAccount(event) {
-    window.location.href = '/signup';
+    let loginInfo = this.collectData(event);
+    this.sendData(loginInfo);
   }
 
   render() {
     return (
       <main >
-        <h1 className='login-title'>Log in to Variscite</h1>
+        <h1 className="login-title">Log in to Variscite</h1>
         <LoginForm isLoading={this.state.status === 'loading'}
           errorMessage={this.state.error}
           onSubmit={this.submitLogin.bind(this)} />
-        <p className='or'>or</p>
-        <Link className='newAccount' to="/feed">Create New Account</Link>
+        <p className="or">or</p>
+        <Link className="newAccount" to="/signup">Create new account</Link>
       </main>
     );
   }

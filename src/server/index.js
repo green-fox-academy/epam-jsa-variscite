@@ -5,7 +5,6 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongodb = require('mongodb');
-const bodyParser = require('body-parser');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -25,18 +24,8 @@ app.get('/heartbeat', (req, res) => {
   });
 });
 
-app.get('/feed', (req, res) =>{
+app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
-});
-
-app.get('/login', (req, res) =>{
-  res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
-});
-
-app.use(bodyParser.json());
-app.post('/api/login', (req, res) => {
-  console.log(req.body);
-  res.json('Okay');
 });
 
 /* eslint no-console: "off" */

@@ -2,7 +2,6 @@ $bluecolor: #4A90E2;
 
 main {
     width: 36em;
-    // height: 100%;
     margin: 0 auto;
     margin-top: 8em;
     text-align: center; 
@@ -29,6 +28,7 @@ main {
     margin-top: 1em;
     margin-bottom: 3em;
     font-size: 0.83em;
+    text-transform: capitalize;
     color: white;
     background-color: $bluecolor;
     border: none;
