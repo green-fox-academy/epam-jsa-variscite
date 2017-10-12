@@ -10,7 +10,6 @@ class SignupScreen extends React.Component {
         <main>
           <SignupComponent />
         </main>
-
       </div>
     );
   }
