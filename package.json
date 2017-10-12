@@ -52,6 +52,7 @@
     "mongodb": "^2.2.31",
     "nodemon": "^1.12.1",
     "react": "^15.6.2",
-    "react-dom": "^15.6.2"
+    "react-dom": "^15.6.2",
+    "react-router-dom": "^4.2.2"
   }
 }
