@@ -7,7 +7,7 @@ const path = require('path');
 const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const Cryptr = require('cryptr')
+const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
 
 const errorHandle = require('./signUpErrorHandle');
@@ -37,16 +37,16 @@ app.post('/api/signup', jsonParser, function(req, res) {
   let fullname = req.body.fullname || '';
   let encrypted = cryptr.encrypt(req.body.password);
   console.log(encrypted);
-	let user = {
+  let user = {
     username: username,
     email: req.body.email,
     phonenumber: phonenumber,
     fullname: fullname,
-    password: encrypted
-	};
-	if(errorHandle.signUpErrorHandle(req, res) !== true){
-    database.signUp(user, res);
+    password: encrypted,
   };
+  if (errorHandle.signUpErrorHandle(req, res) !== true) {
+    database.signUp(user, res);
+  }
 });
 
 
