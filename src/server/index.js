@@ -7,6 +7,9 @@ const path = require('path');
 const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const Cryptr = require('cryptr')
+const cryptr = new Cryptr('jiaMi');
+
 const errorHandle = require('./signUpErrorHandle');
 const database = require('./database');
 
@@ -29,17 +32,17 @@ app.get('/heartbeat', (req, res) => {
 });
 
 app.post('/api/signup', jsonParser, function(req, res) {
-  let userName = req.body.userName || '';
-  let phoneNumber = req.body.phoneNumber || '';
-  let fullName = req.body.fullName || '';
-  let encrypted = req.body.password;
+  let username = req.body.username || '';
+  let phonenumber = req.body.phonenumber || '';
+  let fullname = req.body.fullname || '';
+  let encrypted = cryptr.encrypt(req.body.password);
   console.log(encrypted);
 	let user = {
-    userName: userName,
+    username: username,
     email: req.body.email,
-    phoneNumber: phoneNumber,
-    fullName: fullName,
-    password: req.body.password
+    phonenumber: phonenumber,
+    fullname: fullname,
+    password: encrypted
 	};
 	if(errorHandle.signUpErrorHandle(req, res) !== true){
     database.signUp(user, res);

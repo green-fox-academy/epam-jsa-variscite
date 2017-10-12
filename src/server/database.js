@@ -7,41 +7,44 @@ const url = process.env.DB_URL;
 function signUp(req, res){
 	MongoClient.connect(url, function (err, db) {
     let variscite = db.collection('variscite');
-		// let info = {
-		// 	'userName': req.userName,
-		// 	'email': req.email,
-		// 	'phoneNumber': req.phoneNumber,
-		// 	'fullName': req.fullName,
-		// 	'password': req.password
-		// }
+
     if (err) {
       res.status(500).send({errorType:'serverError'});
       db.close();
       return;
     }
-    variscite.find({$or: [
-      {'userName': req.username},
+    variscite.findOne({
+      $or: [
+      {$and:[{'username': req.username}, {'username': {$ne: ''}}]},
       {'email': req.email},
-      {'phoneNumber': req.phoneNumber},
-    ]}).toArray(function(err, items) {
-      if (items.length === 0) {
+      {$and:[{'phonenumber': req.phonenumber}, {'phonenumber': {$ne: ''}}]},
+    ]}, function(err, item) {
+      console.log(item);
+      if (err) {
+        res.status(500).send({errorType:'serverError'});
+        db.close();
+        return;
+      }
+      if (item === null) {
         variscite.insert(req, function() {
           let objectId = req._id;
           res.set('location', '/api/signup/'+objectId);
-          res.status(201).send({errorType: 'none'});
+          res.status(201).send();
           db.close();
           return;
         });
-      } else if (items[0].userName === req.userName) {
-        res.status(409).send({errorType: 'usernameError'});
-        db.close();
-        return;
-      } else if (items[0].email === req.email) {
-        console.log(1);
+      } else if (item.email === req.email) {
+        console.log('emailError');
         res.status(409).send({errorType: 'emailError'});
         db.close();
         return;
-      } else if (items[0].phoneNumber === req.phoneNumber) {
+      } else if (item.username === req.username) {
+        console.log('usernameError');
+        res.status(409).send({errorType: 'usernameError'});
+        db.close();
+        return;
+      } else if (item.phonenumber === req.phonenumber) {
+        console.log('phoneError');
         res.status(409).send({errorType: 'phoneError'});
         db.close();
         return;
