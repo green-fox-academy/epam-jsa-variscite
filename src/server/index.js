@@ -5,7 +5,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongodb = require('mongodb');
-
+const loginEndpoint = require('./loginEndpoint');
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -27,6 +27,8 @@ app.get('/heartbeat', (req, res) => {
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
+
+app.post('/api/login', jsonParser, loginEndpoint.login);
 
 /* eslint no-console: "off" */
 app.listen(PORT, function() {
