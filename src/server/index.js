@@ -24,6 +24,10 @@ app.get('/heartbeat', (req, res) => {
   });
 });
 
+app.get('*', (req, res) =>{
+  res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
+});
+
 /* eslint no-console: "off" */
 app.listen(PORT, function() {
   console.log(`app is listening on port ${PORT}`);
