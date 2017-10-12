@@ -7,7 +7,7 @@ const SignupForm = (props) => (
       placeholder="Username (optional)"></input>
     <input type="text" name="fullname"
       placeholder="Full name (optional)"></input>
-    <input type="email" name="email" style={props.style}
+    <input type="email" name="email"
       required placeholder="Email Address"></input>
     <input type="text" name="phonenumber"
       placeholder="Phone number (optional)"></input>

@@ -8,7 +8,6 @@ class SignupComponent extends React.Component {
     this.state = {
       'status': 'being',
       'error': '',
-      'validation': true,
     };
   }
 
@@ -19,8 +18,6 @@ class SignupComponent extends React.Component {
     let email = ev.target.elements.namedItem('email').value;
     let phonenumber = ev.target.elements.namedItem('phonenumber').value;
     let password = ev.target.elements.namedItem('password').value;
-    this.checkField(email);
-    this.checkField(password);
     let obj = {
       username: username,
       fullname: fullname,
@@ -30,12 +27,6 @@ class SignupComponent extends React.Component {
     };
     let jsonData = JSON.stringify(obj);
     this.sendData(jsonData);
-  }
-
-  checkField(str) {
-    if (str.length === 0) {
-      this.setState({'validation': false});
-    }
   }
 
   sendData(data) {
@@ -48,13 +39,13 @@ class SignupComponent extends React.Component {
         } else if (xhr.status === 409) {
           this.handleConflict();
         } else if (xhr.status === 500) {
-          this.handleClientError();
+          this.handleSeverError();
         } else if (xhr.status === 201) {
           this.returnSuccess();
         }
       }
     }.bind(this));
-    xhr.open('POST', 'http://localhost:1234/');
+    xhr.open('POST', '/signup');
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     this.setState({'status': 'loading'});
@@ -91,7 +82,7 @@ class SignupComponent extends React.Component {
     }
   }
 
-  handleClientError() {
+  handleSeverError() {
     this.setState({'error': 'Something wrong, please try again later.'});
   }
 
@@ -100,7 +91,6 @@ class SignupComponent extends React.Component {
   }
 
   render() {
-    let style = this.state.validation?{} : {'borderColor': 'red'};
 
     return (
       <main>
@@ -108,8 +98,7 @@ class SignupComponent extends React.Component {
         <SignupForm
           isLoading={this.state.status === 'loading'}
           onSubmit={this.submitHandler.bind(this)}
-          error={this.state.error}
-          style={style}/>
+          error={this.state.error}/>
       </main>
     );
   }
