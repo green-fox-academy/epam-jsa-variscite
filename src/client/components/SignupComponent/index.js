@@ -1,6 +1,6 @@
 import React from 'react';
 import SignupForm from '../SignupForm';
-import css from './index.scss';
+import './index.scss';
 
 class SignupComponent extends React.Component {
   constructor(props) {
@@ -35,9 +35,9 @@ class SignupComponent extends React.Component {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         this.setState({'status': 'being'});
         if (xhr.status === 400) {
-          this.handleUserError();
+          this.handleUserError(xhr);
         } else if (xhr.status === 409) {
-          this.handleConflict();
+          this.handleConflict(xhr);
         } else if (xhr.status === 500) {
           this.handleServerError();
         } else if (xhr.status === 201) {
@@ -52,7 +52,7 @@ class SignupComponent extends React.Component {
     xhr.send(data);
   }
 
-  handleUserError() {
+  handleUserError(xhr) {
     let error = JSON.parse(xhr.responseText).errorType;
     if (error === 'contentType') {
       this.setState({'error':
@@ -70,7 +70,7 @@ class SignupComponent extends React.Component {
     }
   }
 
-  handleConflict() {
+  handleConflict(xhr) {
     let error = JSON.parse(xhr.responseText).errorType;
     if (error === 'phoneError') {
       this.setState({'error': 'Your phone has been used, please try again.'});
@@ -91,7 +91,6 @@ class SignupComponent extends React.Component {
   }
 
   render() {
-
     return (
       <main>
         <h1>Create A New Account</h1>
