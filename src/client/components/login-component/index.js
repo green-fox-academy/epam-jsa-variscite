@@ -1,5 +1,6 @@
 'use strict';
 
+import {Link} from 'react-router-dom';
 const React = require('react');
 const LoginForm = require('../login-form/index.js');
 
@@ -20,26 +21,28 @@ class LoginComponent extends React.Component {
     } else if (status === 500) {
       this.handleUnknownError(response);
     } else if (status === 200) {
-      this.setState({redirect: true});
+      window.location.href = '/feed';
     }
   }
 
   handleFieldsError(response) {
-    if (response.errorType === 'ContentType') {
-      let errorMessage = 'Wrong content type!';
+    let error = JSON.parse(response).errorType;
+    let errorMessage;
+    if (error === 'ContentType') {
+      errorMessage = 'Something went wrong, please try later!';
       this.setState({'error': errorMessage});
-    } else if (response.errorType === 'MissingFields') {
-      let errorMessage = 'Required field Missing!';
+    } else if (error === 'FieldMissing') {
+      errorMessage = 'Don\'t try to hack our site!';
       this.setState({'error': errorMessage});
-    } else if (response.errorType === 'WrongFormat') {
-      let errorMessage = 'Wrong format!';
+    } else if (error === 'WrongFormat') {
+      errorMessage = 'Don\'t try to hack our site!';
       this.setState({'error': errorMessage});
     }
   }
 
   handleMisMatch(response) {
     if (response.errorType === 'MisMatch') {
-      let errorMessage = 'Wrong password!';
+      let errorMessage = 'Username and password mismatch!';
       this.setState({'error': errorMessage});
     }
   }
@@ -51,12 +54,21 @@ class LoginComponent extends React.Component {
     }
   }
 
-  submitLogin(event) {
-    event.preventDefault();
-    let LoginInfo = {
+  collectData(event) {
+    return {
       'username': event.target.elements.namedItem('username').value,
       'password': event.target.elements.namedItem('password').value,
     };
+  }
+
+  validateData(data) {
+    let reg = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
+    if (!reg.test(data.username)) {
+      this.setState({'isUsernameValid': true});
+    }
+  }
+
+  sendData(data) {
     let xhr = new XMLHttpRequest();
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -67,17 +79,29 @@ class LoginComponent extends React.Component {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     this.setState({'status': 'loading'});
-    xhr.send(JSON.stringify(LoginInfo));
+    xhr.send(JSON.stringify(data));
+  }
+
+  submitLogin(event) {
+    event.preventDefault();
+    let LoginInfo = this.collectData(event);
+    // this.validateData(LoginInfo);
+    this.sendData(LoginInfo);
+  }
+
+  createNewAccount(event) {
+    window.location.href = '/signup';
   }
 
   render() {
     return (
       <main >
-        <h3>Log in to Variscite</h3>
+        <h1 className='login-title'>Log in to Variscite</h1>
         <LoginForm isLoading={this.state.status === 'loading'}
+          errorMessage={this.state.error}
           onSubmit={this.submitLogin.bind(this)} />
         <p className='or'>or</p>
-        <button className="newAccount">Create New Account</button>
+        <Link className='newAccount' to="/feed">Create New Account</Link>
       </main>
     );
   }

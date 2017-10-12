@@ -1,26 +1,16 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import LoginPage from './pages/login';
-import MainPage from './pages/mainpage';
+import FeedPage from './pages/feed';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ifRedirect: false,
-    };
-    this.handler = this.handler.bind(this);
-  }
-
-  handler() {
-    this.setState({ifRedirect: true});
-  }
   render() {
     return (
       <Router>
         <div>
           <Route exact path='/' component={LoginPage} />
-          <Route exact path="/feed" component={MainPage} />
+          <Route path='/login' component={LoginPage} />
+          <Route path="/feed" component={FeedPage} />
         </div>
       </Router>
     );

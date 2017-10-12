@@ -25,6 +25,14 @@ app.get('/heartbeat', (req, res) => {
   });
 });
 
+app.get('/feed', (req, res) =>{
+  res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
+});
+
+app.get('/login', (req, res) =>{
+  res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
+});
+
 app.use(bodyParser.json());
 app.post('/api/login', (req, res) => {
   console.log(req.body);
