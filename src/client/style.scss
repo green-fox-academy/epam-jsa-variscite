@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
+$background: #E9EBEE;
 
 body {
   font-family: 'Lato', sans-serif;
   margin: 0;
+  background-color: $background;
 }
