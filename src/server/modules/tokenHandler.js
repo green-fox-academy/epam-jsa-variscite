@@ -1,7 +1,7 @@
 'use strict';
 
 const tokensCollection = require('../collections/tokens.js');
-const randomstring = require("randomstring");
+const randomstring = require('randomstring');
 
 /**
  * lifetime of tokens in the system.
@@ -17,7 +17,7 @@ const TOKEN_LIFETIME_IN_SECONDS = 7 * 24 * 60 * 60;
  * @param {string}   userAgent
  * @param {Function} callback
  *
- * @returns {undefined}
+ * @return {undefined}
  */
 function generateToken(userId, userAgent, callback) {
   tokensCollection.insertDocument(
@@ -25,13 +25,13 @@ function generateToken(userId, userAgent, callback) {
       token: randomstring.generate(),
       expiresAt: Date.now() + TOKEN_LIFETIME_IN_SECONDS * 1000,
       userId: userId,
-      userAgent: userAgent
+      userAgent: userAgent,
     },
-    result => {
+    (result) => {
       callback(result !== null
         ? result.ops[0]
         : null
-      )
+      );
     }
   );
 }
@@ -40,10 +40,10 @@ function generateToken(userId, userAgent, callback) {
  *
  * @param {string} tokenDescriptor
  *
- * @returns {boolean}
+ * @return {boolean}
  */
 function isExpiredToken(tokenDescriptor) {
-    return tokenDescriptor !== null && tokenDescriptor.expiresAt <= Date.now();
+  return tokenDescriptor !== null && tokenDescriptor.expiresAt <= Date.now();
 }
 
 module.exports = {
@@ -53,30 +53,32 @@ module.exports = {
    * @param {string}   userAgent
    * @param {Function} callback
    *
-   * @returns {undefined}
+   * @return {undefined}
    */
   createToken: (userId, userAgent, callback) => {
-    tokensCollection.getDocumentByUserData(userId, userAgent, tokenDescriptor => {
-      if(tokenDescriptor !== null) {
-        module.exports.deleteToken(tokenDescriptor.token, () => {
+    tokensCollection.getDocumentByUserData(
+      userId,
+      userAgent,
+      (tokenDescriptor) => {
+        if (tokenDescriptor !== null) {
+          module.exports.deleteToken(tokenDescriptor.token, () => {
+            generateToken(userId, userAgent, callback);
+          });
+        } else {
           generateToken(userId, userAgent, callback);
-        });
-      }
-      else {
-        generateToken(userId, userAgent, callback);
-      }
-    });
+        }
+      });
   },
   /**
    *
    * @param {string} token
    * @param {Function} callback
    *
-   * @returns {undefined}
+   * @return {undefined}
    */
   deleteToken: (token, callback) => {
-    tokensCollection.deleteDocumentByToken(token, isDeleted => {
-        callback(isDeleted);
+    tokensCollection.deleteDocumentByToken(token, (isDeleted) => {
+      callback(isDeleted);
     });
   },
   /**
@@ -84,18 +86,17 @@ module.exports = {
    * @param {string}   token
    * @param {Function} callback
    *
-   * @returns {undefined}
+   * @return {undefined}
    */
   getTokenDescriptor: (token, callback) => {
     tokensCollection.getDocumentByToken(token, (tokenDescriptor) => {
-      if(isExpiredToken(tokenDescriptor)) {
-        deleteToken(tokenDescriptor.token, () => {
-            callback(null);
+      if (isExpiredToken(tokenDescriptor)) {
+        module.exports.deleteToken(tokenDescriptor.token, () => {
+          callback(null);
         });
-      }
-      else {
-        callback(tokenDescriptor)
+      } else {
+        callback(tokenDescriptor);
       }
     });
-  }
+  },
 };
