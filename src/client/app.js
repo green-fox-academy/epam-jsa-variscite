@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
-import LoginPage from './pages/login';
-import FeedPage from './pages/feed';
+import LoginPage from './screens/login';
+import FeedPage from './screens/feed';
 
 class App extends React.Component {
   render() {
