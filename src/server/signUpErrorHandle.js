@@ -3,31 +3,23 @@
 const emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 
 function signUpErrorHandle(req, res) {
-  let statusCode = 201;
-  let errDescripton = {errorType: 'ok'};
   let errorExists = false;
   if(req.headers['content-type'] !== 'application/json') {
-    statusCode = 400;
-    errDescripton = {errorType:'contentType'};
     errorExists = true;
+    res.status(400).json({errorType:'contentType'});
   } else if (req.body.email.length === 0){
-    statusCode = 400;
-    errDescripton = {errorType:'missingEmail'};
     errorExists = true;
+    res.status(400).json({errorType:'missingEmail'});
   } else if (req.body.password.length === 0){
-    statusCode = 400;
-    errDescripton = {errorType:'missingPassword'};
     errorExists = true;
+    res.status(400).json({errorType:'missingPassword'});
   } else if (req.body.email.length !== 0 && !emailRe.test(req.body.email)){
-    statusCode = 400;
-    errDescripton = {errorType:'emailWrong'};
     errorExists = true;
+    res.status(400).json({errorType:'emailWrong'});
   } else if (req.body.password.length < 8 && req.body.password.length !== 0){
-    statusCode = 400;
-    errDescripton = {errorType:'passwordWrong'};
     errorExists = true;
+    res.status(400).json({errorType:'passwordWrong'});
   }
-  res.status(statusCode).json(errDescripton);
   return errorExists;
 }
 
