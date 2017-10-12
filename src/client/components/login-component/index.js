@@ -61,12 +61,12 @@ class LoginComponent extends React.Component {
     };
   }
 
-  validateData(data) {
-    let reg = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
-    if (!reg.test(data.username)) {
-      this.setState({'isUsernameValid': true});
-    }
-  }
+  // validateData(data) {
+  //   let reg = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
+  //   if (!reg.test(data.username)) {
+  //     this.setState({'isUsernameValid': true});
+  //   }
+  // }
 
   sendData(data) {
     let xhr = new XMLHttpRequest();
