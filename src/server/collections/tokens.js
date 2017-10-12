@@ -1,6 +1,6 @@
 'use strict';
 
-require('dotenv').config()
+require('dotenv').config();
 
 const mongodb = require('mongodb');
 const MongoClient = mongodb.MongoClient;
@@ -14,13 +14,32 @@ const MONGO_URL = process.env.DB_URL;
 
 /**
  *
+ * @param {Function} operation
+ * @param {Function} callback
+ *
+ * @return {undefined}
+ */
+function connectMongoTo(operation, callback) {
+  MongoClient.connect(MONGO_URL, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect: ', err);
+      db.close();
+      callback(null);
+      return;
+    }
+    operation(db);
+  });
+}
+
+/**
+ *
  * @param {Db}       db
  * @param {Object}   filters
  * @param {Function} callback
  *
- * @returns {undefined}
+ * @return {undefined}
  */
-function getDocument(db, filters, callback) {
+function retrieveDocument(db, filters, callback) {
   db.collection('tokens').findOne(filters, (err, item) => {
     if (err !== null) {
       console.log('[MONGO ERROR] Unable to retrieve tokens: ', err);
@@ -36,7 +55,7 @@ function getDocument(db, filters, callback) {
  * @param {Object}   tokenDescriptor
  * @param {Function} callback
  *
- * @returns {undefined}
+ * @return {undefined}
  */
 function insertDocument(db, tokenDescriptor, callback) {
   db.collection('tokens').insert(tokenDescriptor, (err, item) => {
@@ -54,7 +73,7 @@ function insertDocument(db, tokenDescriptor, callback) {
  * @param {Obejct}   filter
  * @param {Function} callback
  *
- * @returns {undefined}
+ * @return {undefined}
  */
 function deleteDocument(db, filter, callback) {
   db.collection('tokens').remove(filter, (err) => {
@@ -62,7 +81,7 @@ function deleteDocument(db, filter, callback) {
       console.log('[MONGO ERROR] Unable to delete token: ', err);
     }
     db.close();
-    callback(err !== null ? true : null);
+    callback(err === null ? true : null);
   });
 }
 
@@ -72,17 +91,10 @@ module.exports = {
    * @param {Object}     tokenDescriptor
    * @param {Function}   callback
    *
-   * @returns {undefined}
+   * @return {undefined}
    */
   insertDocument: (tokenDescriptor, callback) => {
-    MongoClient.connect(MONGO_URL, (err, db) => {
-      if(err !== null) {
-        console.log('[MONGO ERROR] Unable to connect: ', err);
-        db.close();
-        callback(null);
-        return;
-      }
-
+    connectMongoTo((db) => {
       insertDocument(db, tokenDescriptor, callback);
     });
   },
@@ -91,17 +103,10 @@ module.exports = {
    * @param {string}     token
    * @param {Function}   callback
    *
-   * @returns {undefined}
+   * @return {undefined}
    */
   deleteDocumentByToken: (token, callback) => {
-    MongoClient.connect(MONGO_URL, (err, db) => {
-      if(err !== null) {
-        console.log('[MONGO ERROR] Unable to connect: ', err);
-        db.close();
-        callback(null);
-        return;
-      }
-
+    connectMongoTo((db) => {
       deleteDocument(db, {'token': token}, callback);
     });
   },
@@ -111,18 +116,11 @@ module.exports = {
    * @param {string}   userAgent
    * @param {Function} callback
    *
-   * @returns {undefined}
+   * @return {undefined}
    */
   getDocumentByUserData: (userId, userAgent, callback) => {
-    MongoClient.connect(MONGO_URL, (err, db) => {
-      if(err !== null) {
-        console.log('[MONGO ERROR] Unable to connect: ', err);
-        db.close();
-        callback(null);
-        return;
-      }
-
-      getDocument(
+    connectMongoTo((db) => {
+      retrieveDocument(
         db,
         {$and: [{'userId': userId}, {'userAgent': userAgent}]},
         callback
@@ -134,22 +132,15 @@ module.exports = {
    * @param {string}     token
    * @param {Function}   callback
    *
-   * @returns {undefined}
+   * @return {undefined}
    */
   getDocumentByToken: (token, callback) => {
-    MongoClient.connect(MONGO_URL, (err, db) => {
-      if(err !== null) {
-        console.log('[MONGO ERROR] Unable to connect: ', err);
-        db.close();
-        callback(null);
-        return;
-      }
-
-      getDocument(
+    connectMongoTo((db) => {
+      retrieveDocument(
         db,
         {'token': token},
         callback
       );
     });
-  }
+  },
 };
