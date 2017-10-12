@@ -39,13 +39,13 @@ class SignupComponent extends React.Component {
         } else if (xhr.status === 409) {
           this.handleConflict();
         } else if (xhr.status === 500) {
-          this.handleSeverError();
+          this.handleServerError();
         } else if (xhr.status === 201) {
           this.returnSuccess();
         }
       }
     }.bind(this));
-    xhr.open('POST', '/signup');
+    xhr.open('POST', '/api/signup');
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     this.setState({'status': 'loading'});
@@ -82,7 +82,7 @@ class SignupComponent extends React.Component {
     }
   }
 
-  handleSeverError() {
+  handleServerError() {
     this.setState({'error': 'Something wrong, please try again later.'});
   }
 
