@@ -47,8 +47,10 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "dotenv": "^4.0.0",
     "mongodb": "^2.2.31",
+    "nodemon": "^1.12.1",
     "react": "^15.6.2",
     "react-dom": "^15.6.2"
   }
