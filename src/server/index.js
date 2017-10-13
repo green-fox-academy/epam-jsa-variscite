@@ -13,7 +13,6 @@ const cryptr = new Cryptr('jiaMi');
 
 const errorHandle = require('./signUpErrorHandler');
 const database = require('./signUpDatabase');
-
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -32,13 +31,6 @@ app.get('/heartbeat', (req, res) => {
   });
 });
 
-app.get('*', (req, res) =>{
-  res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
-});
-
-app.post('/api/login', jsonParser, loginHandler.login);
-
-/* eslint no-console: "off" */
 app.post('/api/signup', jsonParser, function(req, res) {
   let username = req.body.username || '';
   let phonenumber = req.body.phonenumber || '';
@@ -56,7 +48,13 @@ app.post('/api/signup', jsonParser, function(req, res) {
   }
 });
 
-/* eslint no-console: 'off' */
+app.post('/api/login', jsonParser, loginHandler.login);
+
+app.get('*', (req, res) =>{
+  res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
+});
+
+/* eslint no-console: "off" */
 app.listen(PORT, function() {
   console.log(`app is listening on port ${PORT}`);
 });

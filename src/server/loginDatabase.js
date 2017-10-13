@@ -3,10 +3,23 @@ const url = process.env.DB_URL;
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
 
-function getUserInfo(email) {
+function checkUserInfo(email, password, res) {
+  console.log(password);
   MongoClient.connect(url, function(err, db) {
-    db.collection('users').findOne({email: email}, function(err, obj) {   
-      return obj.password;
+    console.log(password);
+    db.collection('users').findOne({email: email}, function(err, obj) {  
+      console.log(password);    
+      let encrypted = cryptr.encrypt(password);
+      console.log(encrypted);
+      if (obj !== null && obj.password === encrypted) {
+        res.status(200).json({'msg': 'success'});
+        db.close();
+        return;
+      } else {
+        res.status(403).json({'errorType': 'MisMatch'});
+        db.close();
+        return;
+      }
     });
   });
 }
@@ -20,5 +33,5 @@ function getUserId(email) {
 }
 
 module.exports= {
-  getUserInfo: getUserInfo,
+  checkUserInfo: checkUserInfo,
 };
