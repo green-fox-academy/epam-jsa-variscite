@@ -19,9 +19,9 @@ function login(req, res) {
     res.status(status).json(obj);
     return;
   }
-  console.log(password);
-  db.checkUserInfo(email, password, res);
-
+  
+  let userAgent = req.headers['user-agent'].toLowerCase();
+  db.checkUserInfo(userAgent, email, password, res);
 }
 
 module.exports= {
