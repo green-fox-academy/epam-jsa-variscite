@@ -1,5 +1,6 @@
 @import '../../style.scss';
 
+
 .signupMain {
     width: 36em;
     margin: 0 auto;
@@ -17,33 +18,36 @@ h1 {
     font-size: 1.2em;
 }
 
-input {
-    width: 64%;
-    height: 2em;
-    margin: 0 auto;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
+.signup-form {
+    input {
+        width: 64%;
+        height: 2em;
+        margin: 0 auto;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+    
+    input:not([type="submit"]) {
+        padding-left: 0.6em;
+    }
+    
+    input[type="submit"] {
+        width: 66%;
+        height: 3em;
+        background-color: $bluecolor;
+        color: white;
+        border: none;
+    }
+    
+    span {
+        width: 66%;
+        height: 3em;
+        color: $redcolor;
+        font-size: 0.8em;
+        display: inline-block;
+    }
 }
 
-input:not([type="submit"]) {
-    padding-left: 0.6em;
-}
-
-input[type="submit"] {
-    width: 66%;
-    height: 3em;
-    background-color: $bluecolor;
-    color: white;
-    border: none;
-}
-
-span {
-    width: 66%;
-    height: 3em;
-    color: $redcolor;
-    font-size: 0.8em;
-    display: inline-block;
-}
 
 .or {
     height: 1.2em;
