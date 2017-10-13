@@ -10,7 +10,8 @@ function checkUserInfo(userAgent, email, password, res) {
       let encrypted = cryptr.encrypt(password);
       console.log(encrypted);
       if (obj !== null && obj.password === encrypted) {
-        tokenHandler.createAccessToken(obj._id, userAgent, function(err, tokenDescriptor) {
+        tokenHandler.createAccessToken(obj._id, 
+          userAgent, function(err, tokenDescriptor) {
           let obj = {
             "token": tokenDescriptor.token,
             "expiresAt": tokenDescriptor.expiresAt
@@ -21,14 +22,6 @@ function checkUserInfo(userAgent, email, password, res) {
         res.status(403).json({'errorType': 'MisMatch'});
       }
       db.close();
-    });
-  });
-}
-
-function getUserId(email) {
-  MongoClient.connect(url, function(err, db) {
-    db.collection('users').findOne({email: email}, function(err, obj) {
-      return obj._id;
     });
   });
 }
