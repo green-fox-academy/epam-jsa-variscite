@@ -7,6 +7,7 @@ const path = require('path');
 const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const loginHandler = require('./loginHandler');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
 
@@ -46,6 +47,8 @@ app.post('/api/signup', jsonParser, function(req, res) {
     database.signUp(user, res);
   }
 });
+
+app.post('/api/login', jsonParser, loginHandler.login);
 
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
