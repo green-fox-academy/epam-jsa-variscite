@@ -10,8 +10,8 @@ const jsonParser = bodyParser.json();
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
 
-const errorHandle = require('./signUpErrorHandle');
-const database = require('./database');
+const errorHandle = require('./signUpErrorHandler');
+const database = require('./signUpDatabase');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -36,7 +36,6 @@ app.post('/api/signup', jsonParser, function(req, res) {
   let phonenumber = req.body.phonenumber || '';
   let fullname = req.body.fullname || '';
   let encrypted = cryptr.encrypt(req.body.password);
-  console.log(encrypted);
   let user = {
     username: username,
     email: req.body.email,
@@ -44,7 +43,7 @@ app.post('/api/signup', jsonParser, function(req, res) {
     fullname: fullname,
     password: encrypted,
   };
-  if (errorHandle.signUpErrorHandle(req, res) !== true) {
+  if (errorHandle.signUpErrorHandler(req, res)) {
     database.signUp(user, res);
   }
 });
