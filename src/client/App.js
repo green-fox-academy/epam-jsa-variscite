@@ -8,7 +8,7 @@ class App extends React.Component {
       <Router>
         <div>
           <Route exact path='/' component={FeedPage} />
-          <Route path="/feed" component={FeedPage} />
+          <Route path='/feed' component={FeedPage} />
         </div>
       </Router>
     );
