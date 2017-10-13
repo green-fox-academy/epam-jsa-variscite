@@ -36,7 +36,7 @@ app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
 
-app.post('/api/login', jsonParser, loginErrorHandle.login);
+app.post('/api/login', jsonParser, loginHandler.login);
 
 /* eslint no-console: "off" */
 app.post('/api/signup', jsonParser, function(req, res) {
