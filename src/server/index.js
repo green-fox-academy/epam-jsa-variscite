@@ -10,8 +10,10 @@ const jsonParser = bodyParser.json();
 const loginErrorHandle = require('./loginErrorHandle');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
+
 const errorHandle = require('./signUpErrorHandler');
 const database = require('./signUpDatabase');
+
 const PORT = process.env.PORT || 8080;
 const app = express();
 

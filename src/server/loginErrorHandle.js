@@ -1,4 +1,4 @@
-const db = require('./database');
+const db = require('./loginDatabase');
 
 function login(req, res) {
   res.setHeader('Content-Type', 'application/json');
