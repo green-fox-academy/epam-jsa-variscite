@@ -24,7 +24,7 @@ function connectMongoTo(operation, callback) {
     if (err !== null) {
       console.log('[MONGO ERROR] Unable to connect: ', err);
       db.close();
-      callback(null);
+      callback(err, null);
       return;
     }
     operation(db);
@@ -45,7 +45,7 @@ function retrieveDocument(db, filters, callback) {
       console.log('[MONGO ERROR] Unable to retrieve tokens: ', err);
     }
     db.close();
-    callback(item);
+    callback(err, item);
   });
 }
 
@@ -63,7 +63,7 @@ function insertDocument(db, tokenDescriptor, callback) {
       console.log('[MONGO ERROR] Unable to insert token: ', err);
     }
     db.close();
-    callback(item);
+    callback(err, item);
   });
 }
 
@@ -76,12 +76,12 @@ function insertDocument(db, tokenDescriptor, callback) {
  * @return {undefined}
  */
 function deleteDocument(db, filter, callback) {
-  db.collection('tokens').remove(filter, (err) => {
+  db.collection('tokens').remove(filter, (err, res) => {
     if (err !== null) {
       console.log('[MONGO ERROR] Unable to delete token: ', err);
     }
     db.close();
-    callback(err === null ? true : null);
+    callback(err, res.result.ok === 1);
   });
 }
 

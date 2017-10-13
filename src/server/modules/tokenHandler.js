@@ -27,8 +27,8 @@ function generateToken(userId, userAgent, callback) {
       userId: userId,
       userAgent: userAgent,
     },
-    (result) => {
-      callback(result !== null
+    (err, result) => {
+      callback(err, result !== null
         ? result.ops[0]
         : null
       );
@@ -55,13 +55,13 @@ module.exports = {
    *
    * @return {undefined}
    */
-  createToken: (userId, userAgent, callback) => {
+  createAccessToken: (userId, userAgent, callback) => {
     tokensCollection.getDocumentByUserData(
       userId,
       userAgent,
-      (tokenDescriptor) => {
+      (err, tokenDescriptor) => {
         if (tokenDescriptor !== null) {
-          module.exports.deleteToken(tokenDescriptor.token, () => {
+          module.exports.deleteAccessToken(tokenDescriptor.token, () => {
             generateToken(userId, userAgent, callback);
           });
         } else {
@@ -76,11 +76,7 @@ module.exports = {
    *
    * @return {undefined}
    */
-  deleteToken: (token, callback) => {
-    tokensCollection.deleteDocumentByToken(token, (isDeleted) => {
-      callback(isDeleted);
-    });
-  },
+  deleteAccessToken: tokensCollection.deleteDocumentByToken,
   /**
    *
    * @param {string}   token
@@ -88,14 +84,14 @@ module.exports = {
    *
    * @return {undefined}
    */
-  getTokenDescriptor: (token, callback) => {
-    tokensCollection.getDocumentByToken(token, (tokenDescriptor) => {
+  getAccessToken: (token, callback) => {
+    tokensCollection.getDocumentByToken(token, (err, tokenDescriptor) => {
       if (isExpiredToken(tokenDescriptor)) {
-        module.exports.deleteToken(tokenDescriptor.token, () => {
-          callback(null);
+        module.exports.deleteAccessToken(tokenDescriptor.token, (err, result) => {
+          callback(err, null);
         });
       } else {
-        callback(tokenDescriptor);
+        callback(err, tokenDescriptor);
       }
     });
   },
