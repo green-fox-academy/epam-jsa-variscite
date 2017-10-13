@@ -41,14 +41,14 @@ class LoginComponent extends React.Component {
   }
 
   handleMisMatch(response) {
-    if (response.errorType === 'MisMatch') {
+    if (JSON.parse(response).errorType === 'MisMatch') {
       let errorMessage = 'Username and password mismatch!';
       this.setState({'error': errorMessage});
     }
   }
 
   handleServerError(response) {
-    if (response.errorType === 'Unknown') {
+    if (JSON.parse(response).errorType === 'Unknown') {
       let errorMessage = 'Unknown Error!';
       this.setState({'error': errorMessage});
     }
