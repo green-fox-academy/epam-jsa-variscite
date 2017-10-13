@@ -56,7 +56,7 @@ class LoginComponent extends React.Component {
 
   collectData(event) {
     return {
-      'username': event.target.elements.namedItem('username').value,
+      'email': event.target.elements.namedItem('email').value,
       'password': event.target.elements.namedItem('password').value,
     };
   }

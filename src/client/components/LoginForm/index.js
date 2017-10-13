@@ -10,7 +10,7 @@ class LoginForm extends React.Component {
       return (
         <form required className="login-form" onSubmit={this.props.onSubmit}
           method="POST" action="/api/login">
-          <input type="email" name="username"
+          <input type="email" name="email"
             required placeholder="Email address"></input>
           <input type="password" name="password"
             required placeholder="Password"></input>
