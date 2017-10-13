@@ -1,0 +1,27 @@
+$bluecolor: #4A90E2;
+
+.login-form {
+
+    input {
+        width: 60%;
+        height: 2.5em;
+        margin: 0 auto;
+        margin-top: 0.8em;
+        margin-bottom: 0.8em;
+        padding: 0 0.5em 0 0.5em;
+    }
+
+    span {
+        display: inline-block;
+        width: 23em; 
+        font-size: 0.9em;
+    }
+
+    .loginButton {
+        width: 63.5%;
+        height: 2.8em;
+        background-color: $bluecolor;
+        color: white;
+        border: none;
+    }  
+}
