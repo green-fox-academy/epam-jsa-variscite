@@ -6,6 +6,7 @@ const express = require('express');
 const path = require('path');
 const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
 const loginErrorHandle = require('./loginErrorHandle');
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -29,7 +30,7 @@ app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
 
-app.post('/api/login', bodyParser, loginErrorHandle.login);
+app.post('/api/login', jsonParser, loginErrorHandle.login);
 
 /* eslint no-console: "off" */
 app.listen(PORT, function() {
