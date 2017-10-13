@@ -10,7 +10,7 @@ class Comment extends React.Component {
         <div className='commentBox'>
           <img className='userPic' src={this.props.CommentInfo.UserPicURL} />
           <div className='commentInfo'>
-            <CommentInfo CommentTime={this.props.CommentInfo.CommentTime}/>
+            <CommentInfo CommentTime={this.props.CommentInfo.CommentTime} CommentUsername={this.props.CommentInfo.Username}/>
           </div>
         </div>
         <CommentInput />
