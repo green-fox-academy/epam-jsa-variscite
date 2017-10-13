@@ -9,7 +9,7 @@
     "build": "webpack -d --colors --config webpack.prod.js",
     "dev:frontend": "webpack-dev-server --colors --config webpack.dev.js --port 8080 --hot",
     "dev:backend": "nodemon ./src/server/index.js",
-    "test:backend": "mocha",
+    "test:backend": "mocha ./test/server",
     "heroku-prebuild": "npm install --only=dev",
     "test:frontend": "jest --colors",
     "lint": "eslint . --ext .js --color"
@@ -48,11 +48,14 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
+    "cryptr": "^2.0.0",
     "dotenv": "^4.0.0",
     "mongodb": "^2.2.31",
+    "nodemon": "^1.12.1",
     "randomstring": "^1.1.5",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
-    "react-router-dom": "^4.2.2"
+    "react-router-dom": "^4.2.2",
+    "supertest": "^3.0.0"
   }
 }
