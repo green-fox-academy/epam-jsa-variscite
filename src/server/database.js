@@ -13,6 +13,14 @@ function checkUserInfo(email, password) {
   });
 }
 
+function getUserId(email) {
+  MongoClient.connect(url, function(err, db) {
+    db.collection('users').findOne({email: email}, function(err, obj) {
+      return obj._id;
+    });
+  });
+}
+
 module.exports= {
   checkUserInfo: checkUserInfo,
 };
