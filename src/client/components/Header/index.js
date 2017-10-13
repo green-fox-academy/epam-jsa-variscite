@@ -17,7 +17,7 @@ class Header extends React.Component {
     } else {
       return (
         <header className="guestHeader">
-          <Logo isLoggedIn={this.props.isLoggedIn} />
+          <Logo />
         </header>
       );
     }

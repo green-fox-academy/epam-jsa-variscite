@@ -4,4 +4,3 @@ import App from './App';
 import './style.scss';
 
 ReactDOM.render(<App />, document.getElementById('root'));
-
