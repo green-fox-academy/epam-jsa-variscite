@@ -4,9 +4,9 @@ class PostInfo extends React.Component {
   render() {
     return (
       <div className='postInfo'>
-        <p className='likes'>192 likes</p>
-        <p>18 comments</p>
-        <p>102 shares</p>
+        <span className='likes'>192 likes</span>
+        <span>18 comments</span>
+        <span>102 shares</span>
       </div>
     );
   }
