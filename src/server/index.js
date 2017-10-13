@@ -7,7 +7,7 @@ const path = require('path');
 const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const loginErrorHandle = require('./loginErrorHandle');
+const loginHandler = require('./loginHandler');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
 
