@@ -1,6 +1,6 @@
 const db = require('./database');
 
-function login() {
+function login(req, res) {
   res.setHeader('Content-Type', 'application/json');
   let email = req.body.email;
   let password = req.body.password;
@@ -8,15 +8,21 @@ function login() {
   let result = db.checkUserInfo(email, password);
   let contentType = req.headers['content-type'].toLowerCase();
   let obj = {};
-  if(email === '' || password === '') {
-    obj = {'errorType': 'FieldMissing'}
+  if (email === '' || password === '') {
+    obj = {'errorType': 'FieldMissing'};
     status = 400;
-  } else if(!result) {
-    obj = {'errorType': 'MisMatch'}
+  } else if (!result) {
+    obj = {'errorType': 'MisMatch'};
     status = 403;
-  } else if(contentType !== 'application/json') {
-    obj = {'errorType': 'ContentType'}
+  } else if (contentType !== 'application/json') {
+    obj = {'errorType': 'ContentType'};
     status = 400;
+  } else if (result) {
+    obj = {};
   }
   res.status(status).json(obj);
 }
+
+module.exports= {
+  login: login,
+};
