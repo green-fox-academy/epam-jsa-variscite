@@ -1,12 +1,16 @@
 import React from 'react';
-import Header from './components/Header';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import FeedPage from './screens/feed';
 
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <Header isLoggedIn={true}/>
-      </div>
+      <Router>
+        <div>
+          <Route exact path='/' component={FeedPage} />
+          <Route path="/feed" component={FeedPage} />
+        </div>
+      </Router>
     );
   }
 }
