@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const url = 'mongodb://localhost:27017/MyDb';
+const url = 'mongodb://localhost:27017/epam';
 
 function checkUserInfo(email, password) {
   MongoClient.connect(url, function(err, db) {
