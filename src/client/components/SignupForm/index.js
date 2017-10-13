@@ -16,7 +16,8 @@ const SignupForm = (props) => (
     <input type="submit"
       value={props.isLoading ? 'loading' : 'Sign Up'}
       disabled={props.isLoading ? true : false}></input>
-    <span name="alert">{props.error}</span>
+    {props.error !== '' ? <span className='error'>
+      {props.error}</span> : null}
   </form>
 );
 

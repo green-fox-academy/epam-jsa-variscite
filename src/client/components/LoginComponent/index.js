@@ -84,7 +84,7 @@ class LoginComponent extends React.Component {
 
   render() {
     return (
-      <main >
+      <main className='loginMain'>
         <h1 className="login-title">Log in to Variscite</h1>
         <LoginForm isLoading={this.state.status === 'loading'}
           errorMessage={this.state.error}

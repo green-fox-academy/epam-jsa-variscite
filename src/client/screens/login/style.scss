@@ -1,6 +1,6 @@
 $bluecolor: #4A90E2;
 
-main {
+.loginMain {
     width: 36em;
     margin: 0 auto;
     margin-top: 8em;
@@ -22,11 +22,12 @@ main {
 }
 
 .newAccount {
-    width: 40%;
-    line-height: 3.5em;
+    width: 61.5%;
+    line-height: 2.8em;
     margin: 0 auto;
     margin-top: 1em;
     margin-bottom: 3em;
+    padding: 0 0.5em 0 0.5em;
     font-size: 0.83em;
     text-transform: capitalize;
     color: white;
