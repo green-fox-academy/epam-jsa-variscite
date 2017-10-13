@@ -5,6 +5,13 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongodb = require('mongodb');
+const bodyParser = require('body-parser');
+const jsonParser = bodyParser.json();
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('jiaMi');
+
+const errorHandle = require('./signUpErrorHandler');
+const database = require('./signUpDatabase');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -24,7 +31,25 @@ app.get('/heartbeat', (req, res) => {
   });
 });
 
-/* eslint no-console: "off" */
+app.post('/api/signup', jsonParser, function(req, res) {
+  let username = req.body.username || '';
+  let phonenumber = req.body.phonenumber || '';
+  let fullname = req.body.fullname || '';
+  let encrypted = cryptr.encrypt(req.body.password);
+  let user = {
+    username: username,
+    email: req.body.email,
+    phonenumber: phonenumber,
+    fullname: fullname,
+    password: encrypted,
+  };
+  if (errorHandle.signUpErrorHandler(req, res)) {
+    database.signUp(user, res);
+  }
+});
+
+
+/* eslint no-console: 'off' */
 app.listen(PORT, function() {
   console.log(`app is listening on port ${PORT}`);
 });
