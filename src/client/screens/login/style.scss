@@ -1,4 +1,4 @@
-$bluecolor: #4A90E2;
+@import '../../style.scss';
 
 .loginMain {
     width: 36em;
@@ -7,7 +7,7 @@ $bluecolor: #4A90E2;
     text-align: center; 
     display: flex;
     flex-flow: column;  
-    background-color: white;   
+    background-color: white;     
 }
 
 .login-title {
