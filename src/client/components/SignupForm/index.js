@@ -13,11 +13,11 @@ const SignupForm = (props) => (
       placeholder="Phone number (optional)"></input>
     <input type="password" name="password" pattern=".{6,}"
       style={props.style} required placeholder="Password"></input>
+    {props.error !== '' ? <span className='error'>
+      {props.error}</span> : null}
     <input type="submit"
       value={props.isLoading ? 'loading' : 'Sign Up'}
       disabled={props.isLoading ? true : false}></input>
-    {props.error !== '' ? <span className='error'>
-      {props.error}</span> : null}
   </form>
 );
 

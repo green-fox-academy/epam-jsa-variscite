@@ -96,7 +96,7 @@ class SignupComponent extends React.Component {
   render() {
     return (
       <main className='signupMain'>
-        <h1>Create A New Account</h1>
+        <h1 className='signup-title'>Create A New Account</h1>
         <SignupForm
           isLoading={this.state.status === 'loading'}
           onSubmit={this.submitHandler.bind(this)}

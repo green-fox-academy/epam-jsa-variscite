@@ -13,8 +13,8 @@
     
 }
 
-h1 {
-    margin-top: 1.8em;
+.signup-title {
+    margin-top: 1.5em;
     font-size: 1.2em;
 }
 
@@ -28,23 +28,26 @@ h1 {
     }
     
     input:not([type="submit"]) {
-        padding-left: 0.6em;
+        padding: 0 0.5em 0 0.5em;
     }
     
     input[type="submit"] {
-        width: 66%;
-        height: 3em;
+        width: calc(64% + 1em + 4px);
+        height: calc(2em + 4px);
+        margin-bottom: 0.8em;
+        padding: 0;
         background-color: $bluecolor;
+        font-family: 'Lato', sans-serif;
         color: white;
         border: none;
     }
     
     span {
-        width: 66%;
-        height: 3em;
+        width: 64%;
         color: $redcolor;
         font-size: 0.8em;
         display: inline-block;
+        margin: 0;
     }
 }
 
@@ -56,10 +59,10 @@ h1 {
 }
 
 .login {
-    width: 66%;
-    line-height: 3em;
+    width: calc(64% + 1em + 4.06px);
+    height: calc(2em + 4.1px);
     margin: 0 auto;
-    margin-top: 1em;
+    margin-top: 0.8em;
     margin-bottom: 3em;
     font-size: 0.83em;
     text-transform: capitalize;
@@ -67,4 +70,7 @@ h1 {
     background-color: $bluecolor;
     border: none;
     text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

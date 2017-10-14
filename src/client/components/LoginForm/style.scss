@@ -1,4 +1,4 @@
-$bluecolor: #4A90E2;
+@import '../../style.scss';
 
 .login-form {
 
@@ -13,9 +13,10 @@ $bluecolor: #4A90E2;
 
     span {
         display: inline-block;
-        width: 23em; 
-        font-size: 0.9em;
+        width: 60%; 
+        font-size: 0.8em;
         margin: 0;
+        color: $redcolor;
     }
 
     .loginButton {
