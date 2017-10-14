@@ -11,7 +11,9 @@ class FeedPage extends React.Component {
     return (
       <div>
         <Header isLoggedIn={true}/>
-        <Post PostInfo={Info}/>
+        <main className='container'>
+          <Post PostInfo={Info}/>
+        </main>
       </div>
     );
   }
