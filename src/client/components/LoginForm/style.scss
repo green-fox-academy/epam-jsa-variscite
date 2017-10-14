@@ -15,13 +15,15 @@ $bluecolor: #4A90E2;
         display: inline-block;
         width: 23em; 
         font-size: 0.9em;
+        margin: 0;
     }
 
     .loginButton {
-        width: 63.5%;
-        height: 2.8em;
+        width: calc(60% + 1em + 4px);
+        height: calc(2.5em + 4px);
         background-color: $bluecolor;
         color: white;
         border: none;
+        font-family: 'Lato', sans-serif;
     }  
 }

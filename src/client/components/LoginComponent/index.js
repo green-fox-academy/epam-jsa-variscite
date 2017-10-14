@@ -90,7 +90,7 @@ class LoginComponent extends React.Component {
           errorMessage={this.state.error}
           onSubmit={this.submitLogin.bind(this)} />
         <p className="or">or</p>
-        <Link className="newAccount" to="/signup">Create new account</Link>
+        <Link className="newAccount" to="/signup">Creat New Account</Link>
       </main>
     );
   }

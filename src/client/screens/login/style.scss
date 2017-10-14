@@ -22,17 +22,20 @@ $bluecolor: #4A90E2;
 }
 
 .newAccount {
-    width: 61.5%;
-    line-height: 2.8em;
+    width: calc(60% + 1em + 4px);
+    height: calc(2.5em + 4px);
     margin: 0 auto;
     margin-top: 1em;
     margin-bottom: 3em;
-    padding: 0 0.5em 0 0.5em;
-    font-size: 0.83em;
+    font-size: 0.8333em;
     text-transform: capitalize;
     color: white;
     background-color: $bluecolor;
     border: none;
     text-decoration: none;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
