@@ -12,14 +12,14 @@ class FeedPage extends React.Component {
       <div>
         <Header isLoggedIn={true}/>
         <main className='container'>
-          <Post PostInfo={Info}/>
+          <Post PostInfo={PostInfo}/>
         </main>
       </div>
     );
   }
 }
 
-let Info = {
+let PostInfo = {
   Username: 'Donald Trump',
   PostText: 'Make America great again! #America #greatwall',
   PostTime: '10th Oct at 8:12PM',
