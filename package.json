@@ -14,7 +14,7 @@
     "test:frontend": "jest --colors",
     "lint:js": "eslint . --ext .js --color",
     "lint:css": "stylelint src/client/**/*.scss --colors",
-    "lint": "npm run lint:js && npm lint:css"
+    "lint": "run-s lint:*"
   },
   "repository": {
     "type": "git",
