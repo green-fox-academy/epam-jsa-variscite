@@ -13,7 +13,7 @@ class Comment extends React.Component {
             <CommentInfo CommentTime={this.props.CommentInfo.CommentTime} CommentUsername={this.props.CommentInfo.Username}/>
           </div>
         </div>
-        <CommentInput />
+        <CommentInput MyPicURL={this.props.CommentInfo.MyPicURL} />
       </div>
     );
   }
