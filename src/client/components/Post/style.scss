@@ -1,3 +1,5 @@
+@import '../../style.scss';
+
 .container {
     width: 640px;
     margin: 0 auto;
@@ -26,19 +28,19 @@
         }
         .name {
             font-weight: bold;
-            color: #3B5998;
+            color: $userBlue;
             font-size: 17px;
         }
         .time {
             font-size: 13px;
-            color: #9197A3;
+            color: $lightGrey;
         }
     }
 
     .postText {
         margin: 10px 0 10px 0;
         font-size: 15px;
-        color: #4A4A4A;
+        color: $textGrey;
     }
 
     .userPic {
@@ -52,9 +54,9 @@
     .postInfo {
         display: flex;
         justify-content: flex-start;
-        border-bottom: 1px solid #E3E3E3;
-        font-size: 13px;
-        color: #9197A3;
+        border-bottom: 1px solid $borderGrey;
+        font-size: 12px;
+        color: $lightGrey;
         span {
             margin: 6px;
         }
@@ -71,8 +73,8 @@
             padding-left: 24px;
             background-color: white;
             border: 0;
-            font-size: 14px;
-            color: #7F7F7F;
+            font-size: 13px;
+            color: $lightGrey;
         }
 
         .like {
