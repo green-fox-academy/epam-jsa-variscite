@@ -9,7 +9,8 @@
     text-align: center; 
     display: flex;
     flex-flow: column;  
-    background-color: white; 
+    background-color: white;
+    box-shadow: 0px 2px 4px 0px $shadowcolor; 
     
 }
 
@@ -34,7 +35,7 @@
     input[type="submit"] {
         width: calc(64% + 1em + 4px);
         height: calc(2em + 4px);
-        margin-bottom: 0.8em;
+        margin-bottom: 0.5em;
         padding: 0;
         background-color: $bluecolor;
         font-family: 'Lato', sans-serif;
@@ -62,13 +63,13 @@
     width: calc(64% + 1em + 4.06px);
     height: calc(2em + 4.1px);
     margin: 0 auto;
-    margin-top: 0.8em;
+    margin-top: 0.5em;
     margin-bottom: 3em;
     font-size: 0.83em;
     text-transform: capitalize;
-    color: white;
-    background-color: $bluecolor;
-    border: none;
+    color: #000000;
+    background-color: #FFFFFF;
+    border: 1px solid $bluecolor;
     text-decoration: none;
     display: flex;
     justify-content: center;
