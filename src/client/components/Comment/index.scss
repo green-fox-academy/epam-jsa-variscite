@@ -28,8 +28,9 @@
       margin-left: 20px;
       padding: 0;
       padding-left: 10px;
+      padding-right: 3em;
       resize: none;
-      width: 528px;
+      width: calc(528px - 3em);
     }
 
     button {
