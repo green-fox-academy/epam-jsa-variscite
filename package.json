@@ -7,7 +7,7 @@
     "start": "npm-run-all --sequential build start:backend",
     "start:backend": "node ./src/server/index.js",
     "build": "webpack -d --colors --config webpack.prod.js",
-    "dev:frontend": "webpack-dev-server --colors --config webpack.dev.js --port 1234 --hot",
+    "dev:frontend": "webpack-dev-server --colors --config webpack.dev.js --port 8080 --hot",
     "dev:backend": "nodemon ./src/server/index.js",
     "test:backend": "mocha ./test/server",
     "heroku-prebuild": "npm install --only=dev",
