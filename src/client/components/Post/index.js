@@ -7,11 +7,11 @@ import PostAct from '../PostAct/';
 class Post extends React.Component {
   render() {
     return (
-      <div className="postContainer">
-        <section className="postBox">
+      <div className="post-container">
+        <section className="post-box">
           <PostHeader userInfo={this.props} />
-          <p className="postText">{this.props.postText}</p>
-          <img className="postPic" src={this.props.postPicURL} />
+          <p className="post-text">{this.props.postText}</p>
+          <img className="post-pic" src={this.props.postPicURL} />
           <PostInfo postInfo={this.props}/>
           <PostAct />
         </section>
