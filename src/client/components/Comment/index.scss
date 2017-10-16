@@ -22,15 +22,14 @@
     width: 600px;
 
     textarea {
-      border: 1px solid $borderGrey;
+      border: 1px solid $bordergrey;
       height: 41px;
       line-height: 41px;
       margin-left: 20px;
       padding: 0;
       padding-left: 10px;
-      padding-right: 3em;
       resize: none;
-      width: calc(528px - 3em);
+      width: 528px;
     }
 
     button {
@@ -47,7 +46,7 @@
 }
 
 .comment-box {
-  border-bottom: 1px solid $borderGrey;
+  border-bottom: 1px solid $bordergrey;
   display: flex;
   justify-content: flex-start;
   margin: 20px 0 10px;
@@ -73,7 +72,7 @@
     button {
       background-color: $whitecolor;
       border: 0;
-      color: $textGrey;
+      color: $textgrey;
       float: left;
       font-size: 12px;
       font-weight: bold;
@@ -90,7 +89,7 @@
     }
 
     .time {
-      color: $lightGrey;
+      color: $lightgrey;
       float: left;
       font-size: 11px;
       margin-top: 5px;
