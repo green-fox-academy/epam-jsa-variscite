@@ -3,6 +3,7 @@
 .compose-container {
   position: relative;
   width: 100%;
+  box-shadow: 0 2px 4px 0 $shadowcolor;
 
   img {
     height: 80px;
