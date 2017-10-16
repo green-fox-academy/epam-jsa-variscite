@@ -1,11 +1,11 @@
 import React from 'react';
 import './style.scss';
 
-class ComposePost extends React.Component {
+class AddPost extends React.Component {
   render() {
     return (
       <div className="composeContainer">
-        <img src={this.props.ComposeInfo.MyPicURL} />
+        <img src={this.props.MyPicURL} />
         <form required className="compose">
           <input type="text" name="input" required placeholder="What's on your mind?"></input>
           <div className="act">
@@ -23,4 +23,6 @@ class ComposePost extends React.Component {
   }
 }
 
-export default ComposePost;
+AddPost.defaultProps = {MyPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg' };
+
+export default AddPost;
