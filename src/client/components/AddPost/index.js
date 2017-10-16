@@ -4,10 +4,11 @@ import './style.scss';
 class AddPost extends React.Component {
   render() {
     return (
-      <div className="composeContainer">
+      <div className="compose-container">
         <img src={this.props.MyPicURL} />
         <form required className="compose">
-          <input type="text" name="input" required placeholder="What's on your mind?"></input>
+          <textarea type="text" name="input" required
+            placeholder="What's on your mind?"></textarea>
           <div className="act">
             <div>
               <button className="photo">photo</button>
@@ -23,6 +24,6 @@ class AddPost extends React.Component {
   }
 }
 
-AddPost.defaultProps = {MyPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg' };
+AddPost.defaultProps = {MyPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg'};
 
 export default AddPost;

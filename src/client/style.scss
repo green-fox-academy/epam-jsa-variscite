@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css?family=Lato');
 
-$background: #E9EBEE;
-$bluecolor: #4A90E2;
-$greencolor: #36A420;
+$background: #e9ebee;
+$bluecolor: #4a90e2;
+$greencolor: #36a420;
 $redcolor: #be4b49;
-$userBlue: #3B5998;
-$lightGrey: #9197A3;
-$borderGrey: #E3E3E3;
-$textGrey: #4A4A4A;
+$userBlue: #3b5998;
+$lightGrey: #9197a3;
+$borderGrey: #e3e3e3;
+$textGrey: #4a4a4a;
 $greycolor: #f6f9ff;
-$shadowcolor: #ECECEC;
+$shadowcolor: #ececec;
 
 body {
-  font-family: 'Lato', sans-serif;
-  padding: 0;
-  margin: 0;
   background-color: $greycolor;
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  padding: 0;
 }
