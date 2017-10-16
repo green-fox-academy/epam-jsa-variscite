@@ -1,3 +1,5 @@
+'use strict';
+
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.DB_URL;
 const Cryptr = require('cryptr');
