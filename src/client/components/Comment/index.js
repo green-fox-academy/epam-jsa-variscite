@@ -1,10 +1,10 @@
 import React from 'react';
-import './style.scss';
+import './index.scss';
 import CommentInfo from '../CommentInfo/';
 import CommentInput from '../CommentInput/';
 
 class Comment extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.CommentInfo = {
       username: 'Hillary Clinton',
@@ -15,11 +15,14 @@ class Comment extends React.Component {
   }
   render() {
     return (
-      <div className='commentContainer'>
-        <div className='commentBox'>
-          <img className='userPic' src={this.CommentInfo.userPicURL} />
-          <div className='commentInfo'>
-            <CommentInfo commentTime={this.CommentInfo.commentTime} commentUsername={this.CommentInfo.username}/>
+      <div className="comment-container">
+        <div className="comment-box">
+          <img className="user-pic" src={this.CommentInfo.userPicURL} />
+          <div className="comment-info">
+            <CommentInfo
+              commentTime={this.CommentInfo.commentTime}
+              commentUsername={this.CommentInfo.username}
+            />
           </div>
         </div>
         <CommentInput myPicURL={this.CommentInfo.myPicURL} />
