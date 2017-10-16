@@ -1,6 +1,9 @@
 'use strict';
 /* eslint max-len: 'off' */
 const emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+const database = require('../collections/usersDatabase');
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr('jiaMi');
 
 function signUpErrorHandler(req, res) {
   let canPass = true;
@@ -23,6 +26,23 @@ function signUpErrorHandler(req, res) {
   return canPass;
 }
 
+function signup(req, res) {
+  let username = req.body.username || '';
+  let phonenumber = req.body.phonenumber || '';
+  let fullname = req.body.fullname || '';
+  let encrypted = cryptr.encrypt(req.body.password);
+  let user = {
+    username: username,
+    email: req.body.email,
+    phonenumber: phonenumber,
+    fullname: fullname,
+    password: encrypted,
+  };
+  if (signUpErrorHandler(req, res)) {
+    database.signUp(user, res);
+  }
+}
+
 module.exports = {
-  signUpErrorHandler: signUpErrorHandler,
+  signup: signup,
 };
