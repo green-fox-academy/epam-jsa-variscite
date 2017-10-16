@@ -9,9 +9,6 @@ class FeedPage extends React.Component {
     return (
       <div>
         <Header isLoggedIn={true}/>
-
-
-        
       </div>
     );
   }
