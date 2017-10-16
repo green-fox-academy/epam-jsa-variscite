@@ -1,6 +1,7 @@
 import React from 'react';
 import SignupForm from '../SignupForm';
 import './index.scss';
+import {Link} from 'react-router-dom';
 
 class SignupComponent extends React.Component {
   constructor(props) {
@@ -88,16 +89,19 @@ class SignupComponent extends React.Component {
 
   returnSuccess() {
     this.setState({'error': ''});
+    window.location.href = '/feed';
   }
 
   render() {
     return (
-      <main>
-        <h1>Create A New Account</h1>
+      <main className='signupMain'>
+        <h1 className='signup-title'>Create A New Account</h1>
         <SignupForm
           isLoading={this.state.status === 'loading'}
           onSubmit={this.submitHandler.bind(this)}
           error={this.state.error}/>
+        <p className="or">or</p>
+        <Link className="login" to="/login">Log in</Link>
       </main>
     );
   }

@@ -1,7 +1,7 @@
-$blueColor : #4A90E2;
+@import '../../style.scss';
 
 header {
-  background: $blueColor;
+  background: $bluecolor;
   display: flex;
   align-items: center;
   height: 3em;
@@ -17,7 +17,7 @@ header {
       text-align: center;
       margin: 0 1em 0 0;
       background: white;
-      color: $blueColor;
+      color: $bluecolor;
       border-style: hidden;
       font-weight: bold;
       border-radius: 10%;
@@ -60,7 +60,7 @@ header {
     width: 25%;
 
     button {
-      background-color: $blueColor;
+      background-color: $bluecolor;
       background-repeat: no-repeat;
       border-style: none;
       font-weight: 500;
