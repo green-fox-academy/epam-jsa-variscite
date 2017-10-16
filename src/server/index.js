@@ -7,12 +7,12 @@ const path = require('path');
 const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
+const loginHandler = require('./loginHandler');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
 
 const errorHandle = require('./signUpErrorHandler');
 const database = require('./signUpDatabase');
-
 const PORT = process.env.PORT || 8080;
 const app = express();
 
@@ -51,7 +51,13 @@ app.post('/api/signup', jsonParser, function(req, res) {
   }
 });
 
-/* eslint no-console: 'off' */
+app.post('/api/login', jsonParser, loginHandler.login);
+
+app.get('*', (req, res) =>{
+  res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
+});
+
+/* eslint no-console: "off" */
 app.listen(PORT, function() {
   console.log(`app is listening on port ${PORT}`);
 });
