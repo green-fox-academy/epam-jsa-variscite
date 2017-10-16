@@ -1,3 +1,5 @@
+'use strict';
+
 const db = require('../collections/usersDatabase');
 
 function login(req, res) {
