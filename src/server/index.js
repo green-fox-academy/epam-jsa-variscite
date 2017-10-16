@@ -7,12 +7,12 @@ const path = require('path');
 const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const loginHandler = require('./loginHandler');
+const loginHandler = require('./endpoints/loginHandler');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
 
-const errorHandle = require('./signUpErrorHandler');
-const database = require('./signUpDatabase');
+const errorHandle = require('./endpoints/signUpErrorHandler');
+const database = require('./collections/usersDatabase');
 const PORT = process.env.PORT || 8080;
 const app = express();
 
