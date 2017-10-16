@@ -87,9 +87,10 @@ module.exports = {
   getAccessToken: (token, callback) => {
     tokensCollection.getDocumentByToken(token, (err, tokenDescriptor) => {
       if (isExpiredToken(tokenDescriptor)) {
-        module.exports.deleteAccessToken(tokenDescriptor.token, (err, result) => {
-          callback(err, null);
-        });
+        module.exports.deleteAccessToken(tokenDescriptor.token,
+          (err, result) => {
+            callback(err, null);
+          });
       } else {
         callback(err, tokenDescriptor);
       }

@@ -6,18 +6,18 @@ const tokenHandler = require('./modules/tokenHandler.js');
 
 function checkUserInfo(userAgent, email, password, res) {
   MongoClient.connect(url, function(err, db) {
-    db.collection('users').findOne({email: email}, function(err, obj) {     
+    db.collection('users').findOne({email: email}, function(err, obj) {
       let encrypted = cryptr.encrypt(password);
       console.log(encrypted);
       if (obj !== null && obj.password === encrypted) {
-        tokenHandler.createAccessToken(obj._id, 
+        tokenHandler.createAccessToken(obj._id,
           userAgent, function(err, tokenDescriptor) {
-          let obj = {
-            "token": tokenDescriptor.token,
-            "expiresAt": tokenDescriptor.expiresAt
-          }
-          res.status(200).json(obj);
-        });
+            let obj = {
+              'token': tokenDescriptor.token,
+              'expiresAt': tokenDescriptor.expiresAt,
+            };
+            res.status(200).json(obj);
+          });
       } else {
         res.status(403).json({'errorType': 'MisMatch'});
       }

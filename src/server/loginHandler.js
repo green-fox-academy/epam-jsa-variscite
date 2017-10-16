@@ -19,7 +19,7 @@ function login(req, res) {
     res.status(status).json(obj);
     return;
   }
-  
+
   let userAgent = req.headers['user-agent'].toLowerCase();
   db.checkUserInfo(userAgent, email, password, res);
 }

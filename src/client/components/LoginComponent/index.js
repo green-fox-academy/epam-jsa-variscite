@@ -41,14 +41,14 @@ class LoginComponent extends React.Component {
   }
 
   handleMisMatch(response) {
-    if (response.errorType === 'MisMatch') {
+    if (JSON.parse(response).errorType === 'MisMatch') {
       let errorMessage = 'Username and password mismatch!';
       this.setState({'error': errorMessage});
     }
   }
 
   handleServerError(response) {
-    if (response.errorType === 'Unknown') {
+    if (JSON.parse(response).errorType === 'Unknown') {
       let errorMessage = 'Unknown Error!';
       this.setState({'error': errorMessage});
     }
@@ -84,13 +84,13 @@ class LoginComponent extends React.Component {
 
   render() {
     return (
-      <main >
+      <main className='loginMain'>
         <h1 className="login-title">Log in to Variscite</h1>
         <LoginForm isLoading={this.state.status === 'loading'}
           errorMessage={this.state.error}
           onSubmit={this.submitLogin.bind(this)} />
         <p className="or">or</p>
-        <Link className="newAccount" to="/signup">Create new account</Link>
+        <Link className="newAccount" to="/signup">Creat New Account</Link>
       </main>
     );
   }

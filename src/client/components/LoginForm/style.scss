@@ -1,27 +1,30 @@
-$bluecolor: #4A90E2;
+@import '../../style.scss';
 
 .login-form {
 
     input {
-        width: 22em;
+        width: 60%;
         height: 2em;
         margin: 0 auto;
-        margin-top: 1em;
-        margin-bottom: 1em;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
         padding: 0 0.5em 0 0.5em;
     }
 
     span {
         display: inline-block;
-        width: 23em; 
-        font-size: 0.9em;
+        width: 60%; 
+        font-size: 0.8em;
+        margin: 0;
+        color: $redcolor;
     }
 
     .loginButton {
-        width: 23.4em;
-        height: 2.5em;
+        width: calc(60% + 1em + 4px);
+        height: calc(2.0em + 4px);
         background-color: $bluecolor;
         color: white;
         border: none;
+        font-family: 'Lato', sans-serif;
     }  
 }

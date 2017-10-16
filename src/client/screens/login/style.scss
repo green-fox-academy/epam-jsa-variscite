@@ -1,13 +1,14 @@
-$bluecolor: #4A90E2;
+@import '../../style.scss';
 
-main {
+.loginMain {
     width: 36em;
     margin: 0 auto;
-    margin-top: 8em;
+    margin-top: 7em;
     text-align: center; 
     display: flex;
     flex-flow: column;  
-    background-color: white;   
+    background-color: white;
+    box-shadow: 0px 2px 4px 0px $shadowcolor;  
 }
 
 .login-title {
@@ -22,16 +23,19 @@ main {
 }
 
 .newAccount {
-    width: 40%;
-    line-height: 3.5em;
+    width: calc(60% + 1em + 4px);
+    height: calc(2.0em + 4px);
     margin: 0 auto;
-    margin-top: 1em;
+    margin-top: 0.5em;
     margin-bottom: 3em;
-    font-size: 0.83em;
+    font-size: 0.8333em;
+    color: $bluecolor;
     text-transform: capitalize;
-    color: white;
-    background-color: $bluecolor;
-    border: none;
+    background-color: #FFFFFF;
+    border: 1px solid $bluecolor;
     text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
