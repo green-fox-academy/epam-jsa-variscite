@@ -84,13 +84,13 @@ class LoginComponent extends React.Component {
 
   render() {
     return (
-      <main className='loginMain'>
+      <main className='login-main'>
         <h1 className="login-title">Log in to Variscite</h1>
         <LoginForm isLoading={this.state.status === 'loading'}
           errorMessage={this.state.error}
           onSubmit={this.submitLogin.bind(this)} />
         <p className="or">or</p>
-        <Link className="newAccount" to="/signup">Creat New Account</Link>
+        <Link className="new-account" to="/signup">Creat New Account</Link>
       </main>
     );
   }

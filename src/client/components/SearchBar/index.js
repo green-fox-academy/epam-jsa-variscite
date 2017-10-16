@@ -8,12 +8,12 @@ class SearchBar extends React.Component {
           type="text"
           required
           placeholder="Search"
-          className="searchInput"
+          className="search-input"
         />
         <input
           type="submit"
           value=""
-          className="searchSubmit"
+          className="search-submit"
         />
       </form>
     );
