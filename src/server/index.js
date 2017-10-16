@@ -21,10 +21,8 @@ app.use(express.static(path.resolve(__dirname, '../../dist')));
 app.get('/heartbeat', (req, res) => {
   let MongoClient = mongodb.MongoClient;
   let url = process.env.DB_URL;
-
   MongoClient.connect(url, function(err, db) {
     let adminDb = db.admin();
-
     adminDb.serverStatus(function(err, info) {
       console.log(info.version);
       res.json(info.version);
@@ -45,7 +43,6 @@ app.post('/api/signup', jsonParser, function(req, res) {
     fullname: fullname,
     password: encrypted,
   };
-
   if (errorHandle.signUpErrorHandler(req, res)) {
     database.signUp(user, res);
   }
