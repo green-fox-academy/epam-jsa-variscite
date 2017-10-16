@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import LoginPage from './screens/login';
 import FeedPage from './screens/feed';
-import SignupPage from './screens/SignupScreen';
+import SignupPage from './screens/Signup';
 
 class App extends React.Component {
   render() {
