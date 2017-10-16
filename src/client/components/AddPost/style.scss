@@ -3,7 +3,6 @@
 .compose-container {
   position: relative;
   width: 100%;
-  box-shadow: 0 2px 4px 0 $shadowcolor;
 
   img {
     height: 80px;
@@ -18,6 +17,7 @@
     position: relative;
     top: -20px;
     z-index: 0;
+    box-shadow: 2px 2px 5px 0 $shadowcolor;
 
     textarea[type=text] {
       align-items: center;
@@ -52,6 +52,7 @@
     button {
       margin: 0 20px 0 20px;
       padding-left: 30px;
+      border: 0;
     }
 
     .photo {
