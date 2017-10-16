@@ -9,10 +9,12 @@
     "build": "webpack -d --colors --config webpack.prod.js",
     "dev:frontend": "webpack-dev-server --colors --config webpack.dev.js --port 8080 --hot",
     "dev:backend": "nodemon ./src/server/index.js",
-    "test:backend": "mocha",
+    "test:backend": "mocha ./test/server",
     "heroku-prebuild": "npm install --only=dev",
     "test:frontend": "jest --colors",
-    "lint": "eslint . --ext .js --color"
+    "lint:js": "eslint . --ext .js --color",
+    "lint:css": "stylelint src/client/**/*.scss --colors",
+    "lint": "run-s lint:*"
   },
   "repository": {
     "type": "git",
@@ -41,15 +43,22 @@
     "npm-run-all": "^4.1.1",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "stylelint": "^8.2.0",
+    "stylelint-config-sass-guidelines": "^3.1.0",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.6.0",
     "webpack-dev-server": "^2.8.2",
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "cryptr": "^2.0.0",
     "dotenv": "^4.0.0",
     "mongodb": "^2.2.31",
+    "nodemon": "^1.12.1",
     "react": "^15.6.2",
-    "react-dom": "^15.6.2"
+    "react-dom": "^15.6.2",
+    "react-router-dom": "^4.2.2",
+    "supertest": "^3.0.0"
   }
 }
