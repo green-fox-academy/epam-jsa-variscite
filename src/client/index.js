@@ -1,7 +1,2 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import './style.scss';
-
-ReactDOM.render(<App />, document.getElementById('root'));
-
+const ReactDOM = require('react-dom');
+ReactDOM.render(<p>Hello World!</p>, document.getElementById('root'));
