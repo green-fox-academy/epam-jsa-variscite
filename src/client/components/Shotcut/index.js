@@ -3,16 +3,24 @@ import React from 'react';
 class Shortcut extends React.Component {
   render() {
     return (
-      <div>
-        <h1>Shortcut</h1>
-        <button className="Framer"></button>
-        <a>Framer</a>
-        <button className="Ochrasy"></button>
-        <a>Ochrasy</a>
-        <button className="Mr.Moon"></button>
-        <a>Mr.Moon</a>
-        <button className="Josephine"></button>
-        <a>Josephine</a>
+      <div className="shortcut">
+        <h1>SHORTCUT</h1>
+        <div>
+          <button className="shortcut-btn"></button>
+          <a>Framer</a>
+        </div>
+        <div>
+          <button className="shortcut-btn"></button>
+          <a>Ochrasy</a>
+        </div>
+        <div>
+          <button className="shortcut-btn"></button>
+          <a>Mr.Moon</a>
+        </div>
+        <div>
+          <button className="shortcut-btn"></button>
+          <a>Josephine</a>
+        </div>
       </div>
     );
   }

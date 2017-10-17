@@ -1,8 +1,9 @@
 import React from 'react';
 import Greeting from '../Greeting';
 import MainLinks from '../MainLinks';
-import Expore from '../Expore';
+import Explore from '../Explore';
 import Shotcut from '../Shotcut';
+import './style.scss';
 
 class NavigationBar extends React.Component {
   render() {
@@ -10,7 +11,7 @@ class NavigationBar extends React.Component {
       <aside className="navigation-bar">
         <Greeting />
         <MainLinks />
-        <Expore />
+        <Explore />
         <Shotcut />
       </aside>
     );
