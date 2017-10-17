@@ -9,14 +9,13 @@ class Logo extends React.Component {
           <a>UserName</a>
         </div>
       );
-    } else {
-      return (
-        <div className="logoField">
-          <button>V</button>
-          <a>Variscite</a>
-        </div>
-      );
     }
+    return (
+      <div className="logoField">
+        <button>V</button>
+        <a>Variscite</a>
+      </div>
+    );
   }
 }
 

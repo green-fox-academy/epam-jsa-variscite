@@ -1,11 +1,10 @@
 'use strict';
 
-require('./style.scss');
+import './style.scss';
 import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
 import Header from '../../components/Header';
-
-let LoginComponent = require('../../components/LoginComponent/index.js');
+import LoginComponent from '../../components/LoginComponent/index.js';
 
 class LoginPage extends React.Component {
   render() {
