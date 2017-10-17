@@ -5,16 +5,20 @@ const url = process.env.DB_URL;
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
 const tokenHandler = require('../modules/tokenHandler.js');
-const HTTP_STATUSES = require('./modules/httpStatuses');
+const HTTP_STATUSES = require('../modules/httpStatuses');
 
 function checkInfo(obj, userAgent, password, res) {
   if (obj !== null && obj.password === cryptr.encrypt(password)) {
     tokenHandler.createAccessToken(obj._id,
       userAgent, function(err, tokenDescriptor) {
+        if (err !== null) {
+          console.log('[MONGO ERROR] Unable to generate token: ', err);
+        }
         let tokenObj = {
           'token': tokenDescriptor.token,
           'expiresAt': tokenDescriptor.expiresAt,
         };
+
         res.status(HTTP_STATUSES.OK).json(tokenObj);
       });
   } else {
@@ -44,6 +48,7 @@ function checkUserInfo(userAgent, email, password, res) {
 
 function sendStatus(req, res) {
   let objectId = req._id;
+
   res.set('location', '/api/signup/' + objectId);
   res.status(HTTP_STATUSES.CREATED).json();
   return;

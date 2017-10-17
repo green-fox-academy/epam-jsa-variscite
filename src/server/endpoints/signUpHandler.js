@@ -1,27 +1,62 @@
 'use strict';
 /* eslint max-len: 'off' */
+
 const emailRe = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
 const database = require('../collections/usersDatabase');
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
+const HTTP_STATUSES = require('../modules/httpStatuses');
+const EMPTY_LENGTH = 0;
+const MIN_LENGTH = 8;
+
+function missingEmailHandler(canPas, res) {
+  let canPa = canPas;
+
+  canPa = false;
+  res.status(HTTP_STATUSES.BAD_REQUEST).json({errorType: 'missingEmail'});
+  return canPa;
+}
+
+function missingPasswordHandler(canPas, res) {
+  let canPa = canPas;
+
+  canPa = false;
+  res.status(HTTP_STATUSES.BAD_REQUEST).json({errorType: 'missingPassword'});
+  return canPa;
+}
+
+function emailWrongHandler(canPas, res) {
+  let canPa = canPas;
+
+  canPa = false;
+  res.status(HTTP_STATUSES.BAD_REQUEST).json({errorType: 'emailWrong'});
+  return canPa;
+}
+
+function fieldErrorHandler(req, res, canPass) {
+  let canPas = canPass;
+
+  if (req.body.email.length === EMPTY_LENGTH) {
+    missingEmailHandler(canPas, res);
+  } else if (req.body.password.length === EMPTY_LENGTH) {
+    missingPasswordHandler(canPas, res);
+  } else if (req.body.email.length !== EMPTY_LENGTH && !emailRe.test(req.body.email)) {
+    emailWrongHandler(canPas, res);
+  }
+  return canPas;
+}
 
 function signUpErrorHandler(req, res) {
   let canPass = true;
+
   if (req.headers['content-type'] !== 'application/json') {
     canPass = false;
-    res.status(400).json({errorType: 'contentType'});
-  } else if (req.body.email.length === 0) {
+    res.status(HTTP_STATUSES.BAD_REQUEST).json({errorType: 'contentType'});
+  } else if (req.body.password.length < MIN_LENGTH && req.body.password.length !== EMPTY_LENGTH) {
     canPass = false;
-    res.status(400).json({errorType: 'missingEmail'});
-  } else if (req.body.password.length === 0) {
-    canPass = false;
-    res.status(400).json({errorType: 'missingPassword'});
-  } else if (req.body.email.length !== 0 && !emailRe.test(req.body.email)) {
-    canPass = false;
-    res.status(400).json({errorType: 'emailWrong'});
-  } else if (req.body.password.length < 8 && req.body.password.length !== 0) {
-    canPass = false;
-    res.status(400).json({errorType: 'passwordWrong'});
+    res.status(HTTP_STATUSES.BAD_REQUEST).json({errorType: 'passwordWrong'});
+  } else {
+    fieldErrorHandler(req, res, canPass);
   }
   return canPass;
 }
@@ -38,11 +73,10 @@ function signup(req, res) {
     fullname: fullname,
     password: encrypted,
   };
+
   if (signUpErrorHandler(req, res)) {
     database.signUp(user, res);
   }
 }
 
-module.exports = {
-  signup: signup,
-};
+module.exports = {signup: signup};
