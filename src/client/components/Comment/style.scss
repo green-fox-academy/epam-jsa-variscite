@@ -22,7 +22,7 @@
     width: 600px;
 
     textarea {
-      border: 1px solid $borderGrey;
+      border: 1px solid $bordergrey;
       height: 41px;
       line-height: 41px;
       margin-left: 20px;
@@ -39,7 +39,7 @@
       background-size: contain;
       border: 0;
       height: 1.5em;
-      margin: 1em 0 0 -3em;
+      margin: 1.5em 0 0 -3em;
       padding: 0;
       width: 1.5em;
     }
@@ -47,7 +47,7 @@
 }
 
 .comment-box {
-  border-bottom: 1px solid $borderGrey;
+  border-bottom: 1px solid $bordergrey;
   display: flex;
   justify-content: flex-start;
   margin: 20px 0 10px;
@@ -73,7 +73,7 @@
     button {
       background-color: $whitecolor;
       border: 0;
-      color: $textGrey;
+      color: $textgrey;
       float: left;
       font-size: 12px;
       font-weight: bold;
@@ -90,7 +90,7 @@
     }
 
     .time {
-      color: $lightGrey;
+      color: $lightgrey;
       float: left;
       font-size: 11px;
       margin-top: 5px;
