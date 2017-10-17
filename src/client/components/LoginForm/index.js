@@ -13,7 +13,7 @@ class LoginForm extends React.Component {
           required placeholder="Email address"></input>
         <input type="password" name="password"
           required placeholder="Password"></input>
-        {this.props.errorMessage !== null ? <span className='error'>
+        {this.props.errorMessage !== null ? <span className="error">
           {this.props.errorMessage}</span> : null}
         <input type="submit" className="loginButton" value="Log In"
           value={this.props.isLoading ? 'loading' : 'Log In'}></input>
@@ -22,4 +22,4 @@ class LoginForm extends React.Component {
   }
 }
 
-module.exports = LoginForm;
+export default LoginForm;

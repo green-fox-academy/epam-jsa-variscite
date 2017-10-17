@@ -10,7 +10,8 @@ const jsonParser = bodyParser.json();
 const heartbeatHandler = require('./endpoints/heartbeatHandler');
 const loginHandler = require('./endpoints/loginHandler');
 const signupHandler = require('./endpoints/signUpHandler');
-const PORT = process.env.PORT || 8080;
+const LOCAL_PORT = 8080;
+const PORT = process.env.PORT || LOCAL_PORT;
 const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../../dist')));

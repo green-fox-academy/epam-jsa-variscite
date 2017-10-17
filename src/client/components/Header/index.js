@@ -14,13 +14,12 @@ class Header extends React.Component {
           <OtherOptions />
         </header>
       );
-    } else {
-      return (
-        <header className="guestHeader">
-          <Logo isLoggedIn={this.props.isLoggedIn} />
-        </header>
-      );
     }
+    return (
+      <header className="guestHeader">
+        <Logo isLoggedIn={this.props.isLoggedIn} />
+      </header>
+    );
   }
 }
 
