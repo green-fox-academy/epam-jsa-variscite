@@ -4,18 +4,19 @@ class Logo extends React.Component {
   render() {
     if (this.props.isLoggedIn === true) {
       return (
-        <div className="logoField">
+        <div className="logo-field">
           <button>V</button>
           <a>UserName</a>
         </div>
       );
+    } else {
+      return (
+        <div className="logo-field">
+          <button>V</button>
+          <a>Variscite</a>
+        </div>
+      );
     }
-    return (
-      <div className="logoField">
-        <button>V</button>
-        <a>Variscite</a>
-      </div>
-    );
   }
 }
 

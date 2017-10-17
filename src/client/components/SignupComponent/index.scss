@@ -1,77 +1,74 @@
-@import '../../style.scss';
+@import '../../style';
 
-
-.signupMain {
-    width: 36em;
-    margin: 0 auto;
-    margin-top: 5em;
-    margin-bottom: 5em;
-    text-align: center; 
-    display: flex;
-    flex-flow: column;  
-    background-color: white;
-    box-shadow: 0px 2px 4px 0px $shadowcolor; 
-    
+.signup-main {
+  background-color: $whitecolor;
+  box-shadow: 0 2px 4px 0 $shadowcolor;
+  display: flex;
+  flex-flow: column;
+  margin: 0 auto;
+  margin-bottom: 5em;
+  margin-top: 5em;
+  text-align: center;
+  width: 36em;
 }
 
 .signup-title {
-    margin-top: 1.5em;
-    font-size: 1.2em;
+  font-size: 1.2em;
+  margin-top: 1.5em;
 }
 
 .signup-form {
-    input {
-        width: 64%;
-        height: 2em;
-        margin: 0 auto;
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
-    }
-    
-    input:not([type="submit"]) {
-        padding: 0 0.5em 0 0.5em;
-    }
-    
-    input[type="submit"] {
-        width: calc(64% + 1em + 4px);
-        height: calc(2em + 4px);
-        margin-bottom: 0.5em;
-        padding: 0;
-        background-color: $bluecolor;
-        font-family: 'Lato', sans-serif;
-        color: white;
-        border: none;
-    }
-    
-    span {
-        width: 64%;
-        color: $redcolor;
-        font-size: 0.8em;
-        display: inline-block;
-        margin: 0;
-    }
+  input {
+    height: 2em;
+    margin: 0 auto;
+    margin-bottom: .5em;
+    margin-top: .5em;
+    width: 64%;
+  }
+
+  input:not([type='submit']) {
+    padding: 0 .5em;
+  }
+
+  input[type='submit'] {
+    background-color: $bluecolor;
+    border: 0;
+    color: $whitecolor;
+    font-family: 'Lato', sans-serif;
+    height: calc(2em + 4px);
+    margin-bottom: .5em;
+    padding: 0;
+    width: calc(64% + 1em + 4px);
+  }
+
+  span {
+    color: $redcolor;
+    display: inline-block;
+    font-size: .8em;
+    margin: 0;
+    width: 64%;
+  }
 }
 
-
 .or {
-    height: 1.2em;
-    margin: 0 auto;
-    font-size: 0.7em;
+  font-size: .7em;
+  height: 1.2em;
+  margin: 0 auto;
 }
 
 .login {
-    width: calc(64% + 1em + 4.06px);
-    height: calc(2em + 4.1px);
-    margin: 0 auto;
-    margin-top: 0.5em;
-    margin-bottom: 3em;
-    font-size: 0.83em;
-    text-transform: capitalize;
-    color: $bluecolor;
-    background-color: #FFFFFF;
-    border: 1px solid $bluecolor;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  align-items: center;
+  background-color: #fff;
+  border: 1px solid $bluecolor;
+  color: $bluecolor;
+  display: flex;
+  font-size: .83em;
+  height: calc(2em + 4.1px);
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 3em;
+  margin-top: .5em;
+  text-decoration: none;
+  text-transform: capitalize;
+  width: calc(64% + 1em + 4.06px);
 }
