@@ -1,8 +1,8 @@
 'use strict';
 
 import {Link} from 'react-router-dom';
-const React = require('react');
-const LoginForm = require('../LoginForm/index.js');
+import React from 'react';
+import LoginForm from '../LoginForm/index.js';
 
 class LoginComponent extends React.Component {
   constructor(props) {
@@ -28,6 +28,7 @@ class LoginComponent extends React.Component {
   handleFieldsError(response) {
     let error = JSON.parse(response).errorType;
     let errorMessage;
+
     if (error === 'ContentType') {
       errorMessage = 'Something went wrong, please try later!';
       this.setState({'error': errorMessage});
@@ -43,6 +44,7 @@ class LoginComponent extends React.Component {
   handleMisMatch(response) {
     if (JSON.parse(response).errorType === 'MisMatch') {
       let errorMessage = 'Username and password mismatch!';
+
       this.setState({'error': errorMessage});
     }
   }
@@ -50,6 +52,7 @@ class LoginComponent extends React.Component {
   handleServerError(response) {
     if (JSON.parse(response).errorType === 'Unknown') {
       let errorMessage = 'Unknown Error!';
+
       this.setState({'error': errorMessage});
     }
   }
@@ -63,6 +66,7 @@ class LoginComponent extends React.Component {
 
   sendData(data) {
     let xhr = new XMLHttpRequest();
+
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         this.handleLoginResponse(xhr.status, xhr.response);
@@ -79,12 +83,13 @@ class LoginComponent extends React.Component {
   submitLogin(event) {
     event.preventDefault();
     let loginInfo = this.collectData(event);
+
     this.sendData(loginInfo);
   }
 
   render() {
     return (
-      <main className='loginMain'>
+      <main className="loginMain">
         <h1 className="login-title">Log in to Variscite</h1>
         <LoginForm isLoading={this.state.status === 'loading'}
           errorMessage={this.state.error}
@@ -96,4 +101,4 @@ class LoginComponent extends React.Component {
   }
 }
 
-module.exports = LoginComponent;
+export default LoginComponent;

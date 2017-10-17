@@ -27,11 +27,13 @@ class SignupComponent extends React.Component {
       password: password,
     };
     let jsonData = JSON.stringify(obj);
+
     this.sendData(jsonData);
   }
 
   sendData(data) {
     let xhr = new XMLHttpRequest();
+
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         this.setState({'status': 'being'});
@@ -55,29 +57,39 @@ class SignupComponent extends React.Component {
 
   handleUserError(xhr) {
     let error = JSON.parse(xhr.responseText).errorType;
+
     if (error === 'contentType') {
-      this.setState({'error':
-        'You entered the wrong content, please try again.'});
+      this.setState({
+        'error':
+        'You entered the wrong content, please try again.',
+      });
     } else if (error === 'missingEmail') {
       this.setState({'error': 'Your Email is missing, please try again.'});
     } else if (error === 'missingPassword') {
       this.setState({'error': 'Your Password is missing, please try again.'});
     } else if (error === 'emailWrong') {
-      this.setState({'error':
-        'Your Email is wrong, please try again.'});
+      this.setState({
+        'error':
+        'Your Email is wrong, please try again.',
+      });
     } else if (error === 'passwordWrong') {
-      this.setState({'error':
-        'Your password is wrong, please try again.'});
+      this.setState({
+        'error':
+        'Your password is wrong, please try again.',
+      });
     }
   }
 
   handleConflict(xhr) {
     let error = JSON.parse(xhr.responseText).errorType;
+
     if (error === 'phoneError') {
       this.setState({'error': 'Your phone has been used, please try again.'});
     } else if (error === 'usernameError') {
-      this.setState({'error':
-        'Your username has been used, please try again.'});
+      this.setState({
+        'error':
+        'Your username has been used, please try again.',
+      });
     } else if (error === 'emailError') {
       this.setState({'error': 'Your email has been used, please try again.'});
     }
@@ -94,8 +106,8 @@ class SignupComponent extends React.Component {
 
   render() {
     return (
-      <main className='signupMain'>
-        <h1 className='signup-title'>Create A New Account</h1>
+      <main className="signupMain">
+        <h1 className="signup-title">Create A New Account</h1>
         <SignupForm
           isLoading={this.state.status === 'loading'}
           onSubmit={this.submitHandler.bind(this)}
