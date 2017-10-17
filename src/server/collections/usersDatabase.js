@@ -5,20 +5,20 @@ const url = process.env.DB_URL;
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
 const tokenHandler = require('../modules/tokenHandler.js');
+const HTTP_STATUSES = require('./modules/httpStatuses');
 
 function checkInfo(obj, userAgent, password, res) {
-  let encrypted = cryptr.encrypt(password);
-  if (obj !== null && obj.password === encrypted) {
+  if (obj !== null && obj.password === cryptr.encrypt(password)) {
     tokenHandler.createAccessToken(obj._id,
-      userAgent, function (err, tokenDescriptor) {
+      userAgent, function(err, tokenDescriptor) {
         let tokenObj = {
           'token': tokenDescriptor.token,
           'expiresAt': tokenDescriptor.expiresAt,
         };
-        res.status(200).json(tokenObj);
+        res.status(HTTP_STATUSES.OK).json(tokenObj);
       });
   } else {
-    res.status(403).json({'errorType': 'MisMatch'});
+    res.status(HTTP_STATUSES.FORBIDDEN).json({'errorType': 'MisMatch'});
   }
 }
 
@@ -45,14 +45,14 @@ function checkUserInfo(userAgent, email, password, res) {
 function sendStatus(req, res) {
   let objectId = req._id;
   res.set('location', '/api/signup/' + objectId);
-  res.status(201).json();
+  res.status(HTTP_STATUSES.CREATED).json();
   return;
 }
 
 function insertUser(db, req, res) {
   db.collection('users').insert(req, function(err) {
     if (err) {
-      res.status(500).json({errorType: 'serverError'});
+      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       console.log('Couldn\'t insert the element into the db', err);
       return;
     }
@@ -61,17 +61,17 @@ function insertUser(db, req, res) {
 }
 
 function handleEmailError(db, res) {
-  res.status(409).json({errorType: 'emailError'});
+  res.status(HTTP_STATUSES.CONFLICT).json({errorType: 'emailError'});
   db.close();
 }
 
 function handleUsernameError(db, res) {
-  res.status(409).json({errorType: 'usernameError'});
+  res.status(HTTP_STATUSES.CONFLICT).json({errorType: 'usernameError'});
   db.close();
 }
 
 function handlePhonenumberError(db, res) {
-  res.status(409).json({errorType: 'phoneError'});
+  res.status(HTTP_STATUSES.CONFLICT).json({errorType: 'phoneError'});
   db.close();
 }
 
@@ -84,7 +84,7 @@ function handleError(db, item, req, res) {
     handlePhonenumberError(db, res);
   }
 }
-  
+
 function checkField(db, item, req, res) {
   if (item === null) {
     insertUser(db, req, res);
@@ -94,34 +94,37 @@ function checkField(db, item, req, res) {
 }
 
 function findUser(db, req, res) {
-  db.collection('users').findOne({
-    $or: [
-      {$and: [{'username': req.username}, {'username': {$ne: ''}}]},
-      {'email': req.email},
-      {$and: [{'phonenumber': req.phonenumber}, {'phonenumber': {$ne: ''}}]},
-    ]}, function(err, item) {
+  db.collection('users').findOne(
+    {
+      $or: [
+        {$and: [{'username': req.username}, {'username': {$ne: ''}}]},
+        {'email': req.email},
+        {$and: [{'phonenumber': req.phonenumber}, {'phonenumber': {$ne: ''}}]},
+      ],
+    },
+    (err, item) => {
       if (err) {
-        res.status(500).json({errorType: 'serverError'});
         console.log('Couldn\'t get element from the db', err);
+        res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
         return;
       }
-      checkField(db, item, req, res);   
-  });
+      checkField(db, item, req, res);
+    }
+  );
 }
 
 function signUp(req, res) {
   MongoClient.connect(url, function(err, db) {
-    /* eslint no-console: 'off' */
     if (err) {
-      res.status(500).json({errorType: 'serverError'});
+      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       console.log('Couldn\'t get connect to the db', err);
       return;
     }
-    findUser(db, req, res);   
+    findUser(db, req, res);
   });
 }
 
-module.exports= {
+module.exports = {
   checkUserInfo: checkUserInfo,
   signUp: signUp,
 };
