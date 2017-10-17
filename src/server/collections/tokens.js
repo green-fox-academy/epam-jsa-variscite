@@ -24,8 +24,7 @@ function connectMongoTo(operation, callback) {
     if (err !== null) {
       console.log('[MONGO ERROR] Unable to connect: ', err);
       db.close();
-      callback(err, null);
-      return;
+      return callback(err, null);
     }
     operation(db);
   });

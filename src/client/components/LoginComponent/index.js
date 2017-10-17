@@ -1,8 +1,13 @@
 'use strict';
 
 import {Link} from 'react-router-dom';
-const React = require('react');
-const LoginForm = require('../LoginForm/index.js');
+import React from 'react';
+import LoginForm from '../LoginForm/index.js';
+
+const Pass = 200;
+const ServerError = 500;
+const MisMatch = 403;
+const FieldError = 400;
 
 class LoginComponent extends React.Component {
   constructor(props) {
@@ -14,13 +19,13 @@ class LoginComponent extends React.Component {
   }
 
   handleLoginResponse(status, response) {
-    if (status === 400) {
+    if (status === FieldError) {
       this.handleFieldsError(response);
-    } else if (status === 403) {
+    } else if (status === MisMatch) {
       this.handleMisMatch(response);
-    } else if (status === 500) {
+    } else if (status === ServerError) {
       this.handleServerError(response);
-    } else if (status === 200) {
+    } else if (status === Pass) {
       window.location.href = '/feed';
     }
   }
@@ -28,6 +33,7 @@ class LoginComponent extends React.Component {
   handleFieldsError(response) {
     let error = JSON.parse(response).errorType;
     let errorMessage;
+
     if (error === 'ContentType') {
       errorMessage = 'Something went wrong, please try later!';
       this.setState({'error': errorMessage});
@@ -43,6 +49,7 @@ class LoginComponent extends React.Component {
   handleMisMatch(response) {
     if (JSON.parse(response).errorType === 'MisMatch') {
       let errorMessage = 'Username and password mismatch!';
+
       this.setState({'error': errorMessage});
     }
   }
@@ -50,6 +57,7 @@ class LoginComponent extends React.Component {
   handleServerError(response) {
     if (JSON.parse(response).errorType === 'Unknown') {
       let errorMessage = 'Unknown Error!';
+
       this.setState({'error': errorMessage});
     }
   }
@@ -63,6 +71,7 @@ class LoginComponent extends React.Component {
 
   sendData(data) {
     let xhr = new XMLHttpRequest();
+
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         this.handleLoginResponse(xhr.status, xhr.response);
@@ -79,6 +88,7 @@ class LoginComponent extends React.Component {
   submitLogin(event) {
     event.preventDefault();
     let loginInfo = this.collectData(event);
+
     this.sendData(loginInfo);
   }
 
@@ -96,4 +106,4 @@ class LoginComponent extends React.Component {
   }
 }
 
-module.exports = LoginComponent;
+export default LoginComponent;
