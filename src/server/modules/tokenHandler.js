@@ -9,7 +9,8 @@ const randomstring = require('randomstring');
  *
  * @var {number}
  */
-const TOKEN_LIFETIME_IN_SECONDS = 7 * 24 * 60 * 60;
+// eslint-disable-next-line no-magic-numbers
+const TOKEN_LIFETIME_IN_MILLISECONDS = 7 * 24 * 60 * 60 * 1000;
 
 /**
  *
@@ -23,7 +24,7 @@ function generateToken(userId, userAgent, callback) {
   tokensCollection.insertDocument(
     {
       token: randomstring.generate(),
-      expiresAt: Date.now() + TOKEN_LIFETIME_IN_SECONDS * 1000,
+      expiresAt: Date.now() + TOKEN_LIFETIME_IN_MILLISECONDS,
       userId: userId,
       userAgent: userAgent,
     },
@@ -92,7 +93,7 @@ module.exports = {
             callback(err, null);
           });
       } else {
-        callback(err, tokenDescriptor);
+        return callback(err, tokenDescriptor);
       }
     });
   },
