@@ -4,49 +4,21 @@ require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
-const mongodb = require('mongodb');
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-const loginHandler = require('./loginHandler');
-const Cryptr = require('cryptr');
-const cryptr = new Cryptr('jiaMi');
 
-const errorHandle = require('./signUpErrorHandler');
-const database = require('./signUpDatabase');
-const PORT = process.env.PORT || 8080;
+const heartbeatHandler = require('./endpoints/heartbeatHandler');
+const loginHandler = require('./endpoints/loginHandler');
+const signupHandler = require('./endpoints/signUpHandler');
+const LOCAL_PORT = 8080;
+const PORT = process.env.PORT || LOCAL_PORT;
 const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../../dist')));
 
-app.get('/heartbeat', (req, res) => {
-  let MongoClient = mongodb.MongoClient;
-  let url = process.env.DB_URL;
-  MongoClient.connect(url, function(err, db) {
-    let adminDb = db.admin();
-    adminDb.serverStatus(function(err, info) {
-      console.log(info.version);
-      res.json(info.version);
-      db.close();
-    });
-  });
-});
+app.get('/heartbeat', heartbeatHandler.heartbeat);
 
-app.post('/api/signup', jsonParser, function(req, res) {
-  let username = req.body.username || '';
-  let phonenumber = req.body.phonenumber || '';
-  let fullname = req.body.fullname || '';
-  let encrypted = cryptr.encrypt(req.body.password);
-  let user = {
-    username: username,
-    email: req.body.email,
-    phonenumber: phonenumber,
-    fullname: fullname,
-    password: encrypted,
-  };
-  if (errorHandle.signUpErrorHandler(req, res)) {
-    database.signUp(user, res);
-  }
-});
+app.post('/api/signup', jsonParser, signupHandler.signup);
 
 app.post('/api/login', jsonParser, loginHandler.login);
 
