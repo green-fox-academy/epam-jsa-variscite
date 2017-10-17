@@ -42,15 +42,7 @@ class SignupComponent extends React.Component {
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         this.setState({'status': 'being'});
-        if (xhr.status === FieldError) {
-          this.handleUserError(xhr);
-        } else if (xhr.status === Conflict) {
-          this.handleConflict(xhr);
-        } else if (xhr.status === ServerError) {
-          this.handleServerError();
-        } else if (xhr.status === Pass) {
-          this.returnSuccess();
-        }
+        this.checkError(xhr);
       }
     }.bind(this));
     xhr.open('POST', '/api/signup');
@@ -58,6 +50,18 @@ class SignupComponent extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     this.setState({'status': 'loading'});
     xhr.send(data);
+  }
+
+  checkError(xhr) {
+    if (xhr.status === FieldError) {
+      this.handleUserError(xhr);
+    } else if (xhr.status === Conflict) {
+      this.handleConflict(xhr);
+    } else if (xhr.status === ServerError) {
+      this.handleServerError();
+    } else if (xhr.status === Pass) {
+      this.returnSuccess();
+    }
   }
 
   handleUserError(xhr) {
@@ -68,7 +72,13 @@ class SignupComponent extends React.Component {
         'error':
         'You entered the wrong content, please try again.',
       });
-    } else if (error === 'missingEmail') {
+    } else {
+      this.checkUserError(error);
+    }
+  }
+
+  checkUserError(error) {
+    if (error === 'missingEmail') {
       this.setState({'error': 'Your Email is missing, please try again.'});
     } else if (error === 'missingPassword') {
       this.setState({'error': 'Your Password is missing, please try again.'});
