@@ -9,6 +9,7 @@ const jsonParser = bodyParser.json();
 
 const heartbeatHandler = require('./endpoints/heartbeatHandler');
 const loginHandler = require('./endpoints/loginHandler');
+const logoutHandler = require('./endpoints/logoutHandler');
 const signupHandler = require('./endpoints/signUpHandler');
 const LOCAL_PORT = 8080;
 const PORT = process.env.PORT || LOCAL_PORT;
@@ -21,6 +22,8 @@ app.get('/heartbeat', heartbeatHandler.heartbeat);
 app.post('/api/signup', jsonParser, signupHandler.signup);
 
 app.post('/api/login', jsonParser, loginHandler.login);
+
+app.delete('/login', jsonParser, logoutHandler.logout);
 
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
