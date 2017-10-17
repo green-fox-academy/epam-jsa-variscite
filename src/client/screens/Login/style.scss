@@ -1,41 +1,40 @@
-@import '../../style.scss';
+@import '../../style';
 
-.loginMain {
-    width: 36em;
-    margin: 0 auto;
-    margin-top: 7em;
-    text-align: center; 
-    display: flex;
-    flex-flow: column;  
-    background-color: white;
-    box-shadow: 0px 2px 4px 0px $shadowcolor;  
+.login-main {
+  background-color: $whitecolor;
+  box-shadow: 0 2px 4px 0 $shadowcolor;
+  display: flex;
+  flex-flow: column;
+  margin: 0 auto;
+  margin-top: 7em;
+  text-align: center;
+  width: 36em;
 }
 
 .login-title {
-    margin-top: 2em;
-    font-size: 1.2em;
+  font-size: 1.2em;
+  margin-top: 2em;
 }
 
 .or {
-    height: 1.2em;
-    margin: 0 auto;
-    font-size: 0.7em;
+  font-size: .7em;
+  height: 1.2em;
+  margin: 0 auto;
 }
 
-.newAccount {
-    width: calc(60% + 1em + 4px);
-    height: calc(2.0em + 4px);
-    margin: 0 auto;
-    margin-top: 0.5em;
-    margin-bottom: 3em;
-    font-size: 0.8333em;
-    color: $bluecolor;
-    text-transform: capitalize;
-    background-color: #FFFFFF;
-    border: 1px solid $bluecolor;
-    text-decoration: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.new-account {
+  align-items: center;
+  background-color: $whitecolor;
+  border: 1px solid $bluecolor;
+  color: $bluecolor;
+  display: flex;
+  font-size: .8333em;
+  height: calc(2em + 4px);
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 3em;
+  margin-top: .5em;
+  text-decoration: none;
+  text-transform: capitalize;
+  width: calc(60% + 1em + 4px);
 }
-
