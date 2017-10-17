@@ -3,6 +3,11 @@ import SignupForm from '../SignupForm';
 import './index.scss';
 import {Link} from 'react-router-dom';
 
+const Pass = 201;
+const ServerError = 500;
+const Conflict = 409;
+const FieldError = 400;
+
 class SignupComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -37,13 +42,13 @@ class SignupComponent extends React.Component {
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         this.setState({'status': 'being'});
-        if (xhr.status === 400) {
+        if (xhr.status === FieldError) {
           this.handleUserError(xhr);
-        } else if (xhr.status === 409) {
+        } else if (xhr.status === Conflict) {
           this.handleConflict(xhr);
-        } else if (xhr.status === 500) {
+        } else if (xhr.status === ServerError) {
           this.handleServerError();
-        } else if (xhr.status === 201) {
+        } else if (xhr.status === Pass) {
           this.returnSuccess();
         }
       }

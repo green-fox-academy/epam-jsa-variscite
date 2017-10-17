@@ -21,4 +21,4 @@ const SignupForm = (props) => (
   </form>
 );
 
-module.exports = SignupForm;
+export default SignupForm;

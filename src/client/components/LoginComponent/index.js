@@ -4,6 +4,11 @@ import {Link} from 'react-router-dom';
 import React from 'react';
 import LoginForm from '../LoginForm/index.js';
 
+const Pass = 200;
+const ServerError = 500;
+const MisMatch = 403;
+const FieldError = 400;
+
 class LoginComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -14,13 +19,13 @@ class LoginComponent extends React.Component {
   }
 
   handleLoginResponse(status, response) {
-    if (status === 400) {
+    if (status === FieldError) {
       this.handleFieldsError(response);
-    } else if (status === 403) {
+    } else if (status === MisMatch) {
       this.handleMisMatch(response);
-    } else if (status === 500) {
+    } else if (status === ServerError) {
       this.handleServerError(response);
-    } else if (status === 200) {
+    } else if (status === Pass) {
       window.location.href = '/feed';
     }
   }
