@@ -23,8 +23,10 @@ function logout(req, res) {
 
     deleteAccessToken(Token, function(err, response) {
       if (err) {
+        let obj = {'errorType': 'ServerError'};
+
         status = HTTP_STATUSES.SERVER_ERROR;
-        res.status(status).json(err);
+        res.status(status).json(obj);
       } else {
         status = HTTP_STATUSES.NO_CONTENT;
         res.status(status).json();
