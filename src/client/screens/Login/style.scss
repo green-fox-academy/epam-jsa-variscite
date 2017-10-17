@@ -1,0 +1,40 @@
+@import '../../style';
+
+.login-main {
+  background-color: $whitecolor;
+  box-shadow: 0 2px 4px 0 $shadowcolor;
+  display: flex;
+  flex-flow: column;
+  margin: 0 auto;
+  margin-top: 7em;
+  text-align: center;
+  width: 36em;
+}
+
+.login-title {
+  font-size: 1.2em;
+  margin-top: 2em;
+}
+
+.or {
+  font-size: .7em;
+  height: 1.2em;
+  margin: 0 auto;
+}
+
+.new-account {
+  align-items: center;
+  background-color: $whitecolor;
+  border: 1px solid $bluecolor;
+  color: $bluecolor;
+  display: flex;
+  font-size: .8333em;
+  height: calc(2em + 4px);
+  justify-content: center;
+  margin: 0 auto;
+  margin-bottom: 3em;
+  margin-top: .5em;
+  text-decoration: none;
+  text-transform: capitalize;
+  width: calc(60% + 1em + 4px);
+}
