@@ -38,7 +38,7 @@ function logout(req, res) {
         res.status(HTTP_STATUSES.SERVER_ERROR).
           json({'errorType': 'ServerError'});
       } else {
-        res.status(HTTP_STATUSES.OK).json('good');
+        res.status(HTTP_STATUSES.NO_CONTENT).json();
       }
     });
   }
