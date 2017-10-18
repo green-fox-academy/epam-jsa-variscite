@@ -1,14 +1,15 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class MainLinks extends React.Component {
   render() {
     return (
-      <div className="mainlinks">
+      <section className="main-links">
         <h1>good evening</h1>
-          <button className="home"><p>Home</p></button>
-          <button className="friends"><p>Friends</p></button>
-          <button className="news"><p>News Feed</p></button>
-      </div>
+        <Link className="home" to="/home">Home</Link>
+        <Link className="friends" to="/friends">Friends</Link>
+        <Link className="news" to="/news">News Feed</Link>
+      </section>
     );
   }
 }

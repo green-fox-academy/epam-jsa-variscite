@@ -1,15 +1,16 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class Shortcut extends React.Component {
   render() {
     return (
-      <div className="shortcut">
+      <section className="shortcut">
         <h1>shortcut</h1>
-          <button className="shortcut-btn"><p>Framer</p></button>
-          <button className="shortcut-btn"><p>Ochrasy</p></button>
-          <button className="shortcut-btn"><p>Mr.Moon</p></button>
-          <button className="shortcut-btn"><p>Josephine</p></button>
-      </div>
+        <Link className="shortcut-btn" to="/">Framer</Link>
+        <Link className="shortcut-btn" to="/">Ochrasy</Link>
+        <Link className="shortcut-btn" to="/">Mr.Moon</Link>
+        <Link className="shortcut-btn" to="/">Josephine</Link>
+      </section>
     );
   }
 }

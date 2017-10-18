@@ -7,11 +7,11 @@ import './style.scss';
 class NavigationBar extends React.Component {
   render() {
     return (
-      <aside className="navigation-bar">
+      <nav className="navigation-bar">
         <MainLinks />
         <Explore />
         <Shortcut />
-      </aside>
+      </nav>
     );
   }
 }

@@ -1,96 +1,56 @@
 @import '../../style';
+@import url('https://fonts.googleapis.com/css?family=Lato');
 
 $whitecolor: #fff;
 $fontcolor: #9b9b9b;
+$blackcolor: #000;
 
 .navigation-bar {
   background: $whitecolor;
-  font-size: .8em;
-  height: 35em;
+  font-size: .7em;
   margin-left: 1em;
   margin-top: 1em;
+  padding: .2em 0 0 1.2em;
   width: 10em;
 
-  div {
-    margin-left: 1em;
-  }
-
-  p {
-    margin-left: 2em;
-  }
-
-  .mainlinks {
-    margin-bottom: 1.9em;
-    padding-top: .6em;
-
-    p {
-      margin-top: 0;
-      text-align: left;
-    }
+  .main-links {
+    font-family: 'Lato', sans-serif;
+    font-weight: bold;
   }
 
   .shortcut {
-    margin-bottom: 1.9em;
+    padding-bottom: 100px;
 
-    p {
+    a {
       color: $fontcolor;
-      margin-top: 0;
-      text-align: left;
     }
   }
 
-  .explore {
-    margin-bottom: 1.9em;
-
-    p {
-      color: $fontcolor;
-      margin-top: 0;
-      text-align: left;
-    }
+  .explore a {
+    color: $fontcolor;
   }
 
   h1 {
     font-size: 1em;
     font-weight: normal;
-    margin-left: .5em;
-    padding-left: .2em;
     text-transform: uppercase;
   }
 
-  .friends {
-    padding-bottom: .9em;
-
-    p {
-      margin-top: -.2em;
-    }
-  }
-
-  .games {
-    padding-bottom: .9em;
-
-    p {
-      margin-top: -.2em;
-    }
-  }
-
-  button {
+  a {
     background-color: $whitecolor;
+    background-position: left;
     background-repeat: no-repeat;
-    background-size: contain;
+    background-size: auto 1em;
     border: 0;
+    color: $blackcolor;
     display: block;
-    font-size: .9em;
-    height: 1em;
-    margin-bottom: .9em;
-    margin-left: .8em;
+    margin-bottom: 1.2em;
     outline: 0;
-    padding-bottom: 1.2em;
-    padding-left: .6em;
-    padding-top: -.2em;
-    width: 8.5em;
+    text-decoration: none;
+    text-indent: 2.5em;
   }
 
-  button:focus {
+  button:active {
     color: $bluecolor;
   }
 }

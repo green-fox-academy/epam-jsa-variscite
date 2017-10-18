@@ -1,16 +1,17 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class Explore extends React.Component {
   render() {
     return (
-      <div className="explore">
-        <h1>explore</h1>       
-          <button className="music"><p>Music</p></button>
-          <button className="events"><p>Events</p></button>
-          <button className="pages"><p>Pages</p></button>
-          <button className="games"><p>Games</p></button>
-          <button className="thisday"><p>On this day</p></button>
-      </div>
+      <section className="explore">
+        <h1>explore</h1>
+        <Link className="music" to="/">Music</Link>
+        <Link className="events" to="/">Events</Link>
+        <Link className="pages" to="/">Pages</Link>
+        <Link className="games" to="/">Games</Link>
+        <Link className="thisday" to="/">On this day</Link>
+      </section>
     );
   }
 }
