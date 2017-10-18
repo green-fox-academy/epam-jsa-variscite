@@ -59,10 +59,18 @@ $fontcolor: #9b9b9b;
 
   .friends {
     padding-bottom: .9em;
+
+    p {
+      margin-top: -.2em;
+    }
   }
 
   .games {
     padding-bottom: .9em;
+
+    p {
+      margin-top: -.2em;
+    }
   }
 
   button {
@@ -75,10 +83,15 @@ $fontcolor: #9b9b9b;
     height: 1em;
     margin-bottom: .9em;
     margin-left: .8em;
+    outline: 0;
     padding-bottom: 1.2em;
     padding-left: .6em;
     padding-top: -.2em;
     width: 8.5em;
+  }
+
+  button:focus {
+    color: $bluecolor;
   }
 }
 
