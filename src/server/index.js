@@ -22,6 +22,8 @@ app.post('/api/signup', jsonParser, signupHandler.signup);
 
 app.post('/api/login', jsonParser, loginHandler.login);
 
+app.delete('/api/login', jsonParser, loginHandler.logout);
+
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });
