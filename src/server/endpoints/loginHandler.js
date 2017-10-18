@@ -2,31 +2,48 @@
 
 const db = require('../collections/usersDatabase');
 const HTTP_STATUSES = require('../modules/httpStatuses');
+const {deleteAccessToken} = require('../modules/tokenHandler.js');
 
 function login(req, res) {
   res.setHeader('Content-Type', 'application/json');
-  let email = req.body.email;
-  let password = req.body.password;
-  let status = HTTP_STATUSES.OK;
-  let contentType = req.headers['content-type'].toLowerCase();
-  let obj = {};
 
-  if (email === '' || password === '') {
-    obj = {'errorType': 'FieldMissing'};
-    status = HTTP_STATUSES.BAD_REQUEST;
-  } else if (contentType !== 'application/json') {
-    obj = {'errorType': 'ContentType'};
-    status = HTTP_STATUSES.BAD_REQUEST;
-  }
+  let userInfo = {
+    email: req.body.email,
+    password: req.body.password,
+  };
 
-  if (status !== HTTP_STATUSES.OK) {
-    res.status(status).json(obj);
+  if (userInfo.email === '' || userInfo.password === '') {
+    res.status(HTTP_STATUSES.BAD_REQUEST).json({'errorType': 'FieldMissing'});
+    return;
+  } else if (req.header('content-type').toLowerCase() !== 'application/json') {
+    res.status(HTTP_STATUSES.BAD_REQUEST).json({'errorType': 'ContentType'});
     return;
   }
 
-  let userAgent = req.headers['user-agent'].toLowerCase();
+  let userAgent = req.header('user-agent').toLowerCase();
 
-  db.checkUserInfo(userAgent, email, password, res);
+  db.checkUserInfo(userAgent, userInfo.email, userInfo.password, res);
 }
 
-module.exports = {login: login};
+function logout(req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  if (req.header('Authorization') === null) {
+    res.status(HTTP_STATUSES.UNAUTHORIZED).json({'errorType': 'HeaderMissing'});
+  } else {
+    let usernameToken = req.header('Authorization');
+
+    deleteAccessToken(usernameToken, function(err, response) {
+      if (err) {
+        res.status(HTTP_STATUSES.SERVER_ERROR).
+          json({'errorType': 'ServerError'});
+      } else {
+        res.status(HTTP_STATUSES.NO_CONTENT).json();
+      }
+    });
+  }
+}
+
+module.exports = {
+  login: login,
+  logout: logout,
+};
