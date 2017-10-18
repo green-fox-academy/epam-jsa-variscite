@@ -4,27 +4,12 @@ class Explore extends React.Component {
   render() {
     return (
       <div className="explore">
-        <h1>EXPLORE</h1>
-        <div>
-          <button className="music"></button>
-          <a>Music</a>
-        </div>
-        <div>
-          <button className="events"></button>
-          <a>Events</a>
-        </div>
-        <div>
-          <button className="pages"></button>
-          <a>Pages</a>
-        </div>
-        <div>
-          <button className="games"></button>
-          <a>Games</a>
-        </div>
-        <div>
-          <button className="thisday"></button>
-          <a>On this day</a>
-        </div>
+        <h1>explore</h1>       
+          <button className="music"><p>Music</p></button>
+          <button className="events"><p>Events</p></button>
+          <button className="pages"><p>Pages</p></button>
+          <button className="games"><p>Games</p></button>
+          <button className="thisday"><p>On this day</p></button>
       </div>
     );
   }

@@ -4,18 +4,10 @@ class MainLinks extends React.Component {
   render() {
     return (
       <div className="mainlinks">
-        <div>
-          <button className="home"></button>
-          <a>Home</a>
-        </div>
-        <div>
-          <button className="friends"></button>
-          <a>Friends</a>
-        </div>
-        <div>
-          <button className="news"></button>
-          <a>News Feed</a>
-        </div>
+        <h1>good evening</h1>
+          <button className="home"><p>Home</p></button>
+          <button className="friends"><p>Friends</p></button>
+          <button className="news"><p>News Feed</p></button>
       </div>
     );
   }
