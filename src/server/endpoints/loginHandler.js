@@ -2,8 +2,7 @@
 
 const db = require('../collections/usersDatabase');
 const HTTP_STATUSES = require('../modules/httpStatuses');
-const tokensCollection = require('../collections/tokens.js');
-const deleteAccessToken = tokensCollection.deleteDocumentByToken;
+const {deleteAccessToken} = require('../modules/tokenHandler.js');
 
 function login(req, res) {
   res.setHeader('Content-Type', 'application/json');
@@ -16,22 +15,22 @@ function login(req, res) {
   if (userInfo.email === '' || userInfo.password === '') {
     res.status(HTTP_STATUSES.BAD_REQUEST).json({'errorType': 'FieldMissing'});
     return;
-  } else if (req.headers['content-type'].toLowerCase() !== 'application/json') {
+  } else if (req.header('content-type').toLowerCase() !== 'application/json') {
     res.status(HTTP_STATUSES.BAD_REQUEST).json({'errorType': 'ContentType'});
     return;
   }
 
-  let userAgent = req.headers['user-agent'].toLowerCase();
+  let userAgent = req.header('user-agent').toLowerCase();
 
   db.checkUserInfo(userAgent, userInfo.email, userInfo.password, res);
 }
 
 function logout(req, res) {
   res.setHeader('Content-Type', 'application/json');
-  if (req.headers['Authorization'] === null) {
+  if (req.header('Authorization') === null) {
     res.status(HTTP_STATUSES.UNAUTHORIZED).json({'errorType': 'HeaderMissing'});
   } else {
-    let usernameToken = req.headers['Authorization'];
+    let usernameToken = req.header('Authorization');
 
     deleteAccessToken(usernameToken, function(err, response) {
       if (err) {
