@@ -54,6 +54,7 @@
     "body-parser": "^1.18.2",
     "cryptr": "^2.0.0",
     "dotenv": "^4.0.0",
+    "fine-uploader": "^5.15.0",
     "mongodb": "^2.2.31",
     "nodemon": "^1.12.1",
     "randomstring": "^1.1.5",
