@@ -1,5 +1,6 @@
 import React from 'react';
 import './style.scss';
+import HTTP_STATUSES from '../../modules/httpStatuses';
 
 class AddPost extends React.Component {
   constructor(props) {
@@ -19,12 +20,29 @@ class AddPost extends React.Component {
     }
   }
 
+  handlePostError(status, res) {
+    if(status === BAD_REQUEST) {
+      errorMessage = 'Something went wrong, please try later!';
+      this.setState({'errorMessage': errorMessage});
+    } else if (status === UNAUTHORIZED) {
+      errorMessage = 'You are not authorized! Please log in first!';
+      this.setState({'errorMessage': errorMessage});
+    } else if (status === FORBIDDEN) {
+      errorMessage = 'Please enter more words!';
+      this.setState({'errorMessage': errorMessage});
+    } else if (status === SERVER_ERROR) {
+      errorMessage = 'Sorry! Cannot connect to the database, please try again later!';
+      this.setState({'errorMessage': errorMessage});
+    }
+  }
+
   sendPost(data) {
     let xhr = new XMLHttpRequest();
     let token = window.localStorage.token;
 
     xhr.addEventListener('readystatechange', function() {
       if(xhr.readyState === XMLHttpRequest.DONE) {
+        this.handlePostError(xhr.status, xhr.response);
         window.location.reload();
       }
     }.bind(this));
