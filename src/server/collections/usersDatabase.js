@@ -129,7 +129,18 @@ function signUp(req, res) {
   });
 }
 
+function retrieveUser(db, filter, callback) {
+  db.collection('users').findOne(filters, (err, item) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to retrieve users: ', err);
+    }
+    db.close();
+    callback(err, item);
+  });
+}
+
 module.exports = {
   checkUserInfo: checkUserInfo,
   signUp: signUp,
+  retrieveUser: retrieveUser,
 };
