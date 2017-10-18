@@ -16,17 +16,22 @@ class FeedPage extends React.Component {
   }
 
   getAllPosts() {
-    
-    this.setState({posts:[{
-      username: 'Donald Trump',
-      postText: 'Make America great again! #America #greatwall',
-      postTime: '10th Oct at 8:12PM',
-      userPicURL: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-      postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-      numOfLikes: 248,
-      numOfComments: 36,
-      numOfShares: 192,
-    }]});
+    let xhr = new XMLHttpRequest();
+    let token = window.localStorage.token;
+
+    xhr.addEventListener('readystatechange', function() {
+      if(xhr.readyState === XMLHttpRequest.DONE) {
+        let posts = JSON.parse(xhr.response).posts;
+        let currentPost = this.state.posts;
+        currentPost.push(posts);
+        this.setState(currentPost);
+      }
+    }.bind(this));
+    xhr.open('GET', '/api/post');
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', token);
+    xhr.send();
   }
 
   handleOnload(event){
