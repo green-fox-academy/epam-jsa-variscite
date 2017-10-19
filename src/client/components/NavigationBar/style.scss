@@ -9,9 +9,11 @@ $blackcolor: #000;
   box-shadow: 0 2px 4px 0 $shadowcolor;
   font-size: .7em;
   margin-left: 1em;
-  margin-top: 1em;
+  margin-top: 0;
   padding: .2em 0 0 1.2em;
   width: 10em;
+  position: fixed;
+  top: 6em;
 
   .main-links {
     font-family: 'Lato', sans-serif;

@@ -1,11 +1,13 @@
 @import '../../style';
 
 header {
+  width: 100%;
   align-items: center;
   background: $bluecolor;
   display: flex;
   height: 3em;
   padding: 0 2em;
+  position: fixed;
 
   .logo-field {
     color: $whitecolor;
@@ -44,6 +46,10 @@ header {
       width: calc(98% - 2em);
     }
 
+    .search-input:focus {
+      outline: none;
+    }
+
     .search-submit {
       background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAABGdBTUEAALGPC/xhBQAABHBJREFUWAm9Vs+LXEUQ7upH1kXdlWASzWYyXgSVoAEx/rpIRBJhd9YoGANeXC85aHYOCt403uJFnMkoBsyqiG5QUMlml10UjyFeQoT8AcGdTBRJXF02G8lMl1/1zBt6ut8b3xtk36W7vqrq/l53dVWRyvCVKo0ic2vSkNoP8yKxGmPiEVL0OyvVAHZRkz69ZWTsh8+m6EaGJQMTChAHmKguP8qsjjHzXgfuM6U1LFjbdMftx76f2rzSxzBQJRJ5uXp1dIXXTzCbQ4FHJoCuaeI3z5SLn2Yyh1FAZPLD5XtbN/k0jvyBrIuk2hFVbtteeOObg9RKtekotGtgSTTVuf+FhCzMXL5+ZfkrXG3ww+6+Mu8a2Oswa6kkEJjrILikNC0SmUvKRKuKzN0I3IeAH8Bmu/3FuzLR0YXyzne7csKkS2S8Up9NjQmiT4aHh9/+9vDWKwlrWKhUbewzpvk+SO0KbIg40vTM3JHCT4GuA1gi8jqM4Z8DI1I3cGavLkwXZwNdAlA60bjVrLe+YMUv+GpsdP5MeecjBFK+TmQbI/JEk5R5SIj/3OGx63t2F14iUj/662H3h0u1xkEfj2XdTlYJeQLXkfUk4sVkPLqXmkORPgQyf7q4zNmYV3wslrVkzFiIRwlMiYlYzjt+93rhqiJ6L/Bjfnry5B8jAQ5Ad9J2jw7HuNQvMHuMUwSObvkcZHriAcIQr/7zVJKLxEgxUOCJBlhOYOG1bb/B5YLvxmTu8TGRkYnVmK+wecIHB5DxUi75bkhtwX5io6WK+sY2WQVgfgBJbjX0otEQkxNBKQ8UyJgBNgCAte8K3JiC1yQ2GgEk/UTPJ2m7BxhAsPWF+MHAlVRidpZgvegbg9wBH8srl47X9yBRBvGgtQ4zOBbX0ln5m0gBk9rh43lkNuot3x7BuzK8bfsvPi6ylvYORXjNV0oBk9rh41lk+YmkesNEX6b1Jlp6TDCt+RvgenZJAXvxa458XT+5dLxxv+HmKd8GgYvcyR/7eCzboic9Jk7lWgzGo/wVGpvF52v1O2Os39hpBc4iNjb7dsgfM/PlYhCPsR0Oo/1NVH6dMqxmYtkdbQFD7ZC03cmYXbW8DhuYiImk64gNKYqemz+yI4jHrj6eyDjxwXLFKJ52sZ55u3ZckIwpycrmCTzRpNfR4wcBtujo9LPz5R1nfZ3I3RMRQeKh3WOq1L5B7Ab9+pHpISIbyFGPV+vSArwDIdAPSiL2SyNjgzU2klFaOWl0pccEi/OuLsscGxmscVJiwm7qOSGORtAhLY5XLj/pqvr+sQ1EtHe2s0JTgyc95Dq7cyy0InlCnmj8OiZq9Se4yUt2c9cYc/9k+hJxfaWzkqZG+ol2KUcVlQKG2iFpWzJmUrISMqZlFhWrUXc9mbtkMhPxF8kjl6r1x1tsllLJbIoe2xAiQvo/yMwGwZrnT/PYzk0XzkWk9+M+/vb90Jxt2TAisrmQURHtA5m/XDLI3Kc27GrcjSc/unxf86ZBruKtQmJ+ujjzL8yuu3QPa3B1AAAAAElFTkSuQmCC') $whitecolor;
       background-repeat: no-repeat;
@@ -51,7 +57,7 @@ header {
       border: 0;
       float: right;
       margin: .3em 0;
-      min-width: 2em;
+      // min-width: 2em;
       width: 3%;
     }
   }
