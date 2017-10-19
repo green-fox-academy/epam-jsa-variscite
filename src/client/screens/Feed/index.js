@@ -68,7 +68,7 @@ class FeedPage extends React.Component {
     this.getAllPosts();
   }
 
-  post(event) {
+  addPost(event) {
     event.preventDefault();
     let postContent = {content: event.target.elements.namedItem('input').value};
 
@@ -126,7 +126,7 @@ class FeedPage extends React.Component {
         <main className="container" onLoad={this.handleOnload.bind(this)}>
           <AddPost
             errorMessage={this.state.errorMessage}
-            onSubmit={this.post.bind(this)}
+            onSubmit={this.addPost.bind(this)}
           />
           {postsToRender}
         </main>
