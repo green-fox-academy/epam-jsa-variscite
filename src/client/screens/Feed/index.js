@@ -21,30 +21,30 @@ class FeedPage extends React.Component {
 
   handleGetPostError(state) {
     let errorMessage = null;
+    let pass = true;
 
-    if (status === HTTP_STATUSES.BAD_REQUEST) {
-      errorMessage = 'Something went wrong, please try later!';
-      this.setState({'errorMessage': errorMessage});
-    } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
+    if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      pass = false;
       errorMessage = 'You are not authorized! Please log in first!';
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
+      pass = false;
       errorMessage = 'Cannot connect to the database, please try again later!';
-      this.setState({'errorMessage': errorMessage});
     }
+    this.setState({'errorMessage': errorMessage});
+    return pass;
   }
 
   getAllPosts() {
     let xhr = new XMLHttpRequest();
-    let token = window.localStorage.token;
+    let token = window.localStorage.getItem('token');
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        this.handleGetPostError(xhr.state);
-        let posts = JSON.parse(xhr.response);
-        let currentPost = this.state.posts;
+        if(this.handleGetPostError(xhr.state)) {
+          let posts = JSON.parse(xhr.response);
 
-        posts.forEach(currentPost.push(posts));
-        this.setState(currentPost);
+          this.setState({posts: posts});
+        }
       }
     }.bind(this));
     xhr.open('GET', '/api/post');
@@ -55,12 +55,12 @@ class FeedPage extends React.Component {
     this.setState({posts:[{
     	username: 'Donald Trump',
     	postText: 'Make America great again! #America #greatwall',
-       postTime: '10th Oct at 8:12PM',
-       userPicURL: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-       postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-       numOfLikes: 248,
-       numOfComments: 36,
-       numOfShares: 192,
+      postTime: '10th Oct at 8:12PM',
+      userPicURL: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+      postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+      numOfLikes: 248,
+      numOfComments: 36,
+      numOfShares: 192,
     }]});
   }
 
@@ -84,23 +84,20 @@ class FeedPage extends React.Component {
 
     if (status === HTTP_STATUSES.BAD_REQUEST) {
       errorMessage = 'Something went wrong, please try later!';
-      this.setState({'errorMessage': errorMessage});
     } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
       errorMessage = 'You are not authorized! Please log in first!';
-      this.setState({'errorMessage': errorMessage});
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       errorMessage = 'Cannot connect to the database, please try again later!';
-      this.setState({'errorMessage': errorMessage});
     }
+    this.setState({'errorMessage': errorMessage});
   }
 
   sendPost(data) {
     let xhr = new XMLHttpRequest();
-    let token = window.localStorage.token;
+    let token = window.localStorage.getItem('token');
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        this.setState({'errorMessage': null});
         this.handlePostError(xhr.status);
       }
     }.bind(this));
@@ -116,7 +113,10 @@ class FeedPage extends React.Component {
 
     postsToRender = postsToRender.map(function(item, key) {
       return (
-        <Post item={item} key={item.postId}/>
+        <div className="post-comment-container">
+          <Post item={item} key={item.postId}/>
+          <Comment />
+        </div>
       );
     });
     return (
@@ -129,7 +129,6 @@ class FeedPage extends React.Component {
             onSubmit={this.post.bind(this)}
           />
           {postsToRender}
-          <Comment />
         </main>
       </div>
     );

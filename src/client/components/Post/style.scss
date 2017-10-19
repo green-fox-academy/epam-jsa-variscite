@@ -6,6 +6,13 @@
   flex-flow: column;
   align-items: center;
   width: 60%;
+
+  .post-comment-container {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
 }
 
 .post-container {
@@ -14,14 +21,14 @@
   box-shadow: 2px 2px 5px 0 $shadowcolor;
   display: flex;
   justify-content: center;
-  margin: 0 auto;
+  margin: 0;
   width: 90%;
 }
 
 .post-box {
   margin-bottom: 15px;
   margin-top: 20px;
-  width: 55%;
+  width: 92%;
 
   .post-header {
     display: flex;
