@@ -17,8 +17,6 @@ function newPostHandler(req, res, postInfo) {
       res.status(HTTP_STATUSES.SERVER_ERROR)
         .json({'errorType': 'ServerError'});
     } else {
-      console.log('info here');
-      console.log(item);
       res.setHeader('Content-Type', 'application/json');
       /* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/
       res.setHeader('Location', '/post/' + item.ops[0]._id);
