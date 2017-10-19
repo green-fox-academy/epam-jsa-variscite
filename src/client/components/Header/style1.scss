@@ -1,15 +1,19 @@
 @import '../../style';
 
 header {
+  width: 100%;
   align-items: center;
   background: $bluecolor;
   display: flex;
   height: 3em;
-  padding: 0 2em;
+  justify-content: center;
+  position: fixed;
+  min-width: 1000px;
 
   .logo-field {
     color: $whitecolor;
-    width: 25%;
+    position: fixed;
+    left: 32px;
 
     button {
       background: $whitecolor;
@@ -21,11 +25,14 @@ header {
       height: 1.5em;
       margin: 0 1em 0 0;
       text-align: center;
-      width: 1.5em;
+    }
+
+    button:hover {
+        cursor: pointer;
     }
 
     a {
-      align-items: center;
+    //   margin-left: 10px;
     }
   }
 
@@ -34,14 +41,24 @@ header {
     border-radius: .2em;
     height: 1.6em;
     width: 50%;
+    display: flex;
 
     .search-input {
       border: 0;
       height: 100%;
+      width: calc(97% - .5em);
       margin-left: .5em;
-      overflow: hidden;
+    //   overflow: hidden;
       padding: 0;
-      width: calc(98% - 2em);
+      min-width: 50%;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    .search-submit:hover {
+        cursor: pointer;
     }
 
     .search-submit {
@@ -50,36 +67,39 @@ header {
       background-size: contain;
       border: 0;
       float: right;
-      margin: .3em 0;
-      min-width: 2em;
-      width: 3%;
+      margin: .3em .4em 0 0;
+      width: 1.3em;
     }
   }
 
   .other-options {
-    width: 25%;
+    position: fixed;
+    right: 32px;
+    display: flex;
+    justify-content: space-between;
 
     button {
       background-color: $bluecolor;
       background-repeat: no-repeat;
       border: 0;
       color: $whitecolor;
-      float: right;
       font-size: 1em;
       font-weight: 500;
       height: 2em;
       line-height: .8em;
+      margin-left: 10px;
+      margin-right: 10px;
+      padding: 0;
     }
 
-    button:not(:first-child) {
-      margin-right: 1em;
+    button:hover {
+        cursor: pointer;
     }
 
     .img-button {
       background-position: center center;
       background-size: 1em;
-      height: 2em;
-      width: 2em;
+      width: 1em;
     }
 
     .mystery-button {
@@ -92,10 +112,10 @@ header {
   }
 }
 
-.logged-in-header {
-  justify-content: center;
-}
+// .logged-in-header {
+// //   justify-content: center;
+// }
 
-.guest-header {
-  justify-content: flex-start;
-}
+// .guest-header {
+// //   justify-content: flex-start;
+// }
