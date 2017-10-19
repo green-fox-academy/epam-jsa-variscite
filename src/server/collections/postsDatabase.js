@@ -13,7 +13,6 @@ function createNewPost(postInfo) {
 
 function connectMongoTo(operation, callback) {
   MongoClient.connect(url, (err, db) => {
-    console.log(url);
     if (err !== null) {
       console.log('[MONGO ERROR] Unable to connect: ', err);
       db.close();
@@ -38,7 +37,7 @@ function insertDocument(db, postInfo, callback) {
 }
 
 module.exports = {
-  insertDocumentBy: (postInfo, callback) => {
+  insertDocument: (postInfo, callback) => {
     connectMongoTo((db) => {
       insertDocument(db, postInfo, callback);
     });

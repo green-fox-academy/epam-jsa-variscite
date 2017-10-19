@@ -1,7 +1,7 @@
 'use strict';
 
 const HTTP_STATUSES = require('../modules/httpStatuses');
-const {insertDocumentBy} = require('../collections/postsDatabase.js');
+const postsCollection = require('../collections/postsDatabase.js');
 const {getAccessToken} = require('../modules/tokenHandler.js');
 
 function collectData(req) {
@@ -12,7 +12,7 @@ function collectData(req) {
 }
 
 function newPostHandler(req, res, postInfo) {
-  insertDocumentBy(postInfo, function(err, item) {
+  postsCollection.insertDocument(postInfo, function(err, item) {
     if (err) {
       res.status(HTTP_STATUSES.SERVER_ERROR)
         .json({'errorType': 'ServerError'});
