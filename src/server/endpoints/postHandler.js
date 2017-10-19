@@ -1,12 +1,12 @@
 'use strict';
 
-const tokenHandler = require('../modules/tokenHandler');
-const postsDb = require('../collections/postsDatabase');
-const friendsDb = require('../collections/friendsDatabase');
 const HTTP_STATUSES = require('../modules/httpStatuses');
+const postsCollection = require('../collections/postsDatabase');
+const friendsCollection = require('../collections/friendsDatabase');
+const {getAccessToken} = require('../modules/tokenHandler');
 
 function findPosts(array, res) {
-  postsDb.findPosts(array, (err, result)=> {
+  postsCollection.findPosts(array, (err, result)=> {
     if (err !== null) {
       res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       return;
@@ -37,7 +37,7 @@ function findAllPosts(id, item, res) {
 function findUserFriends(tokenDescriptor, res) {
   let id = tokenDescriptor.userId.toString();
 
-  friendsDb.findFriends(id, (err, id, item) => {
+  friendsCollection.findFriends(id, (err, id, item) => {
     if (err !== null) {
       res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       return;
@@ -49,7 +49,7 @@ function findUserFriends(tokenDescriptor, res) {
 function displayPosts(req, res) {
   let token = req.header('Authorization');
 
-  tokenHandler.getAccessToken(token, (err, tokenDescriptor) => {
+  getAccessToken(token, (err, tokenDescriptor) => {
     if (err !== null) {
       res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       return;

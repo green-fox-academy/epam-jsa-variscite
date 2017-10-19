@@ -3,6 +3,17 @@
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.DB_URL;
 
+function connectMongoTo(operation, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect: ', err);
+      db.close();
+      return callback(err, null);
+    }
+    operation(db);
+  });
+}
+
 function retrievePosts(db, array, callback) {
   let filter = {userId: {'$in': array}};
 
@@ -16,11 +27,7 @@ function retrievePosts(db, array, callback) {
 }
 
 function findPosts(array, callback) {
-  MongoClient.connect(url, (err, db) => {
-    if (err !== null) {
-      console.log('[MONGO ERROR] Unable to connect to db: ', err);
-      return;
-    }
+  connectMongoTo((db) => {
     retrievePosts(db, array, callback);
   });
 }
