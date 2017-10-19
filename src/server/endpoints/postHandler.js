@@ -106,6 +106,11 @@ function createNewPost(req, res) {
           .json({'errorType': 'server error'});
         return;
       }
+      if (item === null) {
+        res.status(HTTP_STATUSES.UNAUTHORIZED)
+          .json({'errorType': 'Unauthorized'});
+        return;
+      }
       postInfo.token = item.userId;
       newPostHandler(req, res, postInfo);
     });
