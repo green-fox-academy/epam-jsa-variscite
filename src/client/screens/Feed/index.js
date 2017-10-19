@@ -14,7 +14,17 @@ class FeedPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'posts': [],
+      'posts': [{
+        postId: 1,
+      	username: 'Donald Trump',
+      	postText: 'Make America great again! #America #greatwall',
+        postTime: '10th Oct at 8:12PM',
+        userPicURL: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+        postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+        numOfLikes: 248,
+        numOfComments: 36,
+        numOfShares: 192,
+      }],
       'errorMessage': null,
     };
   }
