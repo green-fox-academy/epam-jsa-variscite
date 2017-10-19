@@ -1,8 +1,8 @@
 'use strict';
 
 const tokenHandler = require('../modules/tokenHandler');
-const postsDb = require('../collections/posts');
-const friendsDb = require('../collections/friends');
+const postsDb = require('../collections/postsDatabase');
+const friendsDb = require('../collections/friendsDatabase');
 const HTTP_STATUSES = require('../modules/httpStatuses');
 
 function findPosts(array, res) {

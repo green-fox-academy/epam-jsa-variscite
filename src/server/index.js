@@ -23,7 +23,7 @@ app.post('/api/signup', jsonParser, signupHandler.signup);
 
 app.post('/api/login', jsonParser, loginHandler.login);
 
-app.post('/api/post', postHandler.displayPosts);
+app.get('/api/post', postHandler.displayPosts);
 
 app.delete('/api/login', jsonParser, loginHandler.logout);
 
