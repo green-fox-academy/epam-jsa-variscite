@@ -1,6 +1,5 @@
 import React from 'react';
 import './style.scss';
-import HTTP_STATUSES from '../../httpStatuses';
 
 class AddPost extends React.Component {
   render() {

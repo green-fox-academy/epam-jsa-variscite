@@ -7,24 +7,27 @@ import Post from '../../components/Post';
 import Comment from '../../components/Comment';
 import AddPost from '../../components/AddPost';
 import HTTP_STATUSES from '../../httpStatuses';
+const MIN_LEN = 2;
 
 class FeedPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: [],
-      'errorMessage': null
+      'posts': [],
+      'errorMessage': null,
     };
   }
 
   handleGetPostError(state) {
-    if(status === HTTP_STATUSES.BAD_REQUEST) {
+    let errorMessage = null;
+
+    if (status === HTTP_STATUSES.BAD_REQUEST) {
       errorMessage = 'Something went wrong, please try later!';
       this.setState({'errorMessage': errorMessage});
     } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
-        errorMessage = 'You are not authorized! Please log in first!';
+      errorMessage = 'You are not authorized! Please log in first!';
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
-      errorMessage = 'Sorry! Cannot connect to the database, please try again later!';
+      errorMessage = 'Cannot connect to the database, please try again later!';
       this.setState({'errorMessage': errorMessage});
     }
   }
@@ -34,10 +37,11 @@ class FeedPage extends React.Component {
     let token = window.localStorage.token;
 
     xhr.addEventListener('readystatechange', function() {
-      if(xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
         this.handleGetPostError(xhr.state);
         let posts = JSON.parse(xhr.response);
         let currentPost = this.state.posts;
+
         posts.forEach(currentPost.push(posts));
         this.setState(currentPost);
       }
@@ -49,14 +53,15 @@ class FeedPage extends React.Component {
     xhr.send();
   }
 
-  handleOnload(event){
+  handleOnload(event) {
     this.getAllPosts();
   }
 
   post(event) {
     event.preventDefault();
     let postContent = {content: event.target.elements.namedItem('input').value};
-    if(postContent.content.length > 2){
+
+    if (postContent.content.length > MIN_LEN) {
       this.sendPost(postContent);
     } else {
       this.setState({'errorMessage': 'Please enter more words!'});
@@ -64,7 +69,9 @@ class FeedPage extends React.Component {
   }
 
   handlePostError(status) {
-    if(status === HTTP_STATUSES.BAD_REQUEST) {
+    let errorMessage = null;
+
+    if (status === HTTP_STATUSES.BAD_REQUEST) {
       errorMessage = 'Something went wrong, please try later!';
       this.setState({'errorMessage': errorMessage});
     } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
@@ -74,7 +81,7 @@ class FeedPage extends React.Component {
       errorMessage = 'Please enter more words!';
       this.setState({'errorMessage': errorMessage});
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
-      errorMessage = 'Sorry! Cannot connect to the database, please try again later!';
+      errorMessage = 'Cannot connect to the database, please try again later!';
       this.setState({'errorMessage': errorMessage});
     }
   }
@@ -84,7 +91,7 @@ class FeedPage extends React.Component {
     let token = window.localStorage.token;
 
     xhr.addEventListener('readystatechange', function() {
-      if(xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
         this.setState({'errorMessage': null});
         this.handlePostError(xhr.status);
       }
@@ -97,17 +104,21 @@ class FeedPage extends React.Component {
   }
 
   render() {
-    var postsToRender = this.state.posts;
-  		postsToRender = postsToRender.map(function(item, key){
-  			return (
-  				<Post item={item} key={item.postId}/>
-  			);
-  		}.bind(this));
+    let postsToRender = this.state.posts;
+
+    postsToRender = postsToRender.map(function(item, key) {
+      return (
+        <Post item={item} key={item.postId}/>
+      );
+    });
     return (
       <div>
         <Header isLoggedIn={true}/>
         <main className="container" onLoad={this.handleOnload.bind(this)}>
-          <AddPost errorMessage={this.state.errorMessage} onSubmit={this.post.bind(this)}/>
+          <AddPost
+            errorMessage={this.state.errorMessage}
+            onSubmit={this.post.bind(this)}
+          />
           {postsToRender}
           <Comment />
         </main>
