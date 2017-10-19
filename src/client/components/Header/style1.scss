@@ -6,14 +6,16 @@ header {
   background: $bluecolor;
   display: flex;
   height: 3em;
-  justify-content: center;
-  position: fixed;
+  justify-content: space-around;
+  position: absolute;
   min-width: 1000px;
+
 
   .logo-field {
     color: $whitecolor;
-    position: fixed;
-    left: 32px;
+    width: 17%;
+    // position: absolute;
+    // left: 20px;
 
     button {
       background: $whitecolor;
@@ -37,6 +39,7 @@ header {
   }
 
   form {
+    text-align: center;
     background: $whitecolor;
     border-radius: .2em;
     height: 1.6em;
@@ -73,8 +76,9 @@ header {
   }
 
   .other-options {
-    position: fixed;
-    right: 32px;
+    // position: fixed;
+    // right: 3%;
+    width: 17%;
     display: flex;
     justify-content: space-between;
 
