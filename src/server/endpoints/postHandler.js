@@ -1,46 +1,62 @@
 'use strict';
 
 const HTTP_STATUSES = require('../modules/httpStatuses');
-const {insertDocumentByID} = require('../collections/postsDatabase.js');
+const {insertDocumentBy} = require('../collections/postsDatabase.js');
+const {getAccessToken} = require('../modules/tokenHandler.js');
 
 function collectData(req) {
   return {
-    userID: req.header('Authorization'),
+    token: req.header('Authorization'),
     postText: req.body.postText,
   };
 }
 
-function newPostErrorHandler(req, res, postInfo) {
+function newPostHandler(req, res, postInfo) {
+  insertDocumentBy(postInfo, function(err, item) {
+    if (err) {
+      res.status(HTTP_STATUSES.SERVER_ERROR)
+        .json({'errorType': 'ServerError'});
+    } else {
+      console.log('info here');
+      console.log(item);
+      res.setHeader('Content-Type', 'application/json');
+      /* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/
+      res.setHeader('Location', '/post/' + item.ops[0]._id);
+      res.status(HTTP_STATUSES.CREATED).json();
+    }
+  });
+}
+
+function dataValidation(req, res, postInfo) {
   if (req.header('content-type').toLowerCase() !== 'application/json') {
-    res.status(HTTP_STATUSES.BAD_REQUEST).json({'errorType': 'ContentType'});
-    return;
+    return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
   } else if (req.header('Authorization') === null) {
-    res.status(HTTP_STATUSES.UNAUTHORIZED).json({'errorType': 'Unauthorized'});
-    return;
+    return {'status': HTTP_STATUSES.UNAUTHORIZED, 'errorType': 'Unauthorized'};
   } else if (req.body.postText === null) {
-    res.status(HTTP_STATUSES.FORBIDDEN).json({'errorType': 'FieldsMissing'});
-  } else {
-    insertDocumentByID(postInfo, function(err, response) {
-      if (err) {
-        res.status(HTTP_STATUSES.SERVER_ERROR).json({'errorType': 'ServerError'});
-      } else {
-        res.setHeader('Content-Type', 'application/json');
-        // res.setHeader('Location', '')
-        console.log('good');
-        res.status(HTTP_STATUSES.NO_CONTENT).json();
-      }
-    });
-    return;
+    return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'FieldsMissing'};
   }
+  return true;
 }
 
 function createNewPost(req, res) {
   let postInfo = collectData(req);
 
-  newPostErrorHandler(req, res, postInfo);
-  // hbgeuy65644
-  // header -> Location /posts/hbgeuy65644
-  // status -> 201
+  let validationResult = dataValidation(req, res, postInfo);
+
+  if (validationResult === true) {
+    getAccessToken(postInfo.token, function(err, item) {
+      if (err) {
+        res.status(HTTP_STATUSES.SERVER_ERROR)
+          .json({'errorType': 'server error'});
+        return;
+      }
+      postInfo.token = item.userId;
+      newPostHandler(req, res, postInfo);
+    });
+  } else {
+    res.status(validationResult.status)
+      .json({'errorType': validationResult.errorType});
+  }
 }
 
 module.exports = {createNewPost: createNewPost};
