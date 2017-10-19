@@ -6,7 +6,7 @@ const url = process.env.DB_URL;
 function createNewPost(postInfo) {
   return {
     user: postInfo.token,
-    text: postInfo.postInfo.postText,
+    text: postInfo.postText,
     timeStamp: Date.now(),
   };
 }
