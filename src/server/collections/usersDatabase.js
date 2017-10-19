@@ -9,7 +9,7 @@ const HTTP_STATUSES = require('../modules/httpStatuses');
 
 function checkInfo(obj, userAgent, password, res) {
   if (obj !== null && obj.password === cryptr.encrypt(password)) {
-    tokenHandler.createAccessToken(obj._id,
+    tokenHandler.createAccessToken(obj._id.toString(),
       userAgent, function(err, tokenDescriptor) {
         if (err !== null) {
           console.log('[MONGO ERROR] Unable to generate token: ', err);

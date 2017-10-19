@@ -56,7 +56,7 @@ function findAllPosts(id, item, res) {
 }
 
 function findUserFriends(tokenDescriptor, res) {
-  let id = tokenDescriptor.userId.toString();
+  let id = tokenDescriptor.userId;
 
   friendsCollection.findFriends(id, (err, id, item) => {
     if (err !== null) {
