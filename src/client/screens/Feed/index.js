@@ -88,9 +88,6 @@ class FeedPage extends React.Component {
     } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
       errorMessage = 'You are not authorized! Please log in first!';
       this.setState({'errorMessage': errorMessage});
-    } else if (status === HTTP_STATUSES.FORBIDDEN) {
-      errorMessage = 'Please enter more words!';
-      this.setState({'errorMessage': errorMessage});
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       errorMessage = 'Cannot connect to the database, please try again later!';
       this.setState({'errorMessage': errorMessage});
