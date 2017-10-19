@@ -7,6 +7,7 @@ import Post from '../../components/Post';
 import Comment from '../../components/Comment';
 import AddPost from '../../components/AddPost';
 import HTTP_STATUSES from '../../httpStatuses';
+import NavigationBar from '../../components/NavigationBar';
 const MIN_LEN = 2;
 
 class FeedPage extends React.Component {
@@ -114,6 +115,7 @@ class FeedPage extends React.Component {
     return (
       <div>
         <Header isLoggedIn={true}/>
+        <NavigationBar />
         <main className="container" onLoad={this.handleOnload.bind(this)}>
           <AddPost
             errorMessage={this.state.errorMessage}
