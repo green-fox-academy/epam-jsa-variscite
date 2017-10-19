@@ -3,22 +3,25 @@
 const MongoClient = require('mongodb').MongoClient;
 const url = process.env.DB_URL;
 
-function findPosts(filter) {
-  MongoClient.connect(url, (err, db) => {
-    if (err !== null) {
-      return;
-    }
-    retrievePosts(db,filter);
-  });
-}
+function retrievePosts(db, array, callback) {
+  let filter = {userId: {'$in': array}};
 
-function retrievePosts(db, filter) {
-  db.collection('posts').find(filter, (err, item) => {
+  db.collection('posts').find(filter).toArray((err, result) => {
     if (err !== null) {
       console.log('[MONGO ERROR] Unable to retrieve friends: ', err);
     }
     db.close();
-    
+    callback(err, result);
+  });
+}
+
+function findPosts(array, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      return;
+    }
+    retrievePosts(db, array, callback);
   });
 }
 
