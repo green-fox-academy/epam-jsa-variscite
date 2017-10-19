@@ -8,7 +8,7 @@ header {
   height: 3em;
   justify-content: space-around;
   position: absolute;
-  min-width: 1000px;
+  min-width: 1160px;
 
 
   .logo-field {
@@ -43,7 +43,7 @@ header {
     background: $whitecolor;
     border-radius: .2em;
     height: 1.6em;
-    width: 50%;
+    width: 45%;
     display: flex;
 
     .search-input {
@@ -76,11 +76,9 @@ header {
   }
 
   .other-options {
-    // position: fixed;
-    // right: 3%;
     width: 17%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 
     button {
       background-color: $bluecolor;
@@ -103,7 +101,8 @@ header {
     .img-button {
       background-position: center center;
       background-size: 1em;
-      width: 1em;
+      width: 2em;
+      flex-shrink: 0;
     }
 
     .mystery-button {
