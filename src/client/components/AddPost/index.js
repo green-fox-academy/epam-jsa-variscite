@@ -6,7 +6,8 @@ class AddPost extends React.Component {
     return (
       <div className="compose-container">
         <img src={this.props.myPicURL} />
-        <form className="compose">
+        <form className="compose"
+          onSubmit={this.props.onSubmit}>
           <textarea name="input" required
             placeholder="What's on your mind?"></textarea>
           <div className="act">
@@ -15,6 +16,8 @@ class AddPost extends React.Component {
               <button className="checkin" type="button">check in</button>
               <button className="tag" type="button">tag friend</button>
             </div>
+            {this.props.errorMessage !== null ? <span className="error">
+              {this.props.errorMessage}</span> : null}
             <input type="submit" value="Post"></input>
           </div>
         </form>
