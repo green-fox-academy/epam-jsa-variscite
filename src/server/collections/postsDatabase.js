@@ -5,9 +5,12 @@ const url = process.env.DB_URL;
 
 function createNewPost(postInfo) {
   return {
-    user: postInfo.token,
-    text: postInfo.postText,
+    userId: postInfo.token,
+    username: postInfo.username,
+    postText: postInfo.postText,
     timeStamp: Date.now(),
+    userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg',
+    postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
   };
 }
 
@@ -19,6 +22,24 @@ function connectMongoTo(operation, callback) {
       return callback(err, null);
     }
     operation(db);
+  });
+}
+
+function retrievePosts(db, array, callback) {
+  let filter = {userId: {'$in': array}};
+
+  db.collection('posts').find(filter).toArray((err, result) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to retrieve friends: ', err);
+    }
+    db.close();
+    callback(err, result);
+  });
+}
+
+function findPosts(array, callback) {
+  connectMongoTo((db) => {
+    retrievePosts(db, array, callback);
   });
 }
 
@@ -42,5 +63,5 @@ module.exports = {
       insertDocument(db, postInfo, callback);
     });
   },
+  findPosts: findPosts,
 };
-

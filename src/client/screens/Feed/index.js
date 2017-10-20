@@ -14,16 +14,39 @@ class FeedPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'posts': [],
+      'posts': [
+        {
+          'postId': '1',
+          'username': 'Donald Trump',
+          'postText': 'Make America great again! #America #greatwall',
+          'postTime': '10th Oct at 8:12PM',
+          'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+          'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+          'numOfLikes': 248,
+          'numOfComments': 36,
+          'numOfShares': 192,
+        }, {
+          'postId': '2',
+          'username': 'Donald Trump',
+          'postText': 'Make America great again! #America #greatwall',
+          'postTime': '10th Oct at 8:12PM',
+          'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+          'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+          'numOfLikes': 248,
+          'numOfComments': 36,
+          'numOfShares': 192,
+        },
+      ],
       'errorMessage': null,
     };
   }
 
-  handleGetPostError(state) {
+  handleGetPostError(status) {
     let errorMessage = null;
     let pass = true;
 
     if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      window.location.href = '/login';
       pass = false;
       errorMessage = 'You are not authorized! Please log in first!';
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
@@ -40,8 +63,10 @@ class FeedPage extends React.Component {
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        if(this.handleGetPostError(xhr.state)) {
-          let posts = JSON.parse(xhr.response);
+        if (this.handleGetPostError(xhr.status)) {
+          let posts = JSON.parse(xhr.response).post;
+
+          posts.reverse(posts.timeStamp);
 
           this.setState({posts: posts});
         }
@@ -52,28 +77,22 @@ class FeedPage extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
     xhr.send();
-    this.setState({posts:[{
-    	username: 'Donald Trump',
-    	postText: 'Make America great again! #America #greatwall',
-      postTime: '10th Oct at 8:12PM',
-      userPicURL: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-      postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-      numOfLikes: 248,
-      numOfComments: 36,
-      numOfShares: 192,
-    }]});
   }
 
-  handleOnload(event) {
+  componentDidMount() {
     this.getAllPosts();
   }
 
   addPost(event) {
     event.preventDefault();
-    let postContent = {content: event.target.elements.namedItem('input').value};
+    let postContent = {
+      postText: event.target.elements
+        .namedItem('input').value,
+    };
 
-    if (postContent.content.length > MIN_LEN) {
+    if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);
+      event.target.elements.namedItem('input').value = '';
     } else {
       this.setState({'errorMessage': 'Please enter more words!'});
     }
@@ -85,9 +104,12 @@ class FeedPage extends React.Component {
     if (status === HTTP_STATUSES.BAD_REQUEST) {
       errorMessage = 'Something went wrong, please try later!';
     } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      window.location.href = '/login';
       errorMessage = 'You are not authorized! Please log in first!';
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       errorMessage = 'Cannot connect to the database, please try again later!';
+    } else {
+      this.getAllPosts();
     }
     this.setState({'errorMessage': errorMessage});
   }
@@ -113,8 +135,8 @@ class FeedPage extends React.Component {
 
     postsToRender = postsToRender.map(function(item, key) {
       return (
-        <div className="post-comment-container">
-          <Post item={item} key={item.postId}/>
+        <div key={item.postId} className="post-comment-container">
+          <Post item={item} />
           <Comment />
         </div>
       );
@@ -123,7 +145,7 @@ class FeedPage extends React.Component {
       <div>
         <Header isLoggedIn={true}/>
         <NavigationBar />
-        <main className="container" onLoad={this.handleOnload.bind(this)}>
+        <main className="container">
           <AddPost
             errorMessage={this.state.errorMessage}
             onSubmit={this.addPost.bind(this)}

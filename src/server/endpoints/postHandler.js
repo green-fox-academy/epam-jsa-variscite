@@ -1,13 +1,32 @@
 'use strict';
 
 const HTTP_STATUSES = require('../modules/httpStatuses');
-const postsCollection = require('../collections/postsDatabase.js');
-const {getAccessToken} = require('../modules/tokenHandler.js');
+const postsCollection = require('../collections/postsDatabase');
+const friendsCollection = require('../collections/friendsDatabase');
+const usersCollection = require('../collections/usersDatabase');
+const {getAccessToken} = require('../modules/tokenHandler');
+
+function findPosts(array, res) {
+  postsCollection.findPosts(array, (err, result)=> {
+    if (err !== null) {
+      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+      return;
+    }
+    if (result !== null) {
+      let obj = {post: result};
+
+      res.status(HTTP_STATUSES.OK).json(obj);
+    } else {
+      res.status(HTTP_STATUSES.OK).json({});
+    }
+  });
+}
 
 function collectData(req) {
   return {
     token: req.header('Authorization'),
     postText: req.body.postText,
+    username: '',
   };
 }
 
@@ -25,10 +44,51 @@ function newPostHandler(req, res, postInfo) {
   });
 }
 
+function findAllPosts(id, item, res) {
+  if (item !== null) {
+    let users = item.userFriends;
+
+    users.push(item.userId);
+    findPosts(users, res);
+  } else {
+    let user = [id];
+
+    findPosts(user, res);
+  }
+}
+
+function findUserFriends(tokenDescriptor, res) {
+  let id = tokenDescriptor.userId;
+
+  friendsCollection.findFriends(id, (err, id, item) => {
+    if (err !== null) {
+      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+      return;
+    }
+    findAllPosts(id, item, res);
+  });
+}
+
+function displayPosts(req, res) {
+  let token = req.header('Authorization');
+
+  getAccessToken(token, (err, tokenDescriptor) => {
+    if (err !== null) {
+      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+      return;
+    }
+    if (tokenDescriptor === null) {
+      res.status(HTTP_STATUSES.UNAUTHORIZED).json({errorType: 'loginError'});
+      return;
+    }
+    findUserFriends(tokenDescriptor, res);
+  });
+}
+
 function dataValidation(req, res, postInfo) {
   if (req.header('content-type').toLowerCase() !== 'application/json') {
     return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
-  } else if (req.header('Authorization') === null) {
+  } else if (req.header('Authorization') === null || !req.header('Authorization')) {
     return {'status': HTTP_STATUSES.UNAUTHORIZED, 'errorType': 'Unauthorized'};
   } else if (req.body.postText === null) {
     return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'FieldsMissing'};
@@ -48,8 +108,17 @@ function createNewPost(req, res) {
           .json({'errorType': 'server error'});
         return;
       }
+      if (item === null) {
+        res.status(HTTP_STATUSES.UNAUTHORIZED)
+          .json({'errorType': 'Unauthorized'});
+        return;
+      }
       postInfo.token = item.userId;
-      newPostHandler(req, res, postInfo);
+
+      usersCollection.findUsername(item.userId, (result) => {
+        postInfo.username = result.username;
+        newPostHandler(req, res, postInfo);
+      });
     });
   } else {
     res.status(validationResult.status)
@@ -57,4 +126,7 @@ function createNewPost(req, res) {
   }
 }
 
-module.exports = {createNewPost: createNewPost};
+module.exports = {
+  createNewPost: createNewPost,
+  displayPosts: displayPosts,
+};
