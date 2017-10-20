@@ -8,6 +8,8 @@ function createNewPost(postInfo) {
     userId: postInfo.token,
     postText: postInfo.postText,
     timeStamp: Date.now(),
+    userPicURL: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+    postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
   };
 }
 

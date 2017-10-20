@@ -61,6 +61,7 @@ class FeedPage extends React.Component {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if(this.handleGetPostError(xhr.status)) {
           let posts = JSON.parse(xhr.response).post;
+          posts.reverse(posts.timeStamp);
 
           this.setState({posts: posts});
         }
