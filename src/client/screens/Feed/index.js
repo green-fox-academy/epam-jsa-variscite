@@ -49,9 +49,7 @@ class FeedPage extends React.Component {
       pass = false;
       errorMessage = 'Cannot connect to the database, please try again later!';
     }
-    console.log(this.state);
     this.setState({'errorMessage': errorMessage});
-    console.log(this.state);
     return pass;
   }
 
@@ -62,7 +60,7 @@ class FeedPage extends React.Component {
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if(this.handleGetPostError(xhr.status)) {
-          let posts = JSON.parse(xhr.response);
+          let posts = JSON.parse(xhr.response).post;
 
           this.setState({posts: posts});
         }
@@ -75,16 +73,16 @@ class FeedPage extends React.Component {
     xhr.send();
   }
 
-  handleOnload(event) {
+  componentDidMount() {
     this.getAllPosts();
   }
 
   addPost(event) {
     event.preventDefault();
-    let postContent = {content: event.target.elements.namedItem('input').value};
-
-    if (postContent.content.length > MIN_LEN) {
+    let postContent = {postText: event.target.elements.namedItem('input').value};
+    if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);
+      event.target.elements.namedItem('input').value = '';
     } else {
       this.setState({'errorMessage': 'Please enter more words!'});
     }
@@ -99,6 +97,8 @@ class FeedPage extends React.Component {
       errorMessage = 'You are not authorized! Please log in first!';
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       errorMessage = 'Cannot connect to the database, please try again later!';
+    } else {
+      this.getAllPosts();
     }
     this.setState({'errorMessage': errorMessage});
   }
@@ -133,7 +133,7 @@ class FeedPage extends React.Component {
       <div>
         <Header isLoggedIn={true}/>
         <NavigationBar />
-        <main className="container" onLoad={this.handleOnload.bind(this)}>
+        <main className="container">
           <AddPost
             errorMessage={this.state.errorMessage}
             onSubmit={this.addPost.bind(this)}
