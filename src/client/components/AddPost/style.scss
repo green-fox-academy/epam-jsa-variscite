@@ -73,7 +73,7 @@
       cursor: pointer;
     }
 
-    button:focus {
+    button, input[type=submit]:focus {
       outline-style: none;
     }
 
