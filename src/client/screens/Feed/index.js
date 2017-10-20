@@ -8,7 +8,7 @@ import NavigationBar from '../../components/NavigationBar';
 class FeedPage extends React.Component {
   render() {
     return (
-      <div className="body">
+      <div>
         <Header isLoggedIn={true} show = {() => this.handleOpen()} />
         <NavigationBar />
       </div>
