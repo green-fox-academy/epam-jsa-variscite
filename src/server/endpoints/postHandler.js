@@ -26,7 +26,7 @@ function collectData(req) {
   return {
     token: req.header('Authorization'),
     postText: req.body.postText,
-    username: ''
+    username: '',
   };
 }
 
@@ -114,12 +114,11 @@ function createNewPost(req, res) {
         return;
       }
       postInfo.token = item.userId;
-      
-      usersCollection.findUsername(item.userId, (err, result) => {
+
+      usersCollection.findUsername(item.userId, (result) => {
         postInfo.username = result.username;
-        console.log(result);
         newPostHandler(req, res, postInfo);
-      })
+      });
     });
   } else {
     res.status(validationResult.status)

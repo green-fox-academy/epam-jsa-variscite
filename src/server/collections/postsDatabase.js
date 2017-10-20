@@ -6,10 +6,10 @@ const url = process.env.DB_URL;
 function createNewPost(postInfo) {
   return {
     userId: postInfo.token,
-    username:postInfo.username,
+    username: postInfo.username,
     postText: postInfo.postText,
     timeStamp: Date.now(),
-    userPicURL: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+    userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg',
     postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
   };
 }
