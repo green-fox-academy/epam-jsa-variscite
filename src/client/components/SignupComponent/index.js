@@ -116,7 +116,7 @@ class SignupComponent extends React.Component {
 
   returnSuccess() {
     this.setState({'error': ''});
-    window.location.href = '/feed';
+    window.location.href = '/login';
   }
 
   render() {

@@ -14,27 +14,29 @@ class FeedPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'posts': [{
-        'postId': '1',
-        username: 'Donald Trump',
-      	postText: 'Make America great again! #America #greatwall',
-        postTime: '10th Oct at 8:12PM',
-        userPicURL: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-        postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-        numOfLikes: 248,
-        numOfComments: 36,
-        numOfShares: 192,
-      }, {
-        'postId': '2',
-      	username: 'Donald Trump',
-      	postText: 'Make America great again! #America #greatwall',
-        postTime: '10th Oct at 8:12PM',
-        userPicURL: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-        postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-        numOfLikes: 248,
-        numOfComments: 36,
-        numOfShares: 192,
-      }],
+      'posts': [
+        {
+          'postId': '1',
+          'username': 'Donald Trump',
+          'postText': 'Make America great again! #America #greatwall',
+          'postTime': '10th Oct at 8:12PM',
+          'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+          'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+          'numOfLikes': 248,
+          'numOfComments': 36,
+          'numOfShares': 192,
+        }, {
+          'postId': '2',
+          'username': 'Donald Trump',
+          'postText': 'Make America great again! #America #greatwall',
+          'postTime': '10th Oct at 8:12PM',
+          'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+          'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+          'numOfLikes': 248,
+          'numOfComments': 36,
+          'numOfShares': 192,
+        },
+      ],
       'errorMessage': null,
     };
   }
@@ -42,6 +44,7 @@ class FeedPage extends React.Component {
   handleGetPostError(status) {
     let errorMessage = null;
     let pass = true;
+
     if (status === HTTP_STATUSES.UNAUTHORIZED) {
       pass = false;
       errorMessage = 'You are not authorized! Please log in first!';
@@ -59,8 +62,9 @@ class FeedPage extends React.Component {
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        if(this.handleGetPostError(xhr.status)) {
+        if (this.handleGetPostError(xhr.status)) {
           let posts = JSON.parse(xhr.response).post;
+
           posts.reverse(posts.timeStamp);
 
           this.setState({posts: posts});
@@ -80,7 +84,11 @@ class FeedPage extends React.Component {
 
   addPost(event) {
     event.preventDefault();
-    let postContent = {postText: event.target.elements.namedItem('input').value};
+    let postContent = {
+      postText: event.target.elements
+        .namedItem('input').value,
+    };
+
     if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);
       event.target.elements.namedItem('input').value = '';
@@ -122,6 +130,7 @@ class FeedPage extends React.Component {
 
   render() {
     let postsToRender = this.state.posts;
+
     postsToRender = postsToRender.map(function(item, key) {
       return (
         <div key={item.postId} className="post-comment-container">

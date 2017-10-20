@@ -20,7 +20,8 @@ class LoginComponent extends React.Component {
 
   handleLoginResponse(status, response) {
     let token = JSON.parse(response).token;
-    localStorage.setItem("token", token);
+
+    localStorage.setItem('token', token);
     if (status === FieldError) {
       this.handleFieldsError(response);
     } else if (status === MisMatch) {

@@ -137,7 +137,7 @@ function retrieveUser(db, id, callback) {
       console.log('[MONGO ERROR] Unable to retrieve friends: ', err);
     }
     db.close();
-    callback(err, result);
+    callback(result);
   });
 }
 
