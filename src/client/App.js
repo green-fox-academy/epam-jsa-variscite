@@ -7,13 +7,11 @@ import SignupPage from './screens/Signup';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tokenExists: localStorage.getItem('token') !== null,
-    };
+    this.state = {tokenExists: localStorage.getItem('token') !== null};
   }
 
   render() {
-    if(this.state.tokenExists) {
+    if (this.state.tokenExists) {
       return (
         <Router>
           <div>
@@ -24,16 +22,15 @@ class App extends React.Component {
           </div>
         </Router>
       );
-    } else {
-      return (
-        <Router>
-          <Switch>
-            <Route path="/signup" component={SignupPage} />
-            <Route component={LoginPage}/>
-          </Switch>
-        </Router>
-      );
     }
+    return (
+      <Router>
+        <Switch>
+          <Route path="/signup" component={SignupPage} />
+          <Route component={LoginPage}/>
+        </Switch>
+      </Router>
+    );
   }
 }
 
