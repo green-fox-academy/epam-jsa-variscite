@@ -8,6 +8,8 @@ header {
   height: 3em;
   justify-content: space-around;
   min-width: 1160px;
+  position: fixed;
+  z-index: 100;
 
   .logo-field {
     color: $whitecolor;
