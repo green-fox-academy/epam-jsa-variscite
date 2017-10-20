@@ -5,13 +5,17 @@ import OtherOptions from '../OtherOptions';
 import './style1.scss';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     if (this.props.isLoggedIn === true) {
       return (
         <header className="logged-in-header">
           <Logo />
           <SearchBar />
-          <OtherOptions />
+          <OtherOptions show = {() => this.props.show()}/>
         </header>
       );
     }
