@@ -7,9 +7,9 @@ header {
   display: flex;
   height: 3em;
   justify-content: space-around;
-  position: absolute;
   min-width: 1160px;
-
+  position: fixed;
+  z-index: 100;
 
   .logo-field {
     color: $whitecolor;
@@ -175,7 +175,7 @@ header {
     width: 100px;
     font-size: 12px;
     padding: 12px 18px 12px 18px;
-    
+
     margin: 0 2px 0 2px;
     border-bottom: 1px solid $bordergrey;
   }

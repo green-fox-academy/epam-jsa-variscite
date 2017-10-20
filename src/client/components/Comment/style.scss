@@ -9,28 +9,32 @@
   justify-content: center;
   margin: 0 auto;
   margin-top: 5px;
-  width: 100%;
+  width: 90%;
 
   .user-pic {
     height: 45px;
     width: 45px;
   }
 
+  .user-pic:hover {
+    cursor: pointer;
+  }
+
   .comment-input {
     display: flex;
     margin-bottom: 16px;
-    width: 600px;
+    width: 93%;
 
     textarea {
       border: 1px solid $bordergrey;
       height: 41px;
       line-height: 41px;
-      margin-left: 20px;
+      margin-left: 2em;
       padding: 0;
-      padding-left: 10px;
+      padding-left: 1em;
       padding-right: 3em;
       resize: none;
-      width: calc(528px - 3em);
+      width: calc(100% - 6em - 45px);
     }
 
     button {
@@ -52,11 +56,11 @@
   justify-content: flex-start;
   margin: 20px 0 10px;
   padding-bottom: 5px;
-  width: 600px;
+  width: 93%;
 
   .comment-info {
     margin-left: 20px;
-    width: 550px;
+    width: calc(100% - 20px);
 
     .name {
       color: $bluecolor;
@@ -81,7 +85,7 @@
       padding: 0;
     }
 
-    button:hover {
+    .name, button:hover {
       cursor: pointer;
     }
 
