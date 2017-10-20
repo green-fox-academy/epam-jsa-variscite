@@ -11,7 +11,7 @@ class Header extends React.Component {
         <header className="logged-in-header">
           <Logo />
           <SearchBar />
-          <OtherOptions />
+          <OtherOptions show = {() => this.props.show()}/>
         </header>
       );
     }

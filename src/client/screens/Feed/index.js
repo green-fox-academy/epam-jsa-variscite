@@ -143,7 +143,7 @@ class FeedPage extends React.Component {
     });
     return (
       <div>
-        <Header isLoggedIn={true}/>
+        <Header isLoggedIn={true} show = {() => this.handleOpen()} />
         <NavigationBar />
         <main className="container">
           <AddPost

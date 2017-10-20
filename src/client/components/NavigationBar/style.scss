@@ -10,9 +10,11 @@ $blackcolor: #000;
   float: left;
   font-size: .9em;
   margin-left: 1em;
-  margin-top: 1em;
+  margin-top: 0;
   padding: .2em 0 0 1.2em;
   width: 17%;
+  position: fixed;
+  top: 6em;
 
   .main-links {
     font-family: 'Lato', sans-serif;
