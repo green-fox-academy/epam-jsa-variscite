@@ -19,7 +19,7 @@ class FeedPage extends React.Component {
           'postId': '1',
           'username': 'Donald Trump',
           'postText': 'Make America great again! #America #greatwall',
-          'postTime': '10th Oct at 8:12PM',
+          'timeStamp': 1508469350963,
           'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
           'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
           'numOfLikes': 248,
@@ -28,8 +28,8 @@ class FeedPage extends React.Component {
         }, {
           'postId': '2',
           'username': 'Donald Trump',
+          'timeStamp': 1508469350963,
           'postText': 'Make America great again! #America #greatwall',
-          'postTime': '10th Oct at 8:12PM',
           'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
           'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
           'numOfLikes': 248,
@@ -67,6 +67,12 @@ class FeedPage extends React.Component {
           let posts = JSON.parse(xhr.response).post;
 
           posts.reverse(posts.timeStamp);
+          posts = posts.map(function(item, index){
+            let newDate = new Date(item.timeStamp)
+
+            item.timeStamp = newDate.toString();
+            return item;
+          });
 
           this.setState({posts: posts});
         }
