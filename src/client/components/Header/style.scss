@@ -1,15 +1,19 @@
 @import '../../style';
 
 header {
+  width: 100%;
   align-items: center;
   background: $bluecolor;
   display: flex;
   height: 3em;
-  padding: 0 2em;
+  justify-content: space-around;
+  position: absolute;
+  min-width: 1160px;
+
 
   .logo-field {
     color: $whitecolor;
-    width: 25%;
+    width: 17%;
 
     button {
       background: $whitecolor;
@@ -21,27 +25,49 @@ header {
       height: 1.5em;
       margin: 0 1em 0 0;
       text-align: center;
-      width: 1.5em;
     }
 
-    a {
-      align-items: center;
+    button:hover {
+      color: $whitecolor;
+      background-color: $userblue;
+    }
+
+    a:hover {
+      color: $userblue;
+    }
+
+    button, a:hover {
+      cursor: pointer;
+      transition: color .5s;
     }
   }
 
   form {
+    text-align: center;
     background: $whitecolor;
     border-radius: .2em;
     height: 1.6em;
-    width: 50%;
+    width: 45%;
+    display: flex;
 
     .search-input {
       border: 0;
       height: 100%;
+      width: calc(97% - .5em);
       margin-left: .5em;
       overflow: hidden;
       padding: 0;
-      width: calc(98% - 2em);
+      min-width: 50%;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    .search-submit:hover {
+        cursor: pointer;
+        opacity: .5;
+        transition: opacity .5s;
     }
 
     .search-submit {
@@ -50,36 +76,41 @@ header {
       background-size: contain;
       border: 0;
       float: right;
-      margin: .3em 0;
-      min-width: 2em;
-      width: 3%;
+      margin: .3em .4em 0 0;
+      width: 1.3em;
     }
   }
 
   .other-options {
-    width: 25%;
+    width: 17%;
+    display: flex;
+    justify-content: space-around;
 
     button {
       background-color: $bluecolor;
       background-repeat: no-repeat;
       border: 0;
       color: $whitecolor;
-      float: right;
       font-size: 1em;
       font-weight: 500;
       height: 2em;
       line-height: .8em;
+      margin-left: 10px;
+      margin-right: 10px;
+      padding: 0;
     }
 
-    button:not(:first-child) {
-      margin-right: 1em;
+    button:hover {
+        cursor: pointer;
+        opacity: .2;
+        transition: opacity .5s;
     }
 
     .img-button {
       background-position: center center;
       background-size: 1em;
-      height: 2em;
       width: 2em;
+      flex-shrink: 0;
     }
 
     .mystery-button {
@@ -92,10 +123,70 @@ header {
   }
 }
 
-.logged-in-header {
-  justify-content: center;
-}
-
 .guest-header {
   justify-content: flex-start;
+  width: 100%;
+  background: $bluecolor;
+  display: flex;
+  height: 3em;
+  position: relative;
+  min-width: 1160px;
+  .logo-field {
+    margin-left: 3.5%;
+  }
+}
+
+.menu-block {
+  position: relative;
+}
+
+.menu-container {
+  position: absolute;
+  right: -3em;
+}
+
+.arrow {
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  right: -4em;
+  border-left: .5em solid transparent;
+  border-right: .5em solid transparent;
+  border-bottom: .5em solid $whitecolor;
+}
+
+.arrow:after {
+  background-color: grey;
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  right: 3em;
+  float: right;
+  background-color: $whitecolor;
+  list-style: none;
+  border: 3px solid white;
+  box-shadow: 0px 4px 7px 1px grey;
+  li {
+    width: 100px;
+    font-size: 12px;
+    padding: 12px 18px 12px 18px;
+    
+    margin: 0 2px 0 2px;
+    border-bottom: 1px solid $bordergrey;
+  }
+
+  li:hover {
+    cursor: pointer;
+    background-color: $bluecolor;
+    color: $whitecolor;
+  }
+
+  li:last-child {
+    border: none;
+  }
 }
