@@ -68,6 +68,9 @@
     width: 100%;
   }
 
+  .name, .user-pic, .post-pic:hover {
+    cursor: pointer;
+  }
   .post-info {
     border-bottom: 1px solid $bordergrey;
     color: $lightgrey;
