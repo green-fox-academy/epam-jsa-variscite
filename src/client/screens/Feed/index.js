@@ -135,7 +135,7 @@ class FeedPage extends React.Component {
 
     postsToRender = postsToRender.map(function(item, key) {
       return (
-        <div key={item.postId} className="post-comment-container">
+        <div key={item._id} className="post-comment-container">
           <Post item={item} />
           <Comment />
         </div>
