@@ -3,6 +3,7 @@
 const HTTP_STATUSES = require('../modules/httpStatuses');
 const postsCollection = require('../collections/postsDatabase');
 const friendsCollection = require('../collections/friendsDatabase');
+const usersCollection = require('../collections/usersDatabase');
 const {getAccessToken} = require('../modules/tokenHandler');
 
 function findPosts(array, res) {
@@ -25,6 +26,7 @@ function collectData(req) {
   return {
     token: req.header('Authorization'),
     postText: req.body.postText,
+    username: ''
   };
 }
 
@@ -112,7 +114,12 @@ function createNewPost(req, res) {
         return;
       }
       postInfo.token = item.userId;
-      newPostHandler(req, res, postInfo);
+      
+      usersCollection.findUsername(item.userId, (err, result) => {
+        postInfo.username = result.username;
+        console.log(result);
+        newPostHandler(req, res, postInfo);
+      })
     });
   } else {
     res.status(validationResult.status)

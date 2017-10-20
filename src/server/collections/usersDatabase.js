@@ -1,6 +1,7 @@
 'use strict';
 
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 const url = process.env.DB_URL;
 const Cryptr = require('cryptr');
 const cryptr = new Cryptr('jiaMi');
@@ -129,7 +130,30 @@ function signUp(req, res) {
   });
 }
 
+function retrieveUser(db, id, callback) {
+  id = new ObjectId(id);
+  db.collection('users').findOne({_id: id}, (err, result) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to retrieve friends: ', err);
+    }
+    db.close();
+    callback(err, result);
+  });
+}
+
+function findUsername(id, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      return;
+    }
+
+    retrieveUser(db, id, callback);
+  });
+}
+
 module.exports = {
   checkUserInfo: checkUserInfo,
   signUp: signUp,
+  findUsername: findUsername,
 };

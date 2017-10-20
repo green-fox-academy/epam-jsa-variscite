@@ -6,6 +6,7 @@ const url = process.env.DB_URL;
 function createNewPost(postInfo) {
   return {
     userId: postInfo.token,
+    username:postInfo.username,
     postText: postInfo.postText,
     timeStamp: Date.now(),
     userPicURL: 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
