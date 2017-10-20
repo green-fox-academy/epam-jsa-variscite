@@ -117,7 +117,6 @@ function createNewPost(req, res) {
 
       usersCollection.findUsername(item.userId, (result) => {
         postInfo.username = result.username;
-        console.log(result);
         newPostHandler(req, res, postInfo);
       });
     });
