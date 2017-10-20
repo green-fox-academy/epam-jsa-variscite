@@ -16,6 +16,10 @@
     width: 45px;
   }
 
+  .user-pic:hover {
+    cursor: pointer;
+  }
+
   .comment-input {
     display: flex;
     margin-bottom: 16px;
@@ -81,7 +85,7 @@
       padding: 0;
     }
 
-    button:hover {
+    .name, button:hover {
       cursor: pointer;
     }
 
