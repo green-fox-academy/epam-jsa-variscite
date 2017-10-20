@@ -43,6 +43,7 @@ class FeedPage extends React.Component {
     let errorMessage = null;
     let pass = true;
     if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      window.location.href = '/login';
       pass = false;
       errorMessage = 'You are not authorized! Please log in first!';
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
@@ -95,6 +96,7 @@ class FeedPage extends React.Component {
     if (status === HTTP_STATUSES.BAD_REQUEST) {
       errorMessage = 'Something went wrong, please try later!';
     } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      window.location.href = '/login';
       errorMessage = 'You are not authorized! Please log in first!';
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       errorMessage = 'Cannot connect to the database, please try again later!';
