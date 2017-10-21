@@ -1,6 +1,13 @@
 import React from 'react';
 
 class OtherOptions extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  logout() {
+    localStorage.removeItem('token');
+    window.location.href = '/login';
+  }
   render() {
     /* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/ 
     let list = [
@@ -21,10 +28,11 @@ class OtherOptions extends React.Component {
           <li className="menu-option">{list[2]}</li>
           <li className="menu-option">{list[3]}</li>
           <li className="menu-option">{list[4]}</li>
-          <li className="menu-option">{list[5]}</li>
+          <li className="menu-option" onClick={function() {
+            this.logout();
+          }.bind(this)}>{list[5]}</li>
         </ul>
       </div>
-
     );
   }
 }
