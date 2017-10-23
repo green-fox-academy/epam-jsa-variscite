@@ -1,11 +1,16 @@
 import React from 'react';
 
 class PostAct extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <div className="post-act">
         <button className="like">Like</button>
-        <button className="comment">Comment</button>
+        <button className="comment" onClick={function() {
+          this.props.showInput();
+        }.bind(this)}>Comment</button>
         <button className="share">Share</button>
       </div>
     );

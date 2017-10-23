@@ -3,8 +3,7 @@
 import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
 import Header from '../../components/Header';
-import Post from '../../components/Post';
-import Comment from '../../components/Comment';
+import PostComment from '../../components/PostComment';
 import AddPost from '../../components/AddPost';
 import HTTP_STATUSES from '../../httpStatuses';
 import NavigationBar from '../../components/NavigationBar';
@@ -40,10 +39,6 @@ class FeedPage extends React.Component {
       'errorMessage': null,
       'isCommentDispaly': false,
     };
-  }
-
-  showCommentInput() {
-    this.setState({isCommentDisplay: true});
   }
 
   handleGetPostError(status) {
@@ -146,10 +141,7 @@ class FeedPage extends React.Component {
 
     postsToRender = postsToRender.map(function(item, key) {
       return (
-        <div key={item._id} className="post-comment-container">
-          <Post item={item} />
-          <Comment />
-        </div>
+        <PostComment item={item}/>
       );
     });
     return (
