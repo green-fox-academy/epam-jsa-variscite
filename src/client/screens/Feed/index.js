@@ -15,7 +15,7 @@ class FeedPage extends React.Component {
     this.state = {
       'posts': [
         {
-          'postId': '1',
+          '_id': '1',
           'username': 'Donald Trump',
           'postText': 'Make America great again! #America #greatwall',
           'timeStamp': 1508469350963,
@@ -25,7 +25,7 @@ class FeedPage extends React.Component {
           'numOfComments': 36,
           'numOfShares': 192,
         }, {
-          'postId': '2',
+          '_id': '2',
           'username': 'Donald Trump',
           'timeStamp': 1508469350963,
           'postText': 'Make America great again! #America #greatwall',

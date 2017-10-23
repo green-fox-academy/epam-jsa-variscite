@@ -17,8 +17,8 @@ class Comment extends React.Component {
             />
           </div>
         </div>
-        {/* <CommentInput myPicURL={this.props.myPicURL} /> */}
-        {this.props.inputBoxState === true ? <CommentInput myPicURL={this.props.myPicURL} /> : null}
+        {this.props.inputBoxState === true ?
+          <CommentInput post_id={this.props.post_id} myPicURL={this.props.myPicURL} /> : null}
       </div>
     );
   }

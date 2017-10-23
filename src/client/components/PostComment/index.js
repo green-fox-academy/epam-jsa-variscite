@@ -21,7 +21,7 @@ class PostComment extends React.Component {
     return (
       <div key={this.props.item._id} className="post-comment-container">
         <Post item={this.props.item} showInput = {() => this.showInput()}/>
-        <Comment inputBoxState={this.state.isInputDisplay}/>
+        <Comment post_id={this.props.item._id} inputBoxState={this.state.isInputDisplay}/>
       </div>
     );
   }
