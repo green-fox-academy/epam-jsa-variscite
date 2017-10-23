@@ -5,7 +5,7 @@ class PostInfo extends React.Component {
     return (
       <div className="post-info">
         <span className="likes">{this.props.postInfo.numOfLikes} likes</span>
-        <span>{this.props.postInfo.comments.length} comments</span>
+        <span>{this.props.postInfo.numOfComments} comments</span>
         <span>{this.props.postInfo.numOfShares} shares</span>
       </div>
     );
