@@ -1,6 +1,7 @@
 'use strict';
 
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 const url = process.env.DB_URL;
 
 function createNewPost(postInfo) {
@@ -60,22 +61,25 @@ function insertDocument(db, postInfo, callback) {
   });
 }
 
-function likePost(id, req, callback) {
+function likePost(id, userName, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
       console.log('Couldn\'t get connect to the db', err);
       return;
     }
     db.collection('posts').find({'_id': ObjectId(id)}).toArray(function(err, element) {
-      if(element[0].likes.includes(res)){
-        db.collection('posts').findAndModify({_id: ObjectId(id)}, [['_id', 1]],{$set:{likes:element[0].likes.splice(element[0].likes.indexOf(req), 1)}}, {new:true, w:1}, function(err, element){
+      if(element[0].likes.includes(userName)) {
+        let index = element[0].likes.indexOf(userName);
+        element[0].likes.splice(index, 1);
+        db.collection('posts').findAndModify({_id: ObjectId(id)}, [['_id', 1]],{$set:{likes:element[0].likes}}, {new:true, w:1}, function(err, element){
   				db.close();
-  				callback(element.likes);
+  				callback(element.value.likes.length);
   			});
       } else {
-        db.collection('posts').findAndModify({_id: ObjectId(id)}, [['_id', 1]],{$set:{likes:element[0].likes.push(req)}}, {new:true, w:1}, function(err, element){
+        element[0].likes.push(userName)
+        db.collection('posts').findAndModify({_id: ObjectId(id)}, [['_id', 1]],{$set:{likes:element[0].likes}}, {new:true, w:1}, function(err, element){
   				db.close();
-  				callback(element.likes);
+  				callback(element.value.likes.length);
   			});
       }
 		});

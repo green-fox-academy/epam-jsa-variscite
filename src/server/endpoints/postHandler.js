@@ -105,12 +105,28 @@ function dataValidation(req, res, postInfo) {
 }
 
 function like(req, res) {
-  let id = req.params._id;
-  console.log(id);
-  console.log(req);
-  postsCollection.likePost(id, req, function(data){
-		res.send(data);
-	});
+  let id = req.params.id;
+  let token = req.headers.authorization;
+  let userName = null;
+  getAccessToken(token, function(err, item) {
+    if (err) {
+      res.status(HTTP_STATUSES.SERVER_ERROR)
+        .json({'errorType': 'server error'});
+      return;
+    }
+    if (item === null) {
+      res.status(HTTP_STATUSES.UNAUTHORIZED)
+        .json({'errorType': 'Unauthorized'});
+      return;
+    }
+    usersCollection.findUsername(item.userId, (result) => {
+      userName = result.username;
+      postsCollection.likePost(id, userName, function(data){
+        res.status(200).json(data);
+      });
+    });
+  });
+
 }
 
 function createNewPost(req, res) {
