@@ -2,9 +2,6 @@ import React from 'react';
 const badRequest = 400;
 
 class OtherOptions extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   handleLogoutError(status, response) {
     if (status === badRequest) {
       return;
