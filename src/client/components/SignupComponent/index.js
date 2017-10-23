@@ -60,7 +60,7 @@ class SignupComponent extends React.Component {
     } else if (xhr.status === ServerError) {
       this.handleServerError();
     } else if (xhr.status === Pass) {
-      this.returnSuccess();
+      this.returnSuccess(xhr);
     }
   }
 
@@ -114,9 +114,12 @@ class SignupComponent extends React.Component {
     this.setState({'error': 'Something wrong, please try again later.'});
   }
 
-  returnSuccess() {
+  returnSuccess(xhr) {
+    let token = JSON.parse(xhr.response).token;
+
+    localStorage.setItem('token', token);
     this.setState({'error': ''});
-    window.location.href = '/login';
+    window.location.href = '/feed';
   }
 
   render() {
