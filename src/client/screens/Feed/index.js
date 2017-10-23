@@ -24,7 +24,7 @@ class FeedPage extends React.Component {
           'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
           'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
           'numOfLikes': 248,
-          'numOfComments': 36,
+          'comments': [{}],
           'numOfShares': 192,
         }, {
           'postId': '2',
@@ -34,7 +34,7 @@ class FeedPage extends React.Component {
           'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
           'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
           'numOfLikes': 248,
-          'numOfComments': 36,
+          'comments': [{}],
           'numOfShares': 192,
         },
       ],
