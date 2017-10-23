@@ -12,8 +12,16 @@ function findPosts(array, res) {
       res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       return;
     }
+
     if (result !== null) {
-      let obj = {post: result};
+      let data = result.map(function(val) {
+        val.numOfComments = val.comments.length;
+        val.numOfLikes = val.likes.length;
+        val.numOfShares = val.shares.length;
+        return val;
+      });
+
+      let obj = {post: data};
 
       res.status(HTTP_STATUSES.OK).json(obj);
     } else {
