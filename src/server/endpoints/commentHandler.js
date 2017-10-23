@@ -28,7 +28,7 @@ function dataValidation(req, res, commentText) {
 }
 
 function commentHandler(req, res, commentInfo) {
-  postsCollection.insertComment(commentInfo.postId, function(err, item) {
+  postsCollection.insertComment(commentInfo, function(err, item) {
     if (err) {
       res.status(HTTP_STATUSES.SERVER_ERROR)
         .json({'errorType': 'ServerError'});
@@ -65,7 +65,6 @@ function createComment(req, res) {
         commentHandler(req, res, commentInfo);
       });
     });
-    insertComment(commentInfo.postId, callback);
   } else {
     res.status(validationResult.status)
       .json({'errorType': validationResult.errorType});

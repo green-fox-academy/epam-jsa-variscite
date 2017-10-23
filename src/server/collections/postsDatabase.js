@@ -14,6 +14,19 @@ function createNewPost(postInfo) {
   };
 }
 
+function createNewComment(commentInfo) {
+  return {
+    userId: commentInfo.token,
+    postId: commentInfo.postId,
+    username: commentInfo.username,
+    commentText: commentInfo.commentText,
+    timeStamp: Date.now(),
+    userPicURL: '',
+    likes: 0,
+    replys: [],
+  };
+}
+
 function connectMongoTo(operation, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
@@ -43,9 +56,14 @@ function findPosts(array, callback) {
   });
 }
 
-function insertComment(id, callback) {
+function insertComment(commentInfo, callback) {
+  let info = createNewComment(commentInfo);
+
   connectMongoTo((db) => {
-    db.collection('posts').modify();
+    db.collection('posts').update({_id: info.postId}, {$push: {'comments': info}}, function(err, result) {
+      if (err) throw err;
+      console.log(result);
+    });
   });
 }
 
