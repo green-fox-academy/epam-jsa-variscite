@@ -47,22 +47,34 @@ function checkUserInfo(userAgent, email, password, res) {
   });
 }
 
-function sendStatus(req, res) {
-  let objectId = req._id;
+function sendStatus(user, req, res) {
+  let objectId = user._id;
+  let userAgent = req.header('user-agent').toLowerCase();
 
   res.set('location', '/api/signup/' + objectId);
-  res.status(HTTP_STATUSES.CREATED).json();
+  tokenHandler.createAccessToken(objectId.toString(),
+    userAgent, function(err, tokenDescriptor) {
+      if (err !== null) {
+        console.log('[MONGO ERROR] Unable to generate token: ', err);
+      }
+      let tokenObj = {
+        'token': tokenDescriptor.token,
+        'expiresAt': tokenDescriptor.expiresAt,
+      };
+
+      res.status(HTTP_STATUSES.CREATED).json(tokenObj);
+    });
   return;
 }
 
-function insertUser(db, req, res) {
-  db.collection('users').insert(req, function(err) {
+function insertUser(db, user, req, res) {
+  db.collection('users').insert(user, function(err) {
     if (err) {
       res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       console.log('Couldn\'t insert the element into the db', err);
       return;
     }
-    sendStatus(req, res);
+    sendStatus(user, req, res);
   });
 }
 
@@ -81,31 +93,31 @@ function handlePhonenumberError(db, res) {
   db.close();
 }
 
-function handleError(db, item, req, res) {
-  if (item.email === req.email) {
+function handleError(db, item, user, req, res) {
+  if (item.email === user.email) {
     handleEmailError(db, res);
-  } else if (item.username === req.username && item.username !== '') {
+  } else if (item.username === user.username && item.username !== '') {
     handleUsernameError(db, res);
-  } else if (item.phonenumber === req.phonenumber) {
+  } else if (item.phonenumber === user.phonenumber) {
     handlePhonenumberError(db, res);
   }
 }
 
-function checkField(db, item, req, res) {
+function checkField(db, item, user, req, res) {
   if (item === null) {
-    insertUser(db, req, res);
+    insertUser(db, user, req, res);
   } else {
-    handleError(db, item, req, res);
+    handleError(db, item, user, req, res);
   }
 }
 
-function findUser(db, req, res) {
+function findUser(db, user, req, res) {
   db.collection('users').findOne(
     {
       $or: [
-        {$and: [{'username': req.username}, {'username': {$ne: ''}}]},
-        {'email': req.email},
-        {$and: [{'phonenumber': req.phonenumber}, {'phonenumber': {$ne: ''}}]},
+        {$and: [{'username': user.username}, {'username': {$ne: ''}}]},
+        {'email': user.email},
+        {$and: [{'phonenumber': user.phonenumber}, {'phonenumber': {$ne: ''}}]},
       ],
     },
     (err, item) => {
@@ -114,19 +126,19 @@ function findUser(db, req, res) {
         res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
         return;
       }
-      checkField(db, item, req, res);
+      checkField(db, item, user, req, res);
     }
   );
 }
 
-function signUp(req, res) {
+function signUp(user, req, res) {
   MongoClient.connect(url, function(err, db) {
     if (err) {
       res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       console.log('Couldn\'t get connect to the db', err);
       return;
     }
-    findUser(db, req, res);
+    findUser(db, user, req, res);
   });
 }
 

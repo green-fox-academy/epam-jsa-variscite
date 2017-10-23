@@ -7,6 +7,7 @@ import PostComment from '../../components/PostComment';
 import AddPost from '../../components/AddPost';
 import HTTP_STATUSES from '../../httpStatuses';
 import NavigationBar from '../../components/NavigationBar';
+import formatDate from '../../components/Module/formatDate';
 const MIN_LEN = 2;
 
 class FeedPage extends React.Component {
@@ -21,9 +22,13 @@ class FeedPage extends React.Component {
           'timeStamp': 1508469350963,
           'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
           'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-          'numOfLikes': 248,
-          'numOfComments': 36,
-          'numOfShares': 192,
+          'likes': [],
+          'comments': [],
+          'shares': [],
+          'numOfComments': 0,
+          'numOfLikes': 0,
+          'numOfShares': 0,
+
         }, {
           '_id': '2',
           'username': 'Donald Trump',
@@ -31,9 +36,12 @@ class FeedPage extends React.Component {
           'postText': 'Make America great again! #America #greatwall',
           'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
           'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-          'numOfLikes': 248,
-          'numOfComments': 36,
-          'numOfShares': 192,
+          'likes': [],
+          'comments': [],
+          'shares': [],
+          'numOfComments': 0,
+          'numOfLikes': 0,
+          'numOfShares': 0,
         },
       ],
       'errorMessage': null,
@@ -70,7 +78,7 @@ class FeedPage extends React.Component {
           posts = posts.map(function(item, index) {
             let newDate = new Date(item.timeStamp);
 
-            item.timeStamp = newDate.toString();
+            item.timeInDate = formatDate(newDate);
             return item;
           });
 
@@ -92,8 +100,7 @@ class FeedPage extends React.Component {
   addPost(event) {
     event.preventDefault();
     let postContent = {
-      postText: event.target.elements
-        .namedItem('input').value,
+      postText: event.target.elements.namedItem('input').value,
     };
 
     if (postContent.postText.length > MIN_LEN) {

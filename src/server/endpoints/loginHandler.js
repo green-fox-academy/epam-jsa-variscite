@@ -27,8 +27,8 @@ function login(req, res) {
 
 function logout(req, res) {
   res.setHeader('Content-Type', 'application/json');
-  if (req.header('Authorization') === null) {
-    res.status(HTTP_STATUSES.UNAUTHORIZED).json({'errorType': 'HeaderMissing'});
+  if (req.header('Authorization') === undefined) {
+    res.status(HTTP_STATUSES.BAD_REQUEST).json({'errorType': 'HeaderMissing'});
   } else {
     let usernameToken = req.header('Authorization');
 
