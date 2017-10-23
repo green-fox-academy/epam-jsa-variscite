@@ -71,7 +71,7 @@ class FeedPage extends React.Component {
           posts = posts.map(function(item, index) {
             let newDate = new Date(item.timeStamp);
 
-            item.timeStamp = formatDate(newDate);
+            item.timeInDate = formatDate(newDate);
             return item;
           });
 
@@ -93,8 +93,7 @@ class FeedPage extends React.Component {
   addPost(event) {
     event.preventDefault();
     let postContent = {
-      postText: event.target.elements
-        .namedItem('input').value,
+      postText: event.target.elements.namedItem('input').value,
     };
 
     if (postContent.postText.length > MIN_LEN) {

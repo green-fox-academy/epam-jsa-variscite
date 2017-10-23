@@ -1,4 +1,4 @@
-function formatDate(newDate) {
+function formatDate(dateToFormat) {
   let months = [
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
@@ -9,11 +9,11 @@ function formatDate(newDate) {
     '18th', '19th', '20th', '21st', '22nd', '23rd', '24th', '25th',
     '26th', '27th', '28th', '29th', '30th', '31st',
   ];
-  let year = newDate.getFullYear();
-  let month = months[newDate.getMonth()];
-  let date = dates[newDate.getDate() - 1];
-  let hour = newDate.getHours();
-  let min = newDate.getMinutes();
+  let year = dateToFormat.getFullYear();
+  let month = months[dateToFormat.getMonth()];
+  let date = dates[dateToFormat.getDate() - 1];
+  let hour = dateToFormat.getHours();
+  let min = dateToFormat.getMinutes();
 
   return date + ' ' + month + ' ' + year + ' at ' + hour + ':' + min;
 }

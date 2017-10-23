@@ -8,7 +8,7 @@ class PostHeader extends React.Component {
         <img className="user-pic" src={this.props.userInfo.userPicURL} />
         <div className="post-title">
           <p className="name">{this.props.userInfo.username}</p>
-          <p className="time">{this.props.userInfo.timeStamp}</p>
+          <p className="time">{this.props.userInfo.timeInDate}</p>
         </div>
       </div>
     );
