@@ -45,7 +45,7 @@ function findPosts(array, callback) {
 
 function insertComment(id, callback) {
   connectMongoTo((db) => {
-    db.collection('posts').modify;
+    db.collection('posts').modify();
   });
 }
 
