@@ -58,7 +58,7 @@ class CommentInput extends React.Component {
           //   item.timeInDate = formatDate(newDate);
           //   return item;
           // });
-          this.props.getCommentsInfo(comments);
+          this.props.getCommentsInfo();
         }
       }
     }.bind(this));

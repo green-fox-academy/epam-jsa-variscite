@@ -73,6 +73,22 @@ function insertComment(commentInfo, callback) {
   });
 }
 
+function findComments(id, callback) {
+  connectMongoTo((db) => {
+    let objectId = new ObjectId(id);
+
+    db.collection('posts').find({_id: objectId}).toArray((err, result) => {
+      if (err !== null) {
+        console.log(err);
+      }
+      db.close();
+      console.log('result: ', result[0].comments);
+      // console.log(result.comments[0]);
+      callback(err, result);
+    });
+  });
+}
+
 function insertDocument(db, postInfo, callback) {
   let collection = db.collection('posts');
 
@@ -96,4 +112,5 @@ module.exports = {
   findPosts: findPosts,
 
   insertComment: insertComment,
+  findComments: findComments,
 };

@@ -36,13 +36,14 @@ function commentHandler(req, res, commentInfo) {
       res.setHeader('Content-Type', 'application/json');
       /* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/
       // res.setHeader('Location', '/post/comment/' + item.ops[0]._id);
-      console.log('item: ', info);
+      // console.log('item: ', info);
       res.status(HTTP_STATUSES.CREATED).json(info);
     }
   });
 }
 
 function createComment(req, res) {
+  console.log(req.body);
   let commentInfo = collectData(req);
 
   let validationResult = dataValidation(req, res, commentInfo);
@@ -72,4 +73,17 @@ function createComment(req, res) {
   }
 }
 
-module.exports = {createComment: createComment};
+// //////////////////////////////////////
+
+function findAllComments(req, res) {
+  postsCollection.findComments(req.params.id, function(err, result) {
+    if (err) throw err;
+    // console.log('re: ', result.comments);
+    res.json(result[0].comments);
+  });
+}
+
+module.exports = {
+  createComment: createComment,
+  findAllComments: findAllComments,
+};
