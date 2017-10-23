@@ -43,6 +43,12 @@ function findPosts(array, callback) {
   });
 }
 
+function insertComment(id, callback) {
+  connectMongoTo((db) => {
+    db.collection('posts').modify;
+  });
+}
+
 function insertDocument(db, postInfo, callback) {
   let collection = db.collection('posts');
 
@@ -64,4 +70,6 @@ module.exports = {
     });
   },
   findPosts: findPosts,
+
+  insertComment: insertComment,
 };
