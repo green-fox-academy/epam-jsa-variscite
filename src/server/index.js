@@ -29,6 +29,8 @@ app.delete('/api/login', jsonParser, loginHandler.logout);
 
 app.post('/api/post', jsonParser, postHandler.createNewPost);
 
+app.put('/api/post/:id/like', postHandler);
+
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });

@@ -5,6 +5,23 @@ import PostInfo from '../PostInfo/';
 import PostAct from '../PostAct/';
 
 class Post extends React.Component {
+  like(event) {
+    let xhr = new XMLHttpRequest();
+    let token = window.localStorage.getItem('token');
+    let uName;
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        uName = this.props.item.username;
+      }
+    }.bind(this));
+    xhr.open('PUT', '/api/post/' + this.props.item._id + '/like');
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', token);
+    xhr.send(uName);
+  }
+
   render() {
     return (
       <div className="post-container">
@@ -13,7 +30,7 @@ class Post extends React.Component {
           <p className="post-text">{this.props.item.postText}</p>
           <img className="post-pic" src={this.props.item.postPicURL} />
           <PostInfo postInfo={this.props.item}/>
-          <PostAct />
+          <PostAct onClick={this.like.bind(this)} />
         </section>
       </div>
     );

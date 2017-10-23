@@ -96,6 +96,15 @@ function dataValidation(req, res, postInfo) {
   return true;
 }
 
+function like(req, res) {
+  let id = req.params._id;
+  console.log(id);
+  console.log(req);
+  postsCollection.likePost(id, req, function(data){
+		res.send(data);
+	});
+}
+
 function createNewPost(req, res) {
   let postInfo = collectData(req);
 
@@ -129,4 +138,5 @@ function createNewPost(req, res) {
 module.exports = {
   createNewPost: createNewPost,
   displayPosts: displayPosts,
+  like: like,
 };

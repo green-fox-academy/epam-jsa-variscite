@@ -57,6 +57,28 @@ function insertDocument(db, postInfo, callback) {
   });
 }
 
+function likePost(id, req, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('Couldn\'t get connect to the db', err);
+      return;
+    }
+    db.collection('posts').find({'_id': ObjectId(id)}).toArray(function(err, element) {
+      if(element[0].likes.includes(res)){
+        db.collection('posts').findAndModify({_id: ObjectId(id)}, [['_id', 1]],{$set:{likes:element[0].likes.splice(element[0].likes.indexOf(req), 1)}}, {new:true, w:1}, function(err, element){
+  				db.close();
+  				callback(element.likes);
+  			});
+      } else {
+        db.collection('posts').findAndModify({_id: ObjectId(id)}, [['_id', 1]],{$set:{likes:element[0].likes.push(req)}}, {new:true, w:1}, function(err, element){
+  				db.close();
+  				callback(element.likes);
+  			});
+      }
+		});
+  });
+}
+
 module.exports = {
   insertDocument: (postInfo, callback) => {
     connectMongoTo((db) => {
@@ -64,4 +86,5 @@ module.exports = {
     });
   },
   findPosts: findPosts,
+  likePost: likePost,
 };
