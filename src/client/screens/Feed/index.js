@@ -8,6 +8,7 @@ import Comment from '../../components/Comment';
 import AddPost from '../../components/AddPost';
 import HTTP_STATUSES from '../../httpStatuses';
 import NavigationBar from '../../components/NavigationBar';
+import formatDate from '../../components/Module/formatDate';
 const MIN_LEN = 2;
 
 class FeedPage extends React.Component {
@@ -67,10 +68,10 @@ class FeedPage extends React.Component {
           let posts = JSON.parse(xhr.response).post;
 
           posts.reverse(posts.timeStamp);
-          posts = posts.map(function(item, index){
-            let newDate = new Date(item.timeStamp)
+          posts = posts.map(function(item, index) {
+            let newDate = new Date(item.timeStamp);
 
-            item.timeStamp = newDate.toString();
+            item.timeInDate = formatDate(newDate);
             return item;
           });
 
@@ -92,8 +93,7 @@ class FeedPage extends React.Component {
   addPost(event) {
     event.preventDefault();
     let postContent = {
-      postText: event.target.elements
-        .namedItem('input').value,
+      postText: event.target.elements.namedItem('input').value,
     };
 
     if (postContent.postText.length > MIN_LEN) {
