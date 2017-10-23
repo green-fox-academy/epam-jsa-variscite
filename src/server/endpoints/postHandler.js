@@ -13,13 +13,14 @@ function findPosts(array, res) {
       return;
     }
 
-    let data = result.map(function(val) {
-      val.numOfComments = val.comments.length;
-      val.numOfLikes = val.likes.length;
-      val.numOfShares = val.shares.length;
-      return val
-    })
-    if (data !== null) {
+    if (result !== null) {
+      let data = result.map(function(val) {
+        val.numOfComments = val.comments.length;
+        val.numOfLikes = val.likes.length;
+        val.numOfShares = val.shares.length;
+        return val;
+      });
+
       let obj = {post: data};
 
       res.status(HTTP_STATUSES.OK).json(obj);
