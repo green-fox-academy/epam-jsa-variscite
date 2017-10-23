@@ -75,7 +75,7 @@ function signup(req, res) {
   };
 
   if (signUpErrorHandler(req, res)) {
-    database.signUp(user, res);
+    database.signUp(user, req, res);
   }
 }
 
