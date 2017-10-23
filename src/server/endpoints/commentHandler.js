@@ -28,15 +28,16 @@ function dataValidation(req, res, commentText) {
 }
 
 function commentHandler(req, res, commentInfo) {
-  postsCollection.insertComment(commentInfo, function(err, item) {
+  postsCollection.insertComment(commentInfo, function(err, info) {
     if (err) {
       res.status(HTTP_STATUSES.SERVER_ERROR)
         .json({'errorType': 'ServerError'});
     } else {
       res.setHeader('Content-Type', 'application/json');
       /* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/
-      //   res.setHeader('Location', '/post/' + item.ops[0]._id);
-      res.status(HTTP_STATUSES.CREATED).json();
+      // res.setHeader('Location', '/post/comment/' + item.ops[0]._id);
+      console.log('item: ', info);
+      res.status(HTTP_STATUSES.CREATED).json(info);
     }
   });
 }

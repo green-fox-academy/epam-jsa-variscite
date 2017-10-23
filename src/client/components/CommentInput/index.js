@@ -1,6 +1,8 @@
 'use strict';
 
 import React from 'react';
+import formatDate from '../../components/Module/formatDate';
+import HTTP_STATUSES from '../../httpStatuses';
 const MIN_LEN = 2;
 const ENTER_KEY_CODE = 13;
 
@@ -11,17 +13,30 @@ class CommentInput extends React.Component {
 
   addComment(event) {
     event.preventDefault();
-    console.log(this.props.post_id);
     let commentContent = {
-      text: event.target.elements.namedItem('input').value,
+      text: event.target.value,
       _id: this.props.post_id,
     };
 
     if (commentContent.text.length > MIN_LEN) {
       this.sendComment(commentContent);
-      event.target.elements.namedItem('input').value = '';
+      event.target.value = '';
     } else {
-      this.setState({'errorMessage': 'Please enter more words!'});
+      alert('more words needed!');
+    }
+  }
+
+  handleCommentError(status) {
+    let errorMessage = null;
+
+    if (status === HTTP_STATUSES.BAD_REQUEST) {
+      errorMessage = 'Something went wrong, please try later!';
+      return false;
+    } else if (status === HTTP_STATUSES.SERVER_ERROR) {
+      errorMessage = 'Cannot connect to the database, please try again later!';
+      return false;
+    } else if (status === HTTP_STATUSES.CREATED) {
+      return true;
     }
   }
 
@@ -31,7 +46,20 @@ class CommentInput extends React.Component {
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        this.handleCommentError(xhr.status);
+        if (this.handleCommentError(xhr.status)) {
+          let comments = JSON.parse(xhr.response);
+
+          console.log(comments);
+
+          // comments.reverse(comments.timeStamp);
+          // comments = comments.map(function(item, index) {
+          //   let newDate = new Date(item.timeStamp);
+
+          //   item.timeInDate = formatDate(newDate);
+          //   return item;
+          // });
+          this.props.getCommentsInfo(comments);
+        }
       }
     }.bind(this));
     xhr.open('POST', '/api/comment');
@@ -41,12 +69,8 @@ class CommentInput extends React.Component {
     xhr.send(JSON.stringify(data));
   }
 
-  handleCommentError(status) {
-    console.log('good');
-  }
-
   componentDidMount() {
-    document.getElementById('comment-input'). addEventListener('keypress', function(e) {
+    document.getElementById('comment-input').addEventListener('keypress', function(e) {
       if (e.keyCode == ENTER_KEY_CODE && !e.shiftKey) {
         e.preventDefault();
         this.addComment(e);
@@ -58,7 +82,7 @@ class CommentInput extends React.Component {
     return (
       <div className="comment-input">
         <img className="user-pic" src={this.props.myPicURL} />
-        <textarea id="comment-input" required name="input" placeholder="post a comment"></textarea>
+        <textarea id="comment-input" required name="input" placeholder="Post a comment"></textarea>
         <button></button>
       </div>
     );

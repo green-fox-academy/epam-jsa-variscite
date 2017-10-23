@@ -99,9 +99,7 @@ class FeedPage extends React.Component {
 
   addPost(event) {
     event.preventDefault();
-    let postContent = {
-      postText: event.target.elements.namedItem('input').value,
-    };
+    let postContent = {postText: event.target.elements.namedItem('input').value };
 
     if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);

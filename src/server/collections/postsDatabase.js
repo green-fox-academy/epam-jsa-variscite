@@ -1,6 +1,7 @@
 'use strict';
 
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 const url = process.env.DB_URL;
 
 function createNewPost(postInfo) {
@@ -25,7 +26,7 @@ function createNewComment(commentInfo) {
     commentText: commentInfo.commentText,
     timeStamp: Date.now(),
     userPicURL: '',
-    likes: 0,
+    likes: [],
     replys: [],
   };
 }
@@ -63,9 +64,11 @@ function insertComment(commentInfo, callback) {
   let info = createNewComment(commentInfo);
 
   connectMongoTo((db) => {
-    db.collection('posts').update({_id: info.postId}, {$push: {'comments': info}}, function(err, result) {
+    let objectId = new ObjectId(info.postId);
+
+    db.collection('posts').update({_id: objectId}, {$push: {'comments': info}}, function(err, result) {
       if (err) throw err;
-      console.log(result);
+      callback(err, info);
     });
   });
 }
