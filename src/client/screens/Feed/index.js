@@ -38,7 +38,12 @@ class FeedPage extends React.Component {
         },
       ],
       'errorMessage': null,
+      'isCommentDispaly': false,
     };
+  }
+
+  showCommentInput() {
+    this.setState({isCommentDisplay: true});
   }
 
   handleGetPostError(status) {
@@ -67,8 +72,8 @@ class FeedPage extends React.Component {
           let posts = JSON.parse(xhr.response).post;
 
           posts.reverse(posts.timeStamp);
-          posts = posts.map(function(item, index){
-            let newDate = new Date(item.timeStamp)
+          posts = posts.map(function(item, index) {
+            let newDate = new Date(item.timeStamp);
 
             item.timeStamp = newDate.toString();
             return item;
