@@ -166,6 +166,10 @@ header {
   .logo-field {
     margin-left: 3.5%;
   }
+
+  @media (max-width: 480px) {
+    min-width: 320px;
+  }
 }
 
 .menu-block {

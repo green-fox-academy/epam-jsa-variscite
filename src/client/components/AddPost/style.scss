@@ -73,6 +73,13 @@
       padding-left: 30px;
     }
 
+    @media (max-width: 480px) {
+      button {
+        margin-left: 5px;
+        margin-right: 0;
+      }
+    }
+
     button, input[type=submit]:hover {
       cursor: pointer;
     }
