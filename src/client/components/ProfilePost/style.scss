@@ -1,0 +1,127 @@
+.profile-post {
+    .post-container {
+        align-items: center;
+        background-color: $whitecolor;
+        box-shadow: 2px 2px 5px 0 $shadowcolor;
+        display: flex;
+        justify-content: center;
+        margin: 0;
+        width: 90%;
+      }
+    
+      .post-box {
+        padding: 1.5em;
+        width: 100%;
+    
+        .post-header {
+          display: flex;
+    
+          p {
+            height: 50%;
+            margin: 1.8px 0 0 8px;
+          }
+    
+          .name {
+            color: $userblue;
+            font-size: 17px;
+            font-weight: bold;
+          }
+    
+          .time {
+            color: $lightgrey;
+            font-size: 13px;
+          }
+        }
+    
+        .post-text {
+          color: $textgrey;
+          font-size: 15px;
+          margin-bottom: 10px;
+          margin-top: 10px;
+        }
+    
+        .user-pic {
+          height: 45px;
+          width: 45px;
+        }
+    
+        .post-pic {
+          width: 100%;
+        }
+    
+        .name, .user-pic, .post-pic:hover {
+          cursor: pointer;
+        }
+    
+        .post-info {
+          border-bottom: 1px solid $bordergrey;
+          color: $lightgrey;
+          display: flex;
+          font-size: 12px;
+          justify-content: flex-start;
+    
+          span {
+            margin: 6px;
+          }
+    
+          .likes::before {
+            content: attr(data-likes);
+          }
+    
+          .likes {
+            margin-left: 0;
+          }
+        }
+    
+        .post-act {
+          display: flex;
+    
+          button {
+            background-color: $whitecolor;
+            border: 0;
+            color: $lightgrey;
+            font-size: 13px;
+            margin: 8px 35px 0 0;
+            padding-left: 24px;
+          }
+    
+          .like {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAB2klEQVRoQ+2Z0U3DMBCGz7oBKBu0G9Tq+R0mKGwAEwAblA1gA7oBTEB5txQ2oGzQvjcyspRKkDpN7VyLT0qeHfv/7j/bl4sC4Y8Srh96gP928GQOFEUxKMtySkRzTuiTAHjxm83mXSk1BoAlIl5rrT85QI4OUBO/1bxCRK21XnaFOCpAg/it5jkR3WQL0CIenHMfxpiLLAHaxHvR2QIcIr6K+jMR3WflQIR478ClMWaRDUCMeABYE9Ggq3j/PsspFCner8tyArEAJIhnS5/OACniAeCbiIYc6dMJIFG8X5Pl9NkGIHkPWGufAOAuNpJVCcFSBwUdsNa6kCgi+gNrrf0CALZU2BMIXy8tEPFBa72qj9txIAIgCBrrSMR4XwCO6hCSAILHrzSAJRGNfrsmDQDqe7EHiNiELEOlO/BGRFdi94BS6nYymbxIBQiW4GI2sXPu0RgzE3sTI+K55FKi8QNIRApVNVCwCZY9QFv7RQLA3u5F7gCtn59ZA4QuLknH6EG9o2wdaLq4xDjQdHFxArwCwJSlRt6d5ODOXXIKFUUxLsuyOALAGhGHobIhtFYygJ+sgvAFlv9RccYAM0fEWcyvp+TGFoNYlil6AJYwdpikd6BD8FheFe/AD0dYZkBkaW/+AAAAAElFTkSuQmCC') $whitecolor;
+            background-repeat: no-repeat;
+            background-size: contain;
+            border-style: 0;
+          }
+    
+          .liked {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAB/ElEQVRoQ+2ZTVLCQBCFu7WwLKtAWFolCdwAboBL2KA30BPA3ABPAN5AbqCbhJ14Ar2BgO5FFrhLWyNa8pNAMmlwpipZz0ze169nptNBMPxBw/VDAvDfDu7MgUr7PXu4N6n3GnaXE3onAFL8EU4eALBEQAOk/QtHnD5zgGwdYF78n2Aae3RQ7omTQVyIrQL4i59JJoKuK6xLbQHWif8BeHSFVdESYJN4rQHCiJ8B4I0r8k2tHAgrXor2CM96It/XBiCKeCL6cIWdjStezmc5haKI5zyBWACiiudMn9gAKuKBaOgIu8CRPrEAlMQznj6/AVDeA9X2aweRGpEjSXtlrjrI14FaZ0R+opymtQBb7QxfEJAtFYIC8V38AfanlBZ9kRsvj1txICxA0LjIjoSeQOMpZYrLEAYB+BeAZgEADdymXZw3zSgAKXx5LyYAofcg00CzHSC4d4R1bu4eILhyhHVrJEBQCW7OJia6doTdMvYmnlI6Z2wpsa4FY0QKeZQqBjXBtAcggrX9I+0BNnUv9AYI8fmpOcDqxWXMMRq2d6SvAwEXlzEOBF1cfADt0R0g1Jmq5IVlovw7UE+h9lsJ0HviBpC5/wmZgl/Z4PcuZQC5WE1CgNcioAoiHseFkZEnSLWi/HpSbmzFFcs1PwHgiqTqOokDqpHjmme8A18d/H5ARWz8/AAAAABJRU5ErkJggg==') $whitecolor;
+            background-repeat: no-repeat;
+            background-size: contain;
+            border-style: 0;
+            color: $bluecolor;
+          }
+    
+          .comment {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAABd0lEQVRoQ+2Z0VHDMBBET5YLoAQ6IBpfAaYCoAKgA0qgA1ogHUAF8G95hDtICaEAW4xnwgwQG3LGWjLh9H3SavfpfnSGDmSZA/FBamTfSCoRJZIogcN/WiGE467rLmOMZaIQRccaY56zLFs651ZDGweJhBAWbds+EdGRSC198dpae+qce/kqNWjEe/9ARGfp7zVJ4ZGZz3c1EidJgDYx8xaAMSJqBAFFiSBSlmgoEUlaiFolgkhZoqFEJGkhapUIImWJhhKRpIWoVSKIlCUaSkSSFqJWiSBSlmgoEUlaiFolgkhZovEvifR/qyeSlIC1DTMvdvoyrev6JsZ4B7ycROqCmfu/6U9rdD6yMXO1R2QaIrodMtE7+tWgx3v/7R+xMea6KIp7SdxTa1MaWTJzTxSyUhlprLWlc24NcZHoab1uTGxNlVKamp0Isi8+BjO3EWhfpDIC74s5jbwPTf+kL2Yz0h9UVVWZ5/lqbP6dssFnNYK66E86bxyKyTNG92lcAAAAAElFTkSuQmCC') $whitecolor;
+            background-repeat: no-repeat;
+            background-size: contain;
+            border-style: 0;
+          }
+    
+          .share {
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAEK0lEQVRoQ92ZXYjcVBTH/yeZWRB8EQVB8evND9qdJCeiZXfKdhURamEVFZ/qi1AVVPRFEKxoQVBBxS9QEaSIIip+gg91+6Ci672Z/apUrbVaWlxRREGFZXZz5I6TNc7OTJKZ7Ezc+5h7Pv6/nJOb3BvCJhm0STgwcBCt9aMAXmXmWp43cRggzwG4SUQmfN+fzQtmWCB7APyeJ8wwQUwxcoMZNkgEM+b7/qF+2qwIIBCRXwFs7wemECCmEv3CFAakX5hCgcRgtvm+/3WWZ6ZwIE3xP4vIeBaYooIYnkwwRQbJBJM7yMLCwmn1en1CRC4FUBGR84nobACnZun5yFZElkqlUtVxnCPd/HMBqdVq54VheD2AXQDGexHczUdEfiqXy9VKpfJNJ7u+QLTWuwHcDWBr3uLbxPvRtu3tnSrTE0gQBDtF5BEAFw0AYC2FqYxlWWOe533bmjcTyNzc3CUrKytPAZgYJEA8l4icGBkZqY6Ojh6LX08NEgTBVBiGrxDRKcOCiC0AJ2zbHnNd94foWioQpdQ+Irpv2AAt+U+Wy+XxqDKJIEqpx4noroJBNOSYNosq0xUkCIK9IvJAESFimr43lekIUqvVJsMwPFBwiEjewbYgMzMzp9u2/RWAM4oOErVXWxCl1GtEdOP/AGLJtu3LzOq1DmR2dnbb6urqp0WHMF/HAC5n5qNG6zoQrfUCgC0FBzEQVWY27d8Y/wFRSu0ioneKDNHc26/bQbaCHCCiyaKCdDugWAPRWl8I4HBRIZqHeR3Pv+IgDwO4t6Agf4hItdtZcRzkSwAXFxDEQEz6vv9FN20NkPn5+Qvq9fp3vUKY3iWizwEcFZFjlmUdFpEj0dIYj6uUepqIbk+Z60/Lsq50XfezJPsGiNb6TgBPJBm3zL8vItO2bU+7rjuf1ldr/QyA21LY/wXgKmb+JIXtP8uvUuoNIrouyUFEDhHR87Zt73cc57ck+3bzWutnAdyawncHMx9MYffve0QpdZyIzunkJCLvlkqlfY7jqLSBO9mlqYhlWVe4rvtRlly0uLh45vLy8lI7p2a/7/Y87+MsQbvZJoEQ0dWe532YNR8FQXCNueOtjiKyn4j2MLPp1dxGAshOZv6gl2Sktb4HwGMtzg8y895eAib5aK3NP0Tz621tiMiKZVnXep73XpJ/p3kD8iSAO2IG9zPzQ70GTPJrBRGRVcuypvqBMDkNyFsAppoCXmTmW5LE9DPf2lpm3+N53uv9xGyAKKVqROQAMJ/EW5m53m/QhIc9aq1QRG7wff/NPPKZipwEcJaIbOnnH15aMbGK3MzML6f1S7IzIGaT8vZGt1QkxLwQRUT7vv9Skrgs86a1fimXy6OVSsVUZsOH1vpcZj6edyJTkRcGVY28xcfjmRfiDs/zpjcyySBiJx6ZDkJEHjk2DcjfcbbkfPoE1mkAAAAASUVORK5CYII=') $whitecolor;
+            background-repeat: no-repeat;
+            background-size: contain;
+            border-style: 0;
+          }
+    
+          button:hover {
+            cursor: pointer;
+          }
+    
+          button:focus {
+            outline: none;
+          }
+        }
+      }
+
+}
