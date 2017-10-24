@@ -9,6 +9,11 @@
   margin-top: 7em;
   text-align: center;
   width: 36em;
+
+  @media (max-width: 480px) {
+    min-width: 320px;
+    width: 90%;
+  }
 }
 
 .login-title {

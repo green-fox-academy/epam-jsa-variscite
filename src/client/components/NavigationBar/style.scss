@@ -12,9 +12,9 @@ $blackcolor: #000;
   margin-left: 1em;
   margin-top: 0;
   padding: .2em 0 0 1.2em;
-  width: 17%;
   position: relative;
   top: 80px;
+  width: 17%;
 
   .main-links {
     font-family: 'Lato', sans-serif;
@@ -55,6 +55,34 @@ $blackcolor: #000;
 
   button:active {
     color: $bluecolor;
+  }
+
+  @media (max-width: 480px) {
+    align-items: center;
+    display: flex;
+    margin: 0 0 1em 0;
+    min-width: 320px;
+    top: 3.5em;
+    width: 100%;
+
+    .shortcut, .explore, h1 {
+      display: none;
+      height: 0;
+    }
+
+    .main-links {
+      align-items: flex-start;
+      display: flex;
+      flex-wrap: nowrap;
+      height: 100%;
+      width: 100%;
+    }
+
+    a {
+      height: 100%;
+      margin-bottom: .5em;
+      width: 33%;
+    }
   }
 }
 

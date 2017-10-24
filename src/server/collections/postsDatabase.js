@@ -103,6 +103,52 @@ function insertDocument(db, postInfo, callback) {
   });
 }
 
+function likePost(id, userName, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('Couldn\'t get connect to the db', err);
+      callback(null);
+      return;
+    }
+    db.collection('posts')
+      .findOne({'_id': ObjectId(id)}, function(err, element) {
+        let like;
+
+        if (err !== null) {
+          console.log('Couldn\'t get connect to the db', err);
+          callback(null);
+          return;
+        } else if (element.likes.includes(userName)) {
+          let index = element.likes.indexOf(userName);
+          let numOfItemToDelete = 1;
+
+          like = false;
+
+          element.likes.splice(index, numOfItemToDelete);
+        } else {
+          like = true;
+          element.likes.push(userName);
+        }
+        db.collection('posts').findAndModify(
+          {_id: ObjectId(id)},
+          [['_id', 1]],
+          {$set: {likes: element.likes}},
+          {new: true, w: 1},
+          function(err, item) {
+            if (err !== null) {
+              console.log('Couldn\'t get connect to the db', err);
+              callback(null);
+              return;
+            }
+            db.close();
+            callback({likes: item.value.likes.length, isUserLiked: like});
+            return;
+          }
+        );
+      });
+  });
+}
+
 module.exports = {
   insertDocument: (postInfo, callback) => {
     connectMongoTo((db) => {
@@ -112,4 +158,5 @@ module.exports = {
   findPosts: findPosts,
   insertComment: insertComment,
   findComments: findComments,
+  likePost: likePost,
 };
