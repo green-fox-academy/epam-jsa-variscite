@@ -121,8 +121,13 @@ function like(req, res) {
     }
     usersCollection.findUsername(item.userId, (result) => {
       userName = result.username;
-      postsCollection.likePost(id, userName, function(data){
-        res.status(200).json(data);
+      postsCollection.likePost(id, userName, function(data) {
+        if(data === null) {
+          res.status(HTTP_STATUSES.SERVER_ERROR)
+            .json({'errorType': 'server error'});
+          return;
+        }
+        res.status(HTTP_STATUSES.OK).json(data);
       });
     });
   });

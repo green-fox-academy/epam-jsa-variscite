@@ -65,7 +65,7 @@ function likePost(id, userName, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
       console.log('Couldn\'t get connect to the db', err);
-      return;
+      callback(null);
     }
     db.collection('posts').find({'_id': ObjectId(id)}).toArray(function(err, element) {
       if(element[0].likes.includes(userName)) {

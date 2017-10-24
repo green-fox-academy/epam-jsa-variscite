@@ -14,6 +14,9 @@ function formatDate(dateToFormat) {
   let date = dates[dateToFormat.getDate() - 1];
   let hour = dateToFormat.getHours();
   let min = dateToFormat.getMinutes();
+  if (min.length === 1) {
+    min = '0' + min;
+  }
 
   return date + ' ' + month + ' ' + year + ' at ' + hour + ':' + min;
 }
