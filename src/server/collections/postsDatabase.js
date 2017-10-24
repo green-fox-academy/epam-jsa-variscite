@@ -70,6 +70,7 @@ function likePost(id, userName, callback) {
     }
     db.collection('posts')
       .findOne({'_id': objectId(id)}, function(err, element) {
+        let like;
         if (err !== null) {
           console.log('Couldn\'t get connect to the db', err);
           callback(null);
@@ -77,9 +78,11 @@ function likePost(id, userName, callback) {
         } else if (element.likes.includes(userName)) {
           let index = element.likes.indexOf(userName);
           let numOfItemToDelete = 1;
+          like = 'like';
 
           element.likes.splice(index, numOfItemToDelete);
         } else {
+          like = 'liked'
           element.likes.push(userName);
         }
         db.collection('posts').findAndModify(
@@ -94,7 +97,7 @@ function likePost(id, userName, callback) {
               return;
             }
             db.close();
-            callback(item.value.likes.length);
+            callback(item.value.likes.length + ' ' + like);
             return;
           }
         );

@@ -11,12 +11,18 @@ class Post extends React.Component {
     this.state = {
       numOfLikes: this.props.item.numOfLikes,
       errorMessage: null,
+      likeState: 'like',
     };
   }
 
   handleErrorLike(xhr) {
     if (xhr.status === HTTP_STATUSES.OK) {
-      this.setState({numOfLikes: xhr.response});
+      let datas = xhr.response.toString().split(' ');
+      let numLikes = datas[0].split('\"');
+      let likeClass = datas[1].split('\"');
+      
+      this.setState({numOfLikes: numLikes[1]});
+      this.setState({likeState: likeClass[0]});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
         {errorMessage: 'Sorry, you are not authorized, please log in first!'}
@@ -57,7 +63,10 @@ class Post extends React.Component {
           />
           {this.state.errorMessage !== null ? <span className="error">
             {this.state.errorMessage}</span> : null}
-          <PostAct onLikeClick={this.like.bind(this)} />
+          <PostAct
+            onLikeClick={this.like.bind(this)}
+            likeStatus={this.state.likeState}
+          />
         </section>
       </div>
     );
