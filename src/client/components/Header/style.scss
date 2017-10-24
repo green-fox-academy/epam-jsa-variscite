@@ -1,7 +1,6 @@
 @import '../../style';
 
 header {
-  width: 100%;
   align-items: center;
   background: $bluecolor;
   display: flex;
@@ -9,7 +8,12 @@ header {
   justify-content: space-around;
   min-width: 1160px;
   position: fixed;
+  width: 100%;
   z-index: 100;
+
+  @media (max-width: 480px) {
+    min-width: 320px;
+  }
 
   .logo-field {
     color: $whitecolor;
@@ -27,9 +31,21 @@ header {
       text-align: center;
     }
 
+    @media (max-width: 480px) {
+      display: flex;
+      margin-right: 1em;
+      position: relative;
+      right: 10%;
+      width: 10%;
+
+      button {
+        margin-left: 3em;
+      }
+    }
+
     button:hover {
-      color: $whitecolor;
       background-color: $userblue;
+      color: $whitecolor;
     }
 
     a:hover {
@@ -43,21 +59,26 @@ header {
   }
 
   form {
-    text-align: center;
     background: $whitecolor;
     border-radius: .2em;
-    height: 1.6em;
-    width: 45%;
     display: flex;
+    height: 1.6em;
+    text-align: center;
+    width: 45%;
+
+    @media (max-width: 480px) {
+      margin-left: 3em;
+      width: 35%;
+    }
 
     .search-input {
       border: 0;
       height: 100%;
-      width: calc(97% - .5em);
       margin-left: .5em;
+      min-width: 50%;
       overflow: hidden;
       padding: 0;
-      min-width: 50%;
+      width: calc(97% - .5em);
     }
 
     input:focus {
@@ -65,9 +86,9 @@ header {
     }
 
     .search-submit:hover {
-        cursor: pointer;
-        opacity: .5;
-        transition: opacity .5s;
+      cursor: pointer;
+      opacity: .5;
+      transition: opacity .5s;
     }
 
     .search-submit {
@@ -82,9 +103,9 @@ header {
   }
 
   .other-options {
-    width: 17%;
     display: flex;
     justify-content: space-around;
+    width: 17%;
 
     .option-button {
       background-color: $bluecolor;
@@ -101,16 +122,16 @@ header {
     }
 
     .option-button:hover {
-        cursor: pointer;
-        opacity: .2;
-        transition: opacity .5s;
+      cursor: pointer;
+      opacity: .2;
+      transition: opacity .5s;
     }
 
     .img-button {
       background-position: center center;
       background-size: 1em;
-      width: 2em;
       flex-shrink: 0;
+      width: 2em;
     }
 
     .mystery-button {
@@ -120,17 +141,28 @@ header {
     .setting-button {
       background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACIAAAAiCAYAAAA6RwvCAAAABGdBTUEAALGPC/xhBQAAAvVJREFUWAnVl7trVEEUxndjfIGgCBYJRDGFFgqpJIUYJKBFYiMR7dQugohN1FbBxkf+AxsLAzZRUUFEUGzSRBA0oIguKRQsFFFQE2PW37nurHPPnTM7u3FBD3w7c77zuGfmzuNuqfQ/S7VaHQLzQMvpVsfV0WLgXuKWB2IHA1wSFS2E4faANYFMfQFOqK2aJ74TbNF8sk7wAfANzIIdfiB6BYTkJ+Qq50t/I5iqOY45Prkl8CiQpE6+0xkFa8FJsAAsuYxBZnIYfFBO55opYoRgvwg/15yvRPpS6KJhPx4qpuyTBPagvwSrff4v9xfJ118ul6f9vHqxfsT4zndoQ/9T0jOYlT7w1ZjWpdLyuoaSB4fzkaU+0Yg/bxXRaRhuw8+DFYZd6FnwEDwHvWAnsM4XTJncc52kltGcMkYktOyoC2ClTgYnW/wLsGRCxzg92zVEjUAMADkZ5RTcBPRChsrkIiv+jFN0S66DcNc1X9Nlx8yAF0B251MwSb4qbalE8A9rCIqvoBdmIkvi/eBzR8XF1O0S6kZtrRUvfdZ9RPVzmgzozayFbGCukECuICULM0VS/eq5mi2ktx4Z72yOm4tWV8jvxVK0a0a2aIrsSnGq+fx5NivpBJgEz4Bc/TEZjT2EwH4Qu50l92cwDa6A8L2GoQNcApbIOSFbtCDwUkQFWPIYQ1chECJ3+zoHnOUceQPcq3Mmv72LIrtDFqasCXkdh8EyYMl+dt3NkNHatutxXgCxI34Yu6AZkQGmCbOxDrwG7RD58k9b8DjeakcFXs639DfoacmtARzklTQ73TpnI70bh8FGTnLvHPOqb0dXjoncBJhF4Xg2UME1uAFwFVgf1xL2AOwDY0CfJ/fhGl6aucIIcN8k2V8J34jtFbCkfk7gsBu8rzneoK3/5/HzNewTuAds045w1jUvRefOJvRucAikvQ79sJhO0nEQkiexuJit1SrlyyokUyEyhctNY0qA+DAVEidfVv7JK7foTOKHE67/qPwCAqh1slcHGe0AAAAASUVORK5CYII=');
     }
+
+    @media (max-width: 480px) {
+      .option-button {
+        display: none;
+      }
+
+      .img-button {
+        display: inline;
+      }
+    }
   }
 }
 
 .guest-header {
-  justify-content: flex-start;
-  width: 100%;
   background: $bluecolor;
   display: flex;
   height: 3em;
-  position: relative;
+  justify-content: flex-start;
   min-width: 1160px;
+  position: relative;
+  width: 100%;
+
   .logo-field {
     margin-left: 3.5%;
   }
@@ -146,15 +178,15 @@ header {
 }
 
 .arrow {
-  width: 0;
+  border-bottom: .5em solid $whitecolor;
+  border-left: .5em solid transparent;
+  border-right: .5em solid transparent;
   height: 0;
   margin: 0;
   padding: 0;
   position: relative;
   right: -3.2em;
-  border-left: .5em solid transparent;
-  border-right: .5em solid transparent;
-  border-bottom: .5em solid $whitecolor;
+  width: 0;
 }
 
 .arrow:after {
@@ -162,29 +194,29 @@ header {
 }
 
 .menu {
+  background-color: $whitecolor;
+  // border: 3px solid white;
+  border: none;
+  box-shadow: 0 4px 7px 1px grey;
+  float: right;
+  list-style: none;
   margin: 0;
   padding: 0;
   position: relative;
   right: 3em;
-  float: right;
-  background-color: $whitecolor;
-  list-style: none;
-  // border: 3px solid white;
-  border: none;
-  box-shadow: 0px 4px 7px 1px grey;
-  li {
-    width: 6.1em;
-    font-size: 12px;
-    padding: .6em 2.5em .6em 2.5em;
 
-    margin: 0 0 2px 0;
+  li {
     border-bottom: 1px solid $bordergrey;
+    font-size: 12px;
+    margin: 0 0 2px 0;
+    padding: .6em 2.5em .6em 2.5em;
+    width: 6.1em;
   }
 
   li:hover {
-    cursor: pointer;
     background-color: $bluecolor;
     color: $whitecolor;
+    cursor: pointer;
   }
 
   li:last-child {
