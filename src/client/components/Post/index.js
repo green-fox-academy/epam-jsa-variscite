@@ -8,8 +8,6 @@ import HTTP_STATUSES from '../../httpStatuses';
 class Post extends React.Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
-=======
     this.state = {
       numOfLikes: this.props.item.numOfLikes,
       errorMessage: null,
@@ -20,6 +18,7 @@ class Post extends React.Component {
   handleErrorLike(xhr) {
     if (xhr.status === HTTP_STATUSES.OK) {
       let data = JSON.parse(xhr.response);
+
       this.setState({numOfLikes: data.numberOfLikes, likeState: data.isUserLiked ? 'liked' : 'like'});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
@@ -46,7 +45,6 @@ class Post extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
     xhr.send(null);
->>>>>>> develop
   }
 
   render() {
@@ -56,10 +54,6 @@ class Post extends React.Component {
           <PostHeader userInfo={this.props.item} />
           <p className="post-text">{this.props.item.postText}</p>
           <img className="post-pic" src={this.props.item.postPicURL} />
-<<<<<<< HEAD
-          <PostInfo postInfo={this.props.item} />
-          <PostAct showInput = {() => this.props.showInput()}/>
-=======
           <PostInfo
             numOfLikes={this.state.numOfLikes}
             postInfo={this.props.item}
@@ -69,8 +63,8 @@ class Post extends React.Component {
           <PostAct
             onLikeClick={this.like.bind(this)}
             likeStatus={this.state.likeState}
+            showInput = {() => this.props.showInput()}
           />
->>>>>>> develop
         </section>
       </div>
     );

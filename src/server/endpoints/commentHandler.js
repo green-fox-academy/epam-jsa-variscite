@@ -40,6 +40,17 @@ function commentHandler(req, res, commentInfo) {
   });
 }
 
+function handleDBError(res, err, item) {
+  if (err) {
+    res.status(HTTP_STATUSES.SERVER_ERROR).json({'errorType': 'server error'});
+    return;
+  }
+  if (item === null) {
+    res.status(HTTP_STATUSES.UNAUTHORIZED).json({'errorType': 'Unauthorized'});
+    return;
+  }
+}
+
 function createComment(req, res) {
   let commentInfo = collectData(req);
 
@@ -47,16 +58,8 @@ function createComment(req, res) {
 
   if (validationResult === true) {
     getAccessToken(commentInfo.token, function(err, item) {
-      if (err) {
-        res.status(HTTP_STATUSES.SERVER_ERROR)
-          .json({'errorType': 'server error'});
-        return;
-      }
-      if (item === null) {
-        res.status(HTTP_STATUSES.UNAUTHORIZED)
-          .json({'errorType': 'Unauthorized'});
-        return;
-      }
+      handleDBError(res, err, item);
+
       commentInfo.userId = item.userId;
       delete commentInfo.token;
 
