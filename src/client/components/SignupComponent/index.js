@@ -80,8 +80,6 @@ class SignupComponent extends React.Component {
   checkUserError(error) {
     if (error === 'missingEmail') {
       this.setState({'error': 'Your Email is missing, please try again.'});
-    } else if (error === 'missingUsername') {
-      this.setState({'error': 'Your Username is missing, please try again.'});
     } else if (error === 'missingPassword') {
       this.setState({'error': 'Your Password is missing, please try again.'});
     } else if (error === 'emailWrong') {

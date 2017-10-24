@@ -96,8 +96,7 @@ function displayPosts(req, res) {
 function dataValidation(req, res, postInfo) {
   if (req.header('content-type').toLowerCase() !== 'application/json') {
     return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
-  } else if (req.header('Authorization') === null
-    || !req.header('Authorization')) {
+  } else if (req.header('Authorization') === null || !req.header('Authorization')) {
     return {'status': HTTP_STATUSES.UNAUTHORIZED, 'errorType': 'Unauthorized'};
   } else if (req.body.postText === null) {
     return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'FieldsMissing'};

@@ -17,14 +17,6 @@ function missingEmailHandler(canPas, res) {
   return canPa;
 }
 
-function missingUsernameHandler(canPas, res) {
-  let canPa = canPas;
-
-  canPa = false;
-  res.status(HTTP_STATUSES.BAD_REQUEST).json({errorType: 'missingUsername'});
-  return canPa;
-}
-
 function missingPasswordHandler(canPas, res) {
   let canPa = canPas;
 
@@ -46,8 +38,6 @@ function fieldErrorHandler(req, res, canPass) {
 
   if (req.body.email.length === EMPTY_LENGTH) {
     missingEmailHandler(canPas, res);
-  } else if (req.body.username.length === EMPTY_LENGTH) {
-    missingUsernameHandler(canPas, res);
   } else if (req.body.password.length === EMPTY_LENGTH) {
     missingPasswordHandler(canPas, res);
   } else if (req.body.email.length !== EMPTY_LENGTH && !emailRe.test(req.body.email)) {
@@ -72,7 +62,7 @@ function signUpErrorHandler(req, res) {
 }
 
 function signup(req, res) {
-  let username = req.body.username;
+  let username = req.body.username || '';
   let phonenumber = req.body.phonenumber || '';
   let fullname = req.body.fullname || '';
   let encrypted = cryptr.encrypt(req.body.password);
