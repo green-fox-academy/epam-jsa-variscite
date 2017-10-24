@@ -67,21 +67,17 @@ function likePost(id, userName, callback) {
       console.log('Couldn\'t get connect to the db', err);
       callback(null);
     }
-    db.collection('posts').find({'_id': ObjectId(id)}).toArray(function(err, element) {
-      if(element[0].likes.includes(userName)) {
-        let index = element[0].likes.indexOf(userName);
-        element[0].likes.splice(index, 1);
-        db.collection('posts').findAndModify({_id: ObjectId(id)}, [['_id', 1]],{$set:{likes:element[0].likes}}, {new:true, w:1}, function(err, element){
-  				db.close();
-  				callback(element.value.likes.length);
-  			});
+    db.collection('posts').findOne({'_id': ObjectId(id)}, function(err, element) {
+      if(element.likes.includes(userName)) {
+        let index = element.likes.indexOf(userName);
+        element.likes.splice(index, 1);
       } else {
-        element[0].likes.push(userName)
-        db.collection('posts').findAndModify({_id: ObjectId(id)}, [['_id', 1]],{$set:{likes:element[0].likes}}, {new:true, w:1}, function(err, element){
-  				db.close();
-  				callback(element.value.likes.length);
-  			});
+        element.likes.push(userName);
       }
+      db.collection('posts').findAndModify({_id: ObjectId(id)}, [['_id', 1]],{$set:{likes:element.likes}}, {new:true, w:1}, function(err, element){
+        db.close();
+        callback(element.value.likes.length);
+      });
 		});
   });
 }

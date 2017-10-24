@@ -54,7 +54,7 @@ class Post extends React.Component {
           <PostInfo numOfLikes={this.state.numOfLikes} postInfo={this.props.item}/>
           {this.state.errorMessage !== null ? <span className="error">
             {this.state.errorMessage}</span> : null}
-          <PostAct onClick={this.like.bind(this)} />
+          <PostAct onLikeClick={this.like.bind(this)} />
         </section>
       </div>
     );

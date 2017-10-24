@@ -106,7 +106,7 @@ function dataValidation(req, res, postInfo) {
 
 function like(req, res) {
   let id = req.params.id;
-  let token = req.headers.authorization;
+  let token = req.get('authorization');
   let userName = null;
   getAccessToken(token, function(err, item) {
     if (err) {
