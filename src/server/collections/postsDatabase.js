@@ -25,7 +25,7 @@ function createNewComment(commentInfo) {
     username: commentInfo.username,
     commentText: commentInfo.commentText,
     timeStamp: Date.now(),
-    userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg',
+    userPicURL: commentInfo.userPicURL,
     likes: [],
     replys: [],
   };
@@ -67,7 +67,9 @@ function insertComment(commentInfo, callback) {
     let objectId = new ObjectId(info.postId);
 
     db.collection('posts').update({_id: objectId}, {$push: {'comments': info}}, function(err, result) {
-      if (err) throw err;
+      if (err !== null) {
+        console.log('[MONGO ERROR] Unable to insert comments: ', err);
+      }
       callback(err, info);
     });
   });
@@ -79,11 +81,9 @@ function findComments(id, callback) {
 
     db.collection('posts').find({_id: objectId}).toArray((err, result) => {
       if (err !== null) {
-        console.log(err);
+        console.log('[MONGO ERROR] Unable to retrieve comments: ', err);
       }
       db.close();
-      console.log('result: ', result[0].comments);
-      // console.log(result.comments[0]);
       callback(err, result);
     });
   });
@@ -96,7 +96,7 @@ function insertDocument(db, postInfo, callback) {
 
   collection.insert(info, (err, item) => {
     if (err !== null) {
-      console.log('[MONGO ERROR]Unable to insert post: ', err);
+      console.log('[MONGO ERROR] Unable to insert post: ', err);
     }
     db.close();
     callback(err, item);
@@ -110,7 +110,6 @@ module.exports = {
     });
   },
   findPosts: findPosts,
-
   insertComment: insertComment,
   findComments: findComments,
 };

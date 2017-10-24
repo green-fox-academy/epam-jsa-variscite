@@ -15,38 +15,47 @@ class FeedPage extends React.Component {
     super(props);
     this.state = {
       'posts': [
-        {
-          '_id': '',
-          'username': 'Donald Trump',
-          'postText': 'Make America great again! #America #greatwall',
-          'timeStamp': 1508469350963,
-          'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-          'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-          'likes': [],
-          'comments': [],
-          'shares': [],
-          'numOfComments': 0,
-          'numOfLikes': 0,
-          'numOfShares': 0,
+        // {
+        //   '_id': '',
+        //   'username': 'Donald Trump',
+        //   'postText': 'Make America great again! #America #greatwall',
+        //   'timeStamp': 1508469350963,
+        //   'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+        //   'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+        //   'likes': [],
+        //   'comments': [],
+        //   'shares': [],
+        //   'numOfComments': 0,
+        //   'numOfLikes': 0,
+        //   'numOfShares': 0,
 
-        }, {
-          '_id': '',
-          'username': 'Donald Trump',
-          'timeStamp': 1508469350963,
-          'postText': 'Make America great again! #America #greatwall',
-          'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-          'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-          'likes': [],
-          'comments': [],
-          'shares': [],
-          'numOfComments': 0,
-          'numOfLikes': 0,
-          'numOfShares': 0,
-        },
+        // }, {
+        //   '_id': '',
+        //   'username': 'Donald Trump',
+        //   'timeStamp': 1508469350963,
+        //   'postText': 'Make America great again! #America #greatwall',
+        //   'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+        //   'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+        //   'likes': [],
+        //   'comments': [],
+        //   'shares': [],
+        //   'numOfComments': 0,
+        //   'numOfLikes': 0,
+        //   'numOfShares': 0,
+        // },
       ],
       'errorMessage': null,
       'isCommentDispaly': false,
     };
+    this.addOneComment = this.addOneComment.bind(this);
+  }
+
+  addOneComment(id) {
+    this.state.posts.forEach(function(item, index) {
+      if (id === item._id) {
+        item.numOfComments++;
+      }
+    });
   }
 
   handleGetPostError(status) {
@@ -81,7 +90,7 @@ class FeedPage extends React.Component {
             item.timeInDate = formatDate(newDate);
             return item;
           });
-
+          console.log(posts);
           this.setState({posts: posts});
         }
       }
@@ -144,14 +153,12 @@ class FeedPage extends React.Component {
   render() {
     let postsToRender = this.state.posts;
 
-    postsToRender = postsToRender.map(function(item, key) {
-      return (
-        <PostComment item={item}/>
-      );
-    });
+    postsToRender = postsToRender.map((item, key) => (
+      <PostComment item={item} add = {this.addOneComment} />
+    ));
     return (
       <div>
-        <Header isLoggedIn={true} show = {() => this.handleOpen()} />
+        <Header isLoggedIn={true} />
         <NavigationBar />
         <main className="container">
           <AddPost

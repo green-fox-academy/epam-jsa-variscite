@@ -16,7 +16,7 @@ class Post extends React.Component {
           <PostHeader userInfo={this.props.item} />
           <p className="post-text">{this.props.item.postText}</p>
           <img className="post-pic" src={this.props.item.postPicURL} />
-          <PostInfo postInfo={this.props.item}/>
+          <PostInfo postInfo={this.props.item} />
           <PostAct showInput = {() => this.props.showInput()}/>
         </section>
       </div>

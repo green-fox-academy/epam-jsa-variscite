@@ -1,7 +1,6 @@
 'use strict';
 
 import React from 'react';
-import formatDate from '../../components/Module/formatDate';
 import HTTP_STATUSES from '../../httpStatuses';
 const MIN_LEN = 2;
 const ENTER_KEY_CODE = 13;
@@ -16,13 +15,14 @@ class CommentInput extends React.Component {
     let commentContent = {
       text: event.target.value,
       _id: this.props.post_id,
+      userPicURL: this.props.myPicURL,
     };
 
     if (commentContent.text.length > MIN_LEN) {
       this.sendComment(commentContent);
       event.target.value = '';
     } else {
-      alert('more words needed!');
+      return;
     }
   }
 
@@ -31,10 +31,12 @@ class CommentInput extends React.Component {
 
     if (status === HTTP_STATUSES.BAD_REQUEST) {
       errorMessage = 'Something went wrong, please try later!';
-      return false;
+      return errorMessage;
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       errorMessage = 'Cannot connect to the database, please try again later!';
-      return false;
+      return errorMessage;
+    } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      errorMessage = 'You are not authorized, please log in first!';
     } else if (status === HTTP_STATUSES.CREATED) {
       return true;
     }
@@ -46,18 +48,7 @@ class CommentInput extends React.Component {
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (this.handleCommentError(xhr.status)) {
-          let comments = JSON.parse(xhr.response);
-
-          console.log(comments);
-
-          // comments.reverse(comments.timeStamp);
-          // comments = comments.map(function(item, index) {
-          //   let newDate = new Date(item.timeStamp);
-
-          //   item.timeInDate = formatDate(newDate);
-          //   return item;
-          // });
+        if (this.handleCommentError(xhr.status) === true) {
           this.props.getCommentsInfo();
         }
       }

@@ -7,9 +7,10 @@ const postsCollection = require('../collections/postsDatabase');
 
 function collectData(req) {
   return {
-    token: req.header('Authorization'), // user_id
+    token: req.header('Authorization'),
     commentText: req.body.text,
     postId: req.body._id,
+    userPicURL: req.body.userPicURL,
     username: '',
   };
 }
@@ -36,14 +37,12 @@ function commentHandler(req, res, commentInfo) {
       res.setHeader('Content-Type', 'application/json');
       /* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/
       // res.setHeader('Location', '/post/comment/' + item.ops[0]._id);
-      // console.log('item: ', info);
       res.status(HTTP_STATUSES.CREATED).json(info);
     }
   });
 }
 
 function createComment(req, res) {
-  console.log(req.body);
   let commentInfo = collectData(req);
 
   let validationResult = dataValidation(req, res, commentInfo);
@@ -73,13 +72,13 @@ function createComment(req, res) {
   }
 }
 
-// //////////////////////////////////////
-
 function findAllComments(req, res) {
   postsCollection.findComments(req.params.id, function(err, result) {
-    if (err) throw err;
-    // console.log('re: ', result.comments);
-    res.json(result[0].comments);
+    if (err) {
+      console.log(err);
+      return;
+    }
+    res.status(HTTP_STATUSES.OK).json(result[0].comments);
   });
 }
 
