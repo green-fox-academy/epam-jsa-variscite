@@ -1,7 +1,6 @@
 import React from 'react';
 
 class PostHeader extends React.Component {
-
   render() {
     return (
       <div className="post-header">

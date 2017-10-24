@@ -66,14 +66,14 @@ function findAllPosts(id, item, res) {
 }
 
 function findUserFriends(tokenDescriptor, res) {
-  let id = tokenDescriptor.userId;
+  let userId = tokenDescriptor.userId;
 
-  friendsCollection.findFriends(id, (err, id, item) => {
+  friendsCollection.findFriends(userId, (err, userId, item) => {
     if (err !== null) {
       res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       return;
     }
-    findAllPosts(id, item, res);
+    findAllPosts(userId, item, res);
   });
 }
 
@@ -96,12 +96,61 @@ function displayPosts(req, res) {
 function dataValidation(req, res, postInfo) {
   if (req.header('content-type').toLowerCase() !== 'application/json') {
     return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
-  } else if (req.header('Authorization') === null || !req.header('Authorization')) {
+  } else if (req.header('Authorization') === undefined) {
     return {'status': HTTP_STATUSES.UNAUTHORIZED, 'errorType': 'Unauthorized'};
   } else if (req.body.postText === null) {
     return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'FieldsMissing'};
   }
   return true;
+}
+
+function dataValidationLike(req) {
+  if (req.header('content-type').toLowerCase() !== 'application/json') {
+    return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
+  } else if (req.header('Authorization') === undefined) {
+    return {'status': HTTP_STATUSES.UNAUTHORIZED, 'errorType': 'Unauthorized'};
+  }
+  return true;
+}
+
+function like(req, res) {
+  let id = req.params.id;
+  let userId = null;
+  let validationResult = dataValidationLike(req);
+
+  if (validationResult === true) {
+    let token = req.header('authorization');
+
+    getAccessToken(token, function(err, item) {
+      if (err) {
+        res.status(HTTP_STATUSES.SERVER_ERROR)
+          .json({'errorType': 'server error'});
+        return;
+      }
+      if (item === null) {
+        res.status(HTTP_STATUSES.UNAUTHORIZED)
+          .json({'errorType': 'Unauthorized'});
+        return;
+      }
+      usersCollection.findUsername(item.userId, (result) => {
+        userId = result.username;
+        postsCollection.likePost(id, userId, function(data) {
+          if (data === null) {
+            res.status(HTTP_STATUSES.SERVER_ERROR)
+              .json({'errorType': 'server error'});
+            return;
+          }
+          res.status(HTTP_STATUSES.OK).json({
+            numberOfLikes: data.likes,
+            isUserLiked: data.isUserLiked
+          });
+        });
+      });
+    });
+  } else {
+    res.status(validationResult.status)
+      .json({'errorType': validationResult.errorType});
+  }
 }
 
 function createNewPost(req, res) {
@@ -137,4 +186,5 @@ function createNewPost(req, res) {
 module.exports = {
   createNewPost: createNewPost,
   displayPosts: displayPosts,
+  like: like,
 };

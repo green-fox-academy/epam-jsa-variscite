@@ -9,7 +9,7 @@ class Header extends React.Component {
     if (this.props.isLoggedIn === true) {
       return (
         <header className="logged-in-header">
-          <Logo />
+          <Logo isLoggedIn={this.props.isLoggedIn} />
           <SearchBar />
           <OtherOptions show = {() => this.props.show()}/>
         </header>
@@ -17,7 +17,7 @@ class Header extends React.Component {
     }
     return (
       <header className="guest-header">
-        <Logo isLoggedIn={this.props.isLoggedIn} />
+        <Logo />
       </header>
     );
   }
