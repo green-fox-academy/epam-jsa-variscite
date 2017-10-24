@@ -10,6 +10,11 @@
   margin-top: 5em;
   text-align: center;
   width: 36em;
+
+  @media (max-width: 480px) {
+    min-width: 320px;
+    width: 90%;
+  }
 }
 
 .signup-title {
@@ -24,6 +29,10 @@
     margin-bottom: .5em;
     margin-top: .5em;
     width: 64%;
+
+    @media (max-width: 480px) {
+      border: 1px solid #ebe9ed;
+    }
   }
 
   input:not([type='submit']) {
