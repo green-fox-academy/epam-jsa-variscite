@@ -5,9 +5,14 @@
   display: flex;
   flex-flow: column;
   margin: 0;
-  width: 60%;
   position: relative;
   top: 50px;
+  width: 60%;
+
+  @media (max-width: 480px) {
+    min-width: 320px;
+    width: 100%;
+  }
 
   .post-comment-container {
     align-items: center;
@@ -70,6 +75,7 @@
   .name, .user-pic, .post-pic:hover {
     cursor: pointer;
   }
+
   .post-info {
     border-bottom: 1px solid $bordergrey;
     color: $lightgrey;

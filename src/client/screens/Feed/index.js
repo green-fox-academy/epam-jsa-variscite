@@ -46,10 +46,28 @@ class FeedPage extends React.Component {
         },
       ],
       'errorMessage': null,
+      'userInfo': {username: 'Obama'},
+      'isLoggedIn': true,
     };
   }
 
   handleGetPostError(status) {
+    let errorMessage = null;
+    let pass = true;
+
+    if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      window.location.href = '/login';
+      pass = false;
+      errorMessage = 'You are not authorized! Please log in first!';
+    } else if (status === HTTP_STATUSES.SERVER_ERROR) {
+      pass = false;
+      errorMessage = 'Cannot connect to the database, please try again later!';
+    }
+    this.setState({'errorMessage': errorMessage});
+    return pass;
+  }
+
+  handleGetUserInfoError(status) {
     let errorMessage = null;
     let pass = true;
 
@@ -93,13 +111,34 @@ class FeedPage extends React.Component {
     xhr.send();
   }
 
+  getUserInfo() {
+    let xhr = new XMLHttpRequest();
+    let token = window.localStorage.getItem('token');
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (this.handleGetPostError(xhr.status)) {
+          let userInfo = JSON.parse(xhr.response).info;
+
+          this.setState({userInfo: userInfo});
+        }
+      }
+    }.bind(this));
+    xhr.open('GET', '/api/user');
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', token);
+    xhr.send();
+  }
+
   componentDidMount() {
     this.getAllPosts();
+    this.getUserInfo();
   }
 
   addPost(event) {
     event.preventDefault();
-    let postContent = {postText: event.target.elements.namedItem('input').value,};
+    let postContent = {postText: event.target.elements.namedItem('input').value };
 
     if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);
@@ -154,7 +193,10 @@ class FeedPage extends React.Component {
     });
     return (
       <div>
-        <Header isLoggedIn={true} show = {() => this.handleOpen()} user={this.state.posts[0].username}/>
+        <Header isLoggedIn={this.state.isLoggedIn}
+          show = {() => this.handleOpen()}
+          user={this.state.userInfo.username}
+        />
         <NavigationBar />
         <main className="container">
           <AddPost
