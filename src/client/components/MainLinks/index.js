@@ -8,7 +8,7 @@ class MainLinks extends React.Component {
         <h1>good evening</h1>
         <Link className="home" to="/home">Home</Link>
         <Link className="friends" to="/friends">Friends</Link>
-        <Link className="news" to="/news">News Feed</Link>
+        <Link className="news" to="/feed">News Feed</Link>
       </section>
     );
   }
