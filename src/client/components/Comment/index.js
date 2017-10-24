@@ -43,7 +43,7 @@ class Comment extends React.Component {
             item.timeStamp = formatDate(newDate);
             return item;
           });
-          // this.props.add(this.props.post_id);
+
           this.setState({comments: comments});
         }
       }

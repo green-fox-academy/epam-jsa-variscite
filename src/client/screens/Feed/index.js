@@ -47,15 +47,6 @@ class FeedPage extends React.Component {
       'errorMessage': null,
       'isCommentDispaly': false,
     };
-    this.addOneComment = this.addOneComment.bind(this);
-  }
-
-  addOneComment(id) {
-    this.state.posts.forEach(function(item, index) {
-      if (id === item._id) {
-        item.numOfComments++;
-      }
-    });
   }
 
   handleGetPostError(status) {
@@ -154,7 +145,7 @@ class FeedPage extends React.Component {
     let postsToRender = this.state.posts;
 
     postsToRender = postsToRender.map((item, key) => (
-      <PostComment item={item} add = {this.addOneComment} />
+      <PostComment item={item} />
     ));
     return (
       <div>
