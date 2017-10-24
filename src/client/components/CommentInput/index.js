@@ -46,22 +46,12 @@ class CommentInput extends React.Component {
         }
       }
     }.bind(this));
-    console.log(this.props.postId);
     xhr.open('POST', '/api/post/' + this.props.postId + '/comment');
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
     xhr.send(JSON.stringify(data));
   }
-
-  // componentDidMount() {
-  //   document.getElementById('comment-input').addEventListener('keypress', function(e) {
-  //     if (e.keyCode == ENTER_KEY_CODE && !e.shiftKey) {
-  //       e.preventDefault();
-  //       this.addComment(e);
-  //     }
-  //   }.bind(this));
-  // }
 
   keyPressHandler(event) {
     if (event.charCode === ENTER_KEY_CODE && !event.shiftKey) {
@@ -70,13 +60,24 @@ class CommentInput extends React.Component {
     }
   }
 
+  textareaOnfocus(state) {
+    if (state === true) {
+      this.nameInput.focus();
+    }
+  }
+
+  componentDidMount() {
+    this.textareaOnfocus(this.props.isInputBoxDisplay);
+  }
+
   render() {
     return (
       <div className="comment-input">
         <img className="user-pic" src={this.props.myPicURL} />
         <textarea onKeyPress={this.keyPressHandler.bind(this)}
-          id="comment-input" required name="input"
-          placeholder="Post a comment"></textarea>
+          id="comment-input" required name="input" placeholder="Post a comment" ref={(input) => {
+            this.nameInput = input;
+          }}></textarea>
         <button></button>
       </div>
     );

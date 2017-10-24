@@ -73,8 +73,8 @@ class Comment extends React.Component {
         {commentsToRender}
         {this.props.isInputBoxDisplay === true ?
           <CommentInput getCommentsInfo={this.getAllComments.bind(this)}
-            postId={this.props.postId}
-            myPicURL={this.state.myPicURL} /> : null}
+            postId={this.props.postId} myPicURL={this.state.myPicURL}
+            isInputBoxDisplay={this.props.isInputBoxDisplay}/> : null}
       </div>
     );
   }
