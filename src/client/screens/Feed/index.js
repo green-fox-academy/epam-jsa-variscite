@@ -99,9 +99,7 @@ class FeedPage extends React.Component {
 
   addPost(event) {
     event.preventDefault();
-    let postContent = {
-      postText: event.target.elements.namedItem('input').value,
-    };
+    let postContent = {postText: event.target.elements.namedItem('input').value,};
 
     if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);
@@ -156,7 +154,7 @@ class FeedPage extends React.Component {
     });
     return (
       <div>
-        <Header isLoggedIn={true} show = {() => this.handleOpen()} />
+        <Header isLoggedIn={true} show = {() => this.handleOpen()} user={this.state.posts[0].username}/>
         <NavigationBar />
         <main className="container">
           <AddPost
