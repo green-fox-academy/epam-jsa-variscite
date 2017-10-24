@@ -140,7 +140,10 @@ function like(req, res) {
               .json({'errorType': 'server error'});
             return;
           }
-          res.status(HTTP_STATUSES.OK).json(data);
+          res.status(HTTP_STATUSES.OK).json({
+            numberOfLikes: data.likes,
+            isUserLiked: data.isUserLiked
+          });
         });
       });
     });

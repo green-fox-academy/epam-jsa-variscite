@@ -17,12 +17,8 @@ class Post extends React.Component {
 
   handleErrorLike(xhr) {
     if (xhr.status === HTTP_STATUSES.OK) {
-      let datas = xhr.response.toString().split(' ');
-      let numLikes = datas[0].split('\"');
-      let likeClass = datas[1].split('\"');
-      
-      this.setState({numOfLikes: numLikes[1]});
-      this.setState({likeState: likeClass[0]});
+      let data = JSON.parse(xhr.response);
+      this.setState({numOfLikes: data.numberOfLikes, likeState: data.isUserLiked ? 'liked' : 'like'});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
         {errorMessage: 'Sorry, you are not authorized, please log in first!'}

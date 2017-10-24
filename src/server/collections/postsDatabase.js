@@ -78,11 +78,11 @@ function likePost(id, userName, callback) {
         } else if (element.likes.includes(userName)) {
           let index = element.likes.indexOf(userName);
           let numOfItemToDelete = 1;
-          like = 'like';
+          like = false;
 
           element.likes.splice(index, numOfItemToDelete);
         } else {
-          like = 'liked'
+          like = true;
           element.likes.push(userName);
         }
         db.collection('posts').findAndModify(
@@ -97,7 +97,7 @@ function likePost(id, userName, callback) {
               return;
             }
             db.close();
-            callback(item.value.likes.length + ' ' + like);
+            callback({likes: item.value.likes.length, isUserLiked: like});
             return;
           }
         );
