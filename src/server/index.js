@@ -32,7 +32,7 @@ app.post('/api/post', jsonParser, postHandler.createNewPost);
 
 app.get('/api/post/:id/comment', commentHandler.findAllComments);
 
-app.post('/api/comment', jsonParser, commentHandler.createComment);
+app.post('/api/post/:id/comment', jsonParser, commentHandler.createComment);
 
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});

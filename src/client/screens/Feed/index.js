@@ -3,7 +3,7 @@
 import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
 import Header from '../../components/Header';
-import PostComment from '../../components/PostComment';
+import PostAndComment from '../../components/PostAndComment';
 import AddPost from '../../components/AddPost';
 import HTTP_STATUSES from '../../httpStatuses';
 import NavigationBar from '../../components/NavigationBar';
@@ -14,38 +14,8 @@ class FeedPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'posts': [
-        // {
-        //   '_id': '',
-        //   'username': 'Donald Trump',
-        //   'postText': 'Make America great again! #America #greatwall',
-        //   'timeStamp': 1508469350963,
-        //   'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-        //   'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-        //   'likes': [],
-        //   'comments': [],
-        //   'shares': [],
-        //   'numOfComments': 0,
-        //   'numOfLikes': 0,
-        //   'numOfShares': 0,
-
-        // }, {
-        //   '_id': '',
-        //   'username': 'Donald Trump',
-        //   'timeStamp': 1508469350963,
-        //   'postText': 'Make America great again! #America #greatwall',
-        //   'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-        //   'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-        //   'likes': [],
-        //   'comments': [],
-        //   'shares': [],
-        //   'numOfComments': 0,
-        //   'numOfLikes': 0,
-        //   'numOfShares': 0,
-        // },
-      ],
+      'posts': [],
       'errorMessage': null,
-      'isCommentDispaly': false,
     };
   }
 
@@ -81,7 +51,6 @@ class FeedPage extends React.Component {
             item.timeInDate = formatDate(newDate);
             return item;
           });
-          console.log(posts);
           this.setState({posts: posts});
         }
       }
@@ -145,7 +114,7 @@ class FeedPage extends React.Component {
     let postsToRender = this.state.posts;
 
     postsToRender = postsToRender.map((item, key) => (
-      <PostComment item={item} />
+      <PostAndComment item={item} />
     ));
     return (
       <div>

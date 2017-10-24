@@ -4,27 +4,28 @@ import React from 'react';
 import Post from '../../components/Post';
 import Comment from '../../components/Comment';
 
-class PostComment extends React.Component {
+class PostAndComment extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isInputDisplay: false};
+    this.state = {isInputBoxDisplay: false};
   }
 
   showInput() {
-    if (this.state.isInputDisplay === true) {
-      this.setState({isInputDisplay: false});
+    if (this.state.isInputBoxDisplay === true) {
+      this.setState({isInputBoxDisplay: false});
     } else {
-      this.setState({isInputDisplay: true});
+      this.setState({isInputBoxDisplay: true});
     }
   }
   render() {
     return (
       <div key={this.props.item._id} className="post-comment-container">
         <Post item={this.props.item} showInput = {() => this.showInput()} />
-        <Comment post_id={this.props.item._id} inputBoxState={this.state.isInputDisplay} />
+        <Comment postId={this.props.item._id}
+          isInputBoxDisplay={this.state.isInputBoxDisplay} />
       </div>
     );
   }
 }
 
-export default PostComment;
+export default PostAndComment;

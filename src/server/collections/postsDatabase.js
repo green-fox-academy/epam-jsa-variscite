@@ -20,7 +20,7 @@ function createNewPost(postInfo) {
 
 function createNewComment(commentInfo) {
   return {
-    userId: commentInfo.token,
+    userId: commentInfo.userId,
     postId: commentInfo.postId,
     username: commentInfo.username,
     commentText: commentInfo.commentText,

@@ -9,8 +9,9 @@ function collectData(req) {
   return {
     token: req.header('Authorization'),
     commentText: req.body.text,
-    postId: req.body._id,
+    postId: req.params.id,
     userPicURL: req.body.userPicURL,
+    userId: '',
     username: '',
   };
 }
@@ -19,11 +20,9 @@ function dataValidation(req, res, commentText) {
   if (req.header('content-type').toLowerCase() !== 'application/json') {
     return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
   } else if (req.header('Authorization') === undefined || !req.header('Authorization')) {
-    return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'Unauthorized'};
+    return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'HeaderMissing '};
   } else if (req.body.commentText === null) {
     return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'FieldsMissing'};
-  } else if (req.body._id === null) {
-    return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'PostMissing'};
   }
   return true;
 }
@@ -36,7 +35,6 @@ function commentHandler(req, res, commentInfo) {
     } else {
       res.setHeader('Content-Type', 'application/json');
       /* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/
-      // res.setHeader('Location', '/post/comment/' + item.ops[0]._id);
       res.status(HTTP_STATUSES.CREATED).json(info);
     }
   });
@@ -59,7 +57,8 @@ function createComment(req, res) {
           .json({'errorType': 'Unauthorized'});
         return;
       }
-      commentInfo.token = item.userId;
+      commentInfo.userId = item.userId;
+      delete commentInfo.token;
 
       usersCollection.findUsername(item.userId, (result) => {
         commentInfo.username = result.username;

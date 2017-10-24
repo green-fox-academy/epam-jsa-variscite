@@ -21,6 +21,7 @@ class Comment extends React.Component {
       return false;
     } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState({errorMessage: 'You are not authorized, please log in first!'});
+      return false;
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       this.setState({errorMessage: 'Cannot connect to the database, please try again later!'});
       return false;
@@ -48,7 +49,7 @@ class Comment extends React.Component {
         }
       }
     }.bind(this));
-    xhr.open('GET', '/api/post/' + this.props.post_id + '/comment');
+    xhr.open('GET', '/api/post/' + this.props.postId + '/comment');
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send();
@@ -63,16 +64,16 @@ class Comment extends React.Component {
 
     commentsToRender = commentsToRender.map(function(item, key) {
       return (
-        <CommentsBox item={item}/>
+        <CommentsBox item={item} key={key}/>
       );
     });
 
     return (
       <div className="comment-container">
         {commentsToRender}
-        {this.props.inputBoxState === true ?
+        {this.props.isInputBoxDisplay === true ?
           <CommentInput getCommentsInfo={this.getAllComments.bind(this)}
-            post_id={this.props.post_id}
+            postId={this.props.postId}
             myPicURL={this.state.myPicURL} /> : null}
       </div>
     );
