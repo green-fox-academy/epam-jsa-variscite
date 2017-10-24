@@ -23,7 +23,7 @@ class Comment extends React.Component {
       this.setState({errorMessage: 'You are not authorized, please log in first!'});
       return false;
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
-      this.setState({errorMessage: 'Cannot connect to the database, please try again later!'});
+      this.setState({errorMessage: 'Server error, please try again later!'});
       return false;
     } else if (status === HTTP_STATUSES.OK) {
       return true;
