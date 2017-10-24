@@ -81,6 +81,10 @@
       margin: 6px;
     }
 
+    .likes::before {
+      content: attr(data-likes);
+    }
+
     .likes {
       margin-left: 0;
     }

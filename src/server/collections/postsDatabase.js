@@ -1,7 +1,7 @@
 'use strict';
 
 const MongoClient = require('mongodb').MongoClient;
-const ObjectId = require('mongodb').ObjectId;
+const objectId = require('mongodb').ObjectId;
 const url = process.env.DB_URL;
 
 function createNewPost(postInfo) {
@@ -66,19 +66,39 @@ function likePost(id, userName, callback) {
     if (err !== null) {
       console.log('Couldn\'t get connect to the db', err);
       callback(null);
+      return;
     }
-    db.collection('posts').findOne({'_id': ObjectId(id)}, function(err, element) {
-      if(element.likes.includes(userName)) {
-        let index = element.likes.indexOf(userName);
-        element.likes.splice(index, 1);
-      } else {
-        element.likes.push(userName);
-      }
-      db.collection('posts').findAndModify({_id: ObjectId(id)}, [['_id', 1]],{$set:{likes:element.likes}}, {new:true, w:1}, function(err, element){
-        db.close();
-        callback(element.value.likes.length);
+    db.collection('posts')
+      .findOne({'_id': objectId(id)}, function(err, element) {
+        if (err !== null) {
+          console.log('Couldn\'t get connect to the db', err);
+          callback(null);
+          return;
+        } else if (element.likes.includes(userName)) {
+          let index = element.likes.indexOf(userName);
+          let numOfItemToDelete = 1;
+
+          element.likes.splice(index, numOfItemToDelete);
+        } else {
+          element.likes.push(userName);
+        }
+        db.collection('posts').findAndModify(
+          {_id: objectId(id)},
+          [['_id', 1]],
+          {$set: {likes: element.likes}},
+          {new: true, w: 1},
+          function(err, item) {
+            if (err !== null) {
+              console.log('Couldn\'t get connect to the db', err);
+              callback(null);
+              return;
+            }
+            db.close();
+            callback(item.value.likes.length);
+            return;
+          }
+        );
       });
-		});
   });
 }
 

@@ -11,19 +11,19 @@ class Post extends React.Component {
     this.state = {
       numOfLikes: this.props.item.numOfLikes,
       errorMessage: null,
-    }
+    };
   }
 
   handleErrorLike(xhr) {
     if (xhr.status === HTTP_STATUSES.OK) {
       this.setState({numOfLikes: xhr.response});
-    } else if(xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
+    } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
-        {errorMessage:'Sorry, you are not authorized, please log in first!'}
+        {errorMessage: 'Sorry, you are not authorized, please log in first!'}
       );
     } else {
       this.setState(
-        {errorMessage:'Sorry, Server Error! Please try again later!'}
+        {errorMessage: 'Sorry, Server Error! Please try again later!'}
       );
     }
   }
@@ -51,7 +51,10 @@ class Post extends React.Component {
           <PostHeader userInfo={this.props.item} />
           <p className="post-text">{this.props.item.postText}</p>
           <img className="post-pic" src={this.props.item.postPicURL} />
-          <PostInfo numOfLikes={this.state.numOfLikes} postInfo={this.props.item}/>
+          <PostInfo
+            numOfLikes={this.state.numOfLikes}
+            postInfo={this.props.item}
+          />
           {this.state.errorMessage !== null ? <span className="error">
             {this.state.errorMessage}</span> : null}
           <PostAct onLikeClick={this.like.bind(this)} />
