@@ -25,7 +25,7 @@ function createNewComment(commentInfo) {
     username: commentInfo.username,
     commentText: commentInfo.commentText,
     timeStamp: Date.now(),
-    userPicURL: '',
+    userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg',
     likes: [],
     replys: [],
   };
