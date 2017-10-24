@@ -4,7 +4,7 @@ const SignupForm = (props) => (
   <form className="signup-form" method="POST" action="/api/signup"
     onSubmit={props.onSubmit}>
     <input type="text" name="username"
-      placeholder="Username (optional)"></input>
+      required placeholder="Username"></input>
     <input type="text" name="fullname"
       placeholder="Full name (optional)"></input>
     <input type="email" name="email"
