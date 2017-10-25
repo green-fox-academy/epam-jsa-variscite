@@ -57,12 +57,11 @@ $blackcolor: #000;
   }
 
   @media (max-width: 480px) {
-    align-items: center;
-    display: flex;
-    margin: 0 0 1em 0;
+    margin: 0;
     min-width: 320px;
-    top: 3.5em;
-    width: 100%;
+    width: initial;
+    padding: 0 1em;
+    position: initial;
 
     .shortcut, .explore, h1 {
       display: none;
@@ -70,17 +69,15 @@ $blackcolor: #000;
     }
 
     .main-links {
-      align-items: flex-start;
       display: flex;
       flex-wrap: nowrap;
-      height: 100%;
-      width: 100%;
     }
 
     a {
       height: 100%;
       margin-bottom: .5em;
-      width: 33%;
+      justify-content: space-between;
+      flex: 1;
     }
   }
 }
