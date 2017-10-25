@@ -29,7 +29,7 @@ function getUserInfo(req, res) {
 
       let obj = {info: user};
 
-      res.status(HTTP_STATUSES.CREATED).json(obj);
+      res.status(HTTP_STATUSES.OK).json(obj);
     });
   });
 }
