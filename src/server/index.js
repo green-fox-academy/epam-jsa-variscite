@@ -35,7 +35,7 @@ app.get('/api/user', userHandler.getUserInfo);
 
 app.get('/api/post/:id/comment', commentHandler.findAllComments);
 
-app.post('/api/post/:id/comment', jsonParser, commentHandler.createComment);
+app.post('/api/post/:id/comment', jsonParser, commentHandler.createComment);p
 
 app.put('/api/post/:id/like', postHandler.like);
 
