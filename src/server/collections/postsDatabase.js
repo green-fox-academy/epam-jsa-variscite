@@ -1,7 +1,7 @@
 'use strict';
 
 const MongoClient = require('mongodb').MongoClient;
-const objectId = require('mongodb').ObjectId;
+const ObjectId = require('mongodb').ObjectId;
 const url = process.env.DB_URL;
 
 function createNewPost(postInfo) {
@@ -15,6 +15,19 @@ function createNewPost(postInfo) {
     likes: [],
     comments: [],
     shares: [],
+  };
+}
+
+function createNewComment(commentInfo) {
+  return {
+    userId: commentInfo.userId,
+    postId: commentInfo.postId,
+    username: commentInfo.username,
+    commentText: commentInfo.commentText,
+    timeStamp: Date.now(),
+    userPicURL: commentInfo.userPicURL,
+    likes: [],
+    replys: [],
   };
 }
 
@@ -47,6 +60,35 @@ function findPosts(array, callback) {
   });
 }
 
+function insertComment(commentInfo, callback) {
+  let info = createNewComment(commentInfo);
+
+  connectMongoTo((db) => {
+    let objectId = new ObjectId(info.postId);
+
+    db.collection('posts').update({_id: objectId}, {$push: {'comments': info}}, function(err, result) {
+      if (err !== null) {
+        console.log('[MONGO ERROR] Unable to insert comments: ', err);
+      }
+      callback(err, info);
+    });
+  });
+}
+
+function findComments(id, callback) {
+  connectMongoTo((db) => {
+    let objectId = new ObjectId(id);
+
+    db.collection('posts').find({_id: objectId}).toArray((err, result) => {
+      if (err !== null) {
+        console.log('[MONGO ERROR] Unable to retrieve comments: ', err);
+      }
+      db.close();
+      callback(err, result);
+    });
+  });
+}
+
 function insertDocument(db, postInfo, callback) {
   let collection = db.collection('posts');
 
@@ -54,7 +96,7 @@ function insertDocument(db, postInfo, callback) {
 
   collection.insert(info, (err, item) => {
     if (err !== null) {
-      console.log('[MONGO ERROR]Unable to insert post: ', err);
+      console.log('[MONGO ERROR] Unable to insert post: ', err);
     }
     db.close();
     callback(err, item);
@@ -69,8 +111,9 @@ function likePost(id, userName, callback) {
       return;
     }
     db.collection('posts')
-      .findOne({'_id': objectId(id)}, function(err, element) {
+      .findOne({'_id': ObjectId(id)}, function(err, element) {
         let like;
+
         if (err !== null) {
           console.log('Couldn\'t get connect to the db', err);
           callback(null);
@@ -78,6 +121,7 @@ function likePost(id, userName, callback) {
         } else if (element.likes.includes(userName)) {
           let index = element.likes.indexOf(userName);
           let numOfItemToDelete = 1;
+
           like = false;
 
           element.likes.splice(index, numOfItemToDelete);
@@ -86,7 +130,7 @@ function likePost(id, userName, callback) {
           element.likes.push(userName);
         }
         db.collection('posts').findAndModify(
-          {_id: objectId(id)},
+          {_id: ObjectId(id)},
           [['_id', 1]],
           {$set: {likes: element.likes}},
           {new: true, w: 1},
@@ -112,5 +156,7 @@ module.exports = {
     });
   },
   findPosts: findPosts,
+  insertComment: insertComment,
+  findComments: findComments,
   likePost: likePost,
 };

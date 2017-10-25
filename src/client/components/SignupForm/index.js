@@ -3,8 +3,9 @@ import React from 'react';
 const SignupForm = (props) => (
   <form className="signup-form" method="POST" action="/api/signup"
     onSubmit={props.onSubmit}>
-    <input type="text" name="username"
-      placeholder="Username (optional)"></input>
+    <input type="text" name="username" pattern=".{4,10}"
+      required placeholder="Username (optional)"></input>
+
     <input type="text" name="fullname"
       placeholder="Full name (optional)"></input>
     <input type="email" name="email"
