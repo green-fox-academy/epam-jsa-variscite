@@ -7,8 +7,8 @@ class OtherOptions extends React.Component {
     this.state = {open: false};
   }
 
-  handleOpen() {
-    this.setState({open: true});
+  switchState() {
+    this.setState({open: !this.state.open});
   }
 
   handleClose() {
@@ -17,7 +17,9 @@ class OtherOptions extends React.Component {
 
   componentDidMount() {
     document.querySelector('html').addEventListener('click', function(event) {
-      if (event.target.className !== 'menu-option') {
+      if (event.target.classList.contains('setting-button')) {
+        this.switchState();
+      } else if (event.target.className !== 'menu-option') {
         this.handleClose();
       }
     }.bind(this), false);
@@ -30,9 +32,8 @@ class OtherOptions extends React.Component {
         <button className="option-button">Friends</button>
         <button className="option-button mystery-button img-button"></button>
         <div className="menu-block">
-          <button className="option-button setting-button img-button" onClick={function() {
-            this.handleOpen();
-          }.bind(this)}></button>
+          <button className="option-button setting-button img-button" >
+          </button>
           {this.state.open === true ? <Menu /> : null}
         </div>
       </div>
