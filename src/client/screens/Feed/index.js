@@ -17,7 +17,7 @@ class FeedPage extends React.Component {
     this.state = {
       'posts': [
         {
-          'postId': '1',
+          '_id': '1',
           'username': 'Donald Trump',
           'postText': 'Make America great again! #America #greatwall',
           'timeStamp': 1508469350963,
@@ -31,7 +31,7 @@ class FeedPage extends React.Component {
           'numOfShares': 0,
 
         }, {
-          'postId': '2',
+          '_id': '2',
           'username': 'Donald Trump',
           'timeStamp': 1508469350963,
           'postText': 'Make America great again! #America #greatwall',
@@ -138,7 +138,8 @@ class FeedPage extends React.Component {
 
   addPost(event) {
     event.preventDefault();
-    let postContent = {postText: event.target.elements.namedItem('input').value,};
+
+    let postContent = {postText: event.target.elements.namedItem('input').value};
 
     if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);
