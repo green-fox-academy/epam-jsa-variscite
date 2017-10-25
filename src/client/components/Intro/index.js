@@ -7,12 +7,18 @@ class Intro extends React.Component {
     return (
       <div className="profile-intro">
         <div className="intro">Intro</div>
-        <p>Full Name: <span>Chase</span></p>
-        <p>Gender: <span>Male</span></p>
-        <p>Age: <span>24</span></p>
-        <p>Lives in <span>London, United Kindom</span></p>
-        <p>Works at <span>EPAM System</span></p>
-        <p>Studied at <span>University of Oxford</span></p>
+        <div className="info">
+          <div className="text">Full Name: <a href="#">Chase Wang</a></div>
+          <div className="text">Gender: <a href="#">Male</a></div>
+          <div className="text">Age: <a href="#">24</a></div>
+          <div className="text">Lives in <a href="#">London, United Kindom</a></div>
+          <div className="text">Works at <a href="#">EPAM System</a></div>
+          <div className="text">Studied at <a href="#">University of Oxford</a></div>
+        </div>
+        <div className="album">Album</div>
+        <div className="img-container">
+          <img src="http://cdn4.spiegel.de/images/image-2953-640_panofree-rejo-2953.jpg" />
+        </div>
       </div>
     );
   }
