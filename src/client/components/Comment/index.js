@@ -1,34 +1,83 @@
 import React from 'react';
 import './style.scss';
-import CommentInfo from '../CommentInfo/';
 import CommentInput from '../CommentInput/';
+import CommentsBox from '../CommentsBox/';
+import formatDate from '../../components/Module/formatDate';
+import HTTP_STATUSES from '../../httpStatuses';
 
 class Comment extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      comments: [],
+      errorMessage: null,
+      myPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg',
+    };
+  }
+
+  handleGetCommentError(status) {
+    if (status === HTTP_STATUSES.BAD_REQUEST) {
+      this.setState({errorMessage: 'Something went wrong, please try again later!'});
+      return false;
+    } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      this.setState({errorMessage: 'You are not authorized, please log in first!'});
+      return false;
+    } else if (status === HTTP_STATUSES.SERVER_ERROR) {
+      this.setState({errorMessage: 'Server error, please try again later!'});
+      return false;
+    } else if (status === HTTP_STATUSES.OK) {
+      return true;
+    }
+  }
+
+  getAllComments() {
+    let xhr = new XMLHttpRequest();
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (this.handleGetCommentError(xhr.status)) {
+          let comments = JSON.parse(xhr.response);
+
+          comments = comments.map(function(item, index) {
+            let newDate = new Date(item.timeStamp);
+
+            item.timeStamp = formatDate(newDate);
+            return item;
+          });
+
+          this.setState({comments: comments});
+        }
+      }
+    }.bind(this));
+    xhr.open('GET', '/api/post/' + this.props.postId + '/comment');
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send();
+  }
+
+  componentDidMount() {
+    this.getAllComments();
+  }
+
   render() {
+    let commentsToRender = this.state.comments;
+
+    commentsToRender = commentsToRender.map(function(item, key) {
+      return (
+        <CommentsBox item={item} key={key}/>
+      );
+    });
+
     return (
       <div className="comment-container">
-        <div className="comment-box">
-          <img className="user-pic" src={this.props.userPicURL} />
-          <div className="comment-info">
-            <CommentInfo
-              commentTime={this.props.commentTime}
-              commentUsername={this.props.username}
-              commentText={this.props.commentText}
-            />
-          </div>
-        </div>
-        <CommentInput myPicURL={this.props.myPicURL} />
+        {commentsToRender}
+        {this.props.isInputBoxDisplay === true ?
+          <CommentInput getCommentsInfo={this.getAllComments.bind(this)}
+            postId={this.props.postId} myPicURL={this.state.myPicURL}
+            isInputBoxDisplay={this.props.isInputBoxDisplay}/> : null}
       </div>
     );
   }
 }
-
-Comment.defaultProps = {
-  username: 'Hillary Clinton',
-  commentTime: '10th Oct at 11:42PM',
-  userPicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk9HKJuqE3ZmpAWaWHEbFAvsCsktkwEFZ-aNKy9eo1VGvTh_hE',
-  myPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg',
-  commentText: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr',
-};
 
 export default Comment;
