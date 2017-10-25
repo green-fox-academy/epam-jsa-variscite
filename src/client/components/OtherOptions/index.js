@@ -7,12 +7,8 @@ class OtherOptions extends React.Component {
     this.state = {open: false};
   }
 
-  handleOpen() {
-    if (this.state.open === false) {
-      this.setState({open: true});
-    } else {
-      this.setState({open: false});
-    }
+  switchState() {
+    this.setState({open: !this.state.open});
   }
 
   handleClose() {
@@ -22,7 +18,7 @@ class OtherOptions extends React.Component {
   componentDidMount() {
     document.querySelector('html').addEventListener('click', function(event) {
       if (event.target.className === 'option-button setting-button img-button') {
-        this.handleOpen();
+        this.switchState();
       }
 
       if (event.target.className !== 'menu-option' &&
