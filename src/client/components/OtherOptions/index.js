@@ -17,12 +17,9 @@ class OtherOptions extends React.Component {
 
   componentDidMount() {
     document.querySelector('html').addEventListener('click', function(event) {
-      if (event.target.className === 'option-button setting-button img-button') {
+      if (event.target.classList.contains('setting-button')) {
         this.switchState();
-      }
-
-      if (event.target.className !== 'menu-option' &&
-      event.target.className !== 'option-button setting-button img-button') {
+      } else if (event.target.className !== 'menu-option') {
         this.handleClose();
       }
     }.bind(this), false);
