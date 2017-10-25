@@ -25,6 +25,9 @@
         border: 1px solid white;
         box-shadow: 8px 8px 10px 0 black;
     }
+    .cover-photo, .user-pic:hover {
+      cursor: pointer;
+    }
 
     nav {
         width: 100%;
@@ -82,9 +85,11 @@
             font-size: .8em;
             color: $textgrey;
         }
+        a, span {
+          color: $userblue;
+          margin-left: .2em;
+        }
         a {
-            color: $userblue;
-            margin-left: .2em;
             text-decoration: none;
         }
         a:hover {
@@ -110,7 +115,6 @@
 
     .profile-post {
         width: 68%;
-        // background-color: $userblue;
         .compose-container {
             position: relative;
             width: 100%;
