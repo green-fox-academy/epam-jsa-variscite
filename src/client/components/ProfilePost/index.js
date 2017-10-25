@@ -79,12 +79,11 @@ class ProfilePost extends React.Component {
             item.timeInDate = formatDate(newDate);
             return item;
           });
-
           this.setState({posts: posts});
         }
       }
     }.bind(this));
-    xhr.open('GET', '/api/post');
+    xhr.open('GET', '/api/post' + '?author=me');
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);

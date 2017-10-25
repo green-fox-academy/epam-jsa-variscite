@@ -52,20 +52,20 @@ function newPostHandler(req, res, postInfo) {
   });
 }
 
-function findAllPosts(id, item, res) {
+function findAllPosts(id, item, req, res) {
   if (item !== null) {
     let users = item.userFriends;
 
     users.push(item.userId);
     findPosts(users, res);
-  } else {
+  } else if (req.query.author === 'me' || item === null) {
     let user = [id];
 
     findPosts(user, res);
   }
 }
 
-function findUserFriends(tokenDescriptor, res) {
+function findUserFriends(tokenDescriptor, req, res) {
   let userId = tokenDescriptor.userId;
 
   friendsCollection.findFriends(userId, (err, userId, item) => {
@@ -73,7 +73,7 @@ function findUserFriends(tokenDescriptor, res) {
       res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       return;
     }
-    findAllPosts(userId, item, res);
+    findAllPosts(userId, item, req, res);
   });
 }
 
@@ -89,7 +89,7 @@ function displayPosts(req, res) {
       res.status(HTTP_STATUSES.UNAUTHORIZED).json({errorType: 'loginError'});
       return;
     }
-    findUserFriends(tokenDescriptor, res);
+    findUserFriends(tokenDescriptor, req, res);
   });
 }
 
@@ -142,7 +142,7 @@ function like(req, res) {
           }
           res.status(HTTP_STATUSES.OK).json({
             numberOfLikes: data.likes,
-            isUserLiked: data.isUserLiked
+            isUserLiked: data.isUserLiked,
           });
         });
       });
