@@ -1,6 +1,6 @@
 import React from 'react';
 
-var SuggestedPage = function(props){
+function PagePreview(props) {
   return (
     <div className="page-preview">
       <img src={props.item.pageImg} />
@@ -8,6 +8,6 @@ var SuggestedPage = function(props){
       <p>{props.item.pageDetail}</p>
     </div>
   );
-};
+}
 
-export default SuggestedPage;
+export default PagePreview;
