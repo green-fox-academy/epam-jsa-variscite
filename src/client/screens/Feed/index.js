@@ -1,5 +1,5 @@
 'use strict';
-
+import './style.scss';
 import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
 import Header from '../../components/Header';
@@ -156,15 +156,17 @@ class FeedPage extends React.Component {
     return (
       <div>
         <Header isLoggedIn={true} show = {() => this.handleOpen()} />
-        <NavigationBar />
-        <SuggestedPage />
-        <main className="container">
-          <AddPost
-            errorMessage={this.state.errorMessage}
-            onSubmit={this.addPost.bind(this)}
-          />
-          {postsToRender}
-        </main>
+        <div className="feed-page-container">
+          <NavigationBar />
+          <main className="container">
+            <AddPost
+              errorMessage={this.state.errorMessage}
+              onSubmit={this.addPost.bind(this)}
+            />
+            {postsToRender}
+          </main>
+          <SuggestedPage />
+        </div>
       </div>
     );
   }

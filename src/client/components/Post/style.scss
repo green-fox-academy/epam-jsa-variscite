@@ -4,10 +4,11 @@
   align-items: center;
   display: flex;
   flex-flow: column;
+  float: left;
   margin: 0;
   position: relative;
   top: 50px;
-  width: 60%;
+  width: 61%;
 
   @media (max-width: 480px) {
     min-width: 320px;
