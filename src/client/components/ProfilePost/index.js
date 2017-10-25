@@ -153,22 +153,14 @@ class ProfilePost extends React.Component {
   render() {
     let postsToRender = this.state.posts;
 
-    // postsToRender = postsToRender.map(function(item, key) {
-    //   return (
-    //     <div key={item._id} className="post-comment-container">
-    //       <Post item={item} />
-    //       <Comment />
-    //     </div>
-    //   );
-    // });
-
     postsToRender = postsToRender.map((item, key) =>
       <PostAndComment item={item} key={key}/>
     );
 
     return (
       <div className="profile-post">
-        <AddPost />
+        <AddPost errorMessage={this.state.errorMessage}
+          onSubmit={this.addPost.bind(this)}/>
         {postsToRender}
       </div>
     );
