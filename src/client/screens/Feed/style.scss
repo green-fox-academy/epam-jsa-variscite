@@ -1,9 +1,9 @@
 @import '../../style';
 
 .feed-page-container {
+  align-items: flex-start;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
 
   @media (max-width: 480px) {
     display: block;

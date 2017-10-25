@@ -3,7 +3,6 @@
 .suggested-page {
   background: $whitecolor;
   box-shadow: 0 2px 4px 0 $shadowcolor;
-  float: left;
   font-size: .9em;
   margin-right: 1em;
   margin-top: 0;
@@ -13,9 +12,9 @@
   width: calc(15% - 2em);
 
   .page-preview {
-    width: 100%;
     background-color: $suggestedpagewhite;
     margin: 1em 0;
+    width: 100%;
 
     img {
       width: 100%;
@@ -26,8 +25,8 @@
     }
 
     p {
-      font-size: .8em;
       color: $lightgrey;
+      font-size: .8em;
     }
   }
 
@@ -38,13 +37,13 @@
   }
 
   a {
-    display: block;
     color: $bluecolor;
-    font-weight: bold;
+    display: block;
     font-size: .9em;
+    font-weight: bold;
+    pointer-events: none;
     text-align: center;
     text-decoration: none;
-    pointer-events: none;
   }
 
   @media (max-width: 480px) {
