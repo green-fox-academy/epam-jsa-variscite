@@ -113,28 +113,28 @@ function dataValidationLike(req) {
   return true;
 }
 
+function handleDBError(res, err, item) {
+  if (err) {
+    res.status(HTTP_STATUSES.SERVER_ERROR).json({'errorType': 'server error'});
+    return;
+  }
+  if (item === null) {
+    res.status(HTTP_STATUSES.UNAUTHORIZED).json({'errorType': 'Unauthorized'});
+    return;
+  }
+}
+
 function like(req, res) {
   let id = req.params.id;
-  let userId = null;
   let validationResult = dataValidationLike(req);
 
   if (validationResult === true) {
     let token = req.header('authorization');
 
     getAccessToken(token, function(err, item) {
-      if (err) {
-        res.status(HTTP_STATUSES.SERVER_ERROR)
-          .json({'errorType': 'server error'});
-        return;
-      }
-      if (item === null) {
-        res.status(HTTP_STATUSES.UNAUTHORIZED)
-          .json({'errorType': 'Unauthorized'});
-        return;
-      }
+      handleDBError(res, err, item);
       usersCollection.findUsername(item.userId, (result) => {
-        userId = result.username;
-        postsCollection.likePost(id, userId, function(data) {
+        postsCollection.likePost(id, result.username, function(data) {
           if (data === null) {
             res.status(HTTP_STATUSES.SERVER_ERROR)
               .json({'errorType': 'server error'});
@@ -142,7 +142,7 @@ function like(req, res) {
           }
           res.status(HTTP_STATUSES.OK).json({
             numberOfLikes: data.likes,
-            isUserLiked: data.isUserLiked
+            isUserLiked: data.isUserLiked,
           });
         });
       });
@@ -160,16 +160,7 @@ function createNewPost(req, res) {
 
   if (validationResult === true) {
     getAccessToken(postInfo.token, function(err, item) {
-      if (err) {
-        res.status(HTTP_STATUSES.SERVER_ERROR)
-          .json({'errorType': 'server error'});
-        return;
-      }
-      if (item === null) {
-        res.status(HTTP_STATUSES.UNAUTHORIZED)
-          .json({'errorType': 'Unauthorized'});
-        return;
-      }
+      handleDBError(res, err, item);
       postInfo.token = item.userId;
 
       usersCollection.findUsername(item.userId, (result) => {

@@ -3,8 +3,7 @@ import './style.scss';
 import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
 import Header from '../../components/Header';
-import Post from '../../components/Post';
-import Comment from '../../components/Comment';
+import PostAndComment from '../../components/PostAndComment';
 import AddPost from '../../components/AddPost';
 import HTTP_STATUSES from '../../httpStatuses';
 import NavigationBar from '../../components/NavigationBar';
@@ -16,36 +15,7 @@ class FeedPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'posts': [
-        {
-          '_id': '1',
-          'username': 'Donald Trump',
-          'postText': 'Make America great again! #America #greatwall',
-          'timeStamp': 1508469350963,
-          'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-          'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-          'likes': [],
-          'comments': [],
-          'shares': [],
-          'numOfComments': 0,
-          'numOfLikes': 0,
-          'numOfShares': 0,
-
-        }, {
-          '_id': '2',
-          'username': 'Donald Trump',
-          'timeStamp': 1508469350963,
-          'postText': 'Make America great again! #America #greatwall',
-          'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
-          'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
-          'likes': [],
-          'comments': [],
-          'shares': [],
-          'numOfComments': 0,
-          'numOfLikes': 0,
-          'numOfShares': 0,
-        },
-      ],
+      'posts': [],
       'errorMessage': null,
     };
   }
@@ -82,7 +52,6 @@ class FeedPage extends React.Component {
             item.timeInDate = formatDate(newDate);
             return item;
           });
-
           this.setState({posts: posts});
         }
       }
@@ -145,17 +114,12 @@ class FeedPage extends React.Component {
   render() {
     let postsToRender = this.state.posts;
 
-    postsToRender = postsToRender.map(function(item, key) {
-      return (
-        <div key={item._id} className="post-comment-container">
-          <Post item={item} />
-          <Comment />
-        </div>
-      );
-    });
+    postsToRender = postsToRender.map((item, key) => (
+      <PostAndComment item={item} />
+    ));
     return (
       <div>
-        <Header isLoggedIn={true} show = {() => this.handleOpen()} />
+        <Header isLoggedIn={true} />
         <div className="feed-page-container">
           <NavigationBar />
           <main className="container">
