@@ -7,8 +7,43 @@
   font-size: .9em;
   margin-right: 1em;
   margin-top: 0;
-  padding: .2em 0 1.2em 0;
+  padding: .2em 1.2em 1em 2em;
   position: relative;
   top: 80px;
-  width: 18%;
+  width: calc(17% - 2em);
+
+  .page-preview {
+    width: 100%;
+    background-color: $suggestedpagewhite;
+    margin: 1em 0;
+
+    img {
+      width: 100%;
+    }
+
+    span {
+      font-size: .9em;
+    }
+
+    p {
+      font-size: .8em;
+      color: $lightgrey;
+    }
+  }
+
+  h1 {
+    font-size: 1em;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  a {
+    display: block;
+    color: $bluecolor;
+    font-weight: bold;
+    font-size: .9em;
+    text-align: center;
+    text-decoration: none;
+    pointer-events: none;
+  }
 }

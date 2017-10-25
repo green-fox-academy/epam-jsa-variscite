@@ -157,6 +157,7 @@ class FeedPage extends React.Component {
       <div>
         <Header isLoggedIn={true} show = {() => this.handleOpen()} />
         <NavigationBar />
+        <SuggestedPage />
         <main className="container">
           <AddPost
             errorMessage={this.state.errorMessage}
@@ -164,7 +165,6 @@ class FeedPage extends React.Component {
           />
           {postsToRender}
         </main>
-        <SuggestedPage />
       </div>
     );
   }

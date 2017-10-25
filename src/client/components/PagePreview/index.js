@@ -5,9 +5,9 @@ class SuggestedPage extends React.Component {
 
     return (
       <div className="page-preview">
-        <img src={this.props.pageImg} />
-        <span>{this.props.pageTitle}</span>
-        <p>{this.props.pageDetail}</p>
+        <img src={this.props.item.pageImg} />
+        <span>{this.props.item.pageTitle}</span>
+        <p>{this.props.item.pageDetail}</p>
       </div>
     );
   }
