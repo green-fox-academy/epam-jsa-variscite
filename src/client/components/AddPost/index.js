@@ -6,7 +6,8 @@ class AddPost extends React.Component {
     return (
       <div className="compose-container">
         <img src={this.props.myPicURL} />
-        <form className="compose" onSubmit={this.props.onSubmit}>
+        <form className="compose"
+          onSubmit={this.props.onSubmit}>
           <textarea name="input" required
             placeholder="What's on your mind?"></textarea>
           <div className="act">

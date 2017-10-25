@@ -3,7 +3,8 @@
 import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
 import Header from '../../components/Header';
-import PostAndComment from '../../components/PostAndComment';
+import Post from '../../components/Post';
+import Comment from '../../components/Comment';
 import AddPost from '../../components/AddPost';
 import HTTP_STATUSES from '../../httpStatuses';
 import NavigationBar from '../../components/NavigationBar';
@@ -14,30 +15,41 @@ class FeedPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      'posts': [],
+      'posts': [
+        {
+          '_id': '1',
+          'username': 'Donald Trump',
+          'postText': 'Make America great again! #America #greatwall',
+          'timeStamp': 1508469350963,
+          'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+          'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+          'likes': [],
+          'comments': [],
+          'shares': [],
+          'numOfComments': 0,
+          'numOfLikes': 0,
+          'numOfShares': 0,
+
+        }, {
+          '_id': '2',
+          'username': 'Donald Trump',
+          'timeStamp': 1508469350963,
+          'postText': 'Make America great again! #America #greatwall',
+          'userPicURL': 'https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/05/12/104466932-PE_Color.240x240.jpg?v=1494613853',
+          'postPicURL': 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+          'likes': [],
+          'comments': [],
+          'shares': [],
+          'numOfComments': 0,
+          'numOfLikes': 0,
+          'numOfShares': 0,
+        },
+      ],
       'errorMessage': null,
-      'userInfo': {username: 'Obama'},
-      'isLoggedIn': true,
     };
   }
 
   handleGetPostError(status) {
-    let errorMessage = null;
-    let pass = true;
-
-    if (status === HTTP_STATUSES.UNAUTHORIZED) {
-      window.location.href = '/login';
-      pass = false;
-      errorMessage = 'You are not authorized! Please log in first!';
-    } else if (status === HTTP_STATUSES.SERVER_ERROR) {
-      pass = false;
-      errorMessage = 'Cannot connect to the database, please try again later!';
-    }
-    this.setState({'errorMessage': errorMessage});
-    return pass;
-  }
-
-  handleGetUserInfoError(status) {
     let errorMessage = null;
     let pass = true;
 
@@ -69,6 +81,7 @@ class FeedPage extends React.Component {
             item.timeInDate = formatDate(newDate);
             return item;
           });
+
           this.setState({posts: posts});
         }
       }
@@ -80,34 +93,12 @@ class FeedPage extends React.Component {
     xhr.send();
   }
 
-  getUserInfo() {
-    let xhr = new XMLHttpRequest();
-    let token = window.localStorage.getItem('token');
-
-    xhr.addEventListener('readystatechange', function() {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (this.handleGetPostError(xhr.status)) {
-          let userInfo = JSON.parse(xhr.response).info;
-
-          this.setState({userInfo: userInfo});
-        }
-      }
-    }.bind(this));
-    xhr.open('GET', '/api/user');
-    xhr.setRequestHeader('Accept', 'application/json');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('Authorization', token);
-    xhr.send();
-  }
-
   componentDidMount() {
     this.getAllPosts();
-    this.getUserInfo();
   }
 
   addPost(event) {
     event.preventDefault();
-
     let postContent = {postText: event.target.elements.namedItem('input').value};
 
     if (postContent.postText.length > MIN_LEN) {
@@ -153,15 +144,17 @@ class FeedPage extends React.Component {
   render() {
     let postsToRender = this.state.posts;
 
-    postsToRender = postsToRender.map((item, key) => (
-      <PostAndComment item={item} />
-    ));
+    postsToRender = postsToRender.map(function(item, key) {
+      return (
+        <div key={item._id} className="post-comment-container">
+          <Post item={item} />
+          <Comment />
+        </div>
+      );
+    });
     return (
       <div>
-        <Header isLoggedIn={this.state.isLoggedIn}
-          show = {() => this.handleOpen()}
-          user={this.state.userInfo.username}
-        />
+        <Header isLoggedIn={true} show = {() => this.handleOpen()} />
         <NavigationBar />
         <main className="container">
           <AddPost

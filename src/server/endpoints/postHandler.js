@@ -113,28 +113,28 @@ function dataValidationLike(req) {
   return true;
 }
 
-function handleDBError(res, err, item) {
-  if (err) {
-    res.status(HTTP_STATUSES.SERVER_ERROR).json({'errorType': 'server error'});
-    return;
-  }
-  if (item === null) {
-    res.status(HTTP_STATUSES.UNAUTHORIZED).json({'errorType': 'Unauthorized'});
-    return;
-  }
-}
-
 function like(req, res) {
   let id = req.params.id;
+  let userId = null;
   let validationResult = dataValidationLike(req);
 
   if (validationResult === true) {
     let token = req.header('authorization');
 
     getAccessToken(token, function(err, item) {
-      handleDBError(res, err, item);
+      if (err) {
+        res.status(HTTP_STATUSES.SERVER_ERROR)
+          .json({'errorType': 'server error'});
+        return;
+      }
+      if (item === null) {
+        res.status(HTTP_STATUSES.UNAUTHORIZED)
+          .json({'errorType': 'Unauthorized'});
+        return;
+      }
       usersCollection.findUsername(item.userId, (result) => {
-        postsCollection.likePost(id, result.username, function(data) {
+        userId = result.username;
+        postsCollection.likePost(id, userId, function(data) {
           if (data === null) {
             res.status(HTTP_STATUSES.SERVER_ERROR)
               .json({'errorType': 'server error'});
@@ -160,7 +160,16 @@ function createNewPost(req, res) {
 
   if (validationResult === true) {
     getAccessToken(postInfo.token, function(err, item) {
-      handleDBError(res, err, item);
+      if (err) {
+        res.status(HTTP_STATUSES.SERVER_ERROR)
+          .json({'errorType': 'server error'});
+        return;
+      }
+      if (item === null) {
+        res.status(HTTP_STATUSES.UNAUTHORIZED)
+          .json({'errorType': 'Unauthorized'});
+        return;
+      }
       postInfo.token = item.userId;
 
       usersCollection.findUsername(item.userId, (result) => {

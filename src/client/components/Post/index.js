@@ -18,7 +18,6 @@ class Post extends React.Component {
   handleErrorLike(xhr) {
     if (xhr.status === HTTP_STATUSES.OK) {
       let data = JSON.parse(xhr.response);
-
       this.setState({numOfLikes: data.numberOfLikes, likeState: data.isUserLiked ? 'liked' : 'like'});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
@@ -63,7 +62,6 @@ class Post extends React.Component {
           <PostAct
             onLikeClick={this.like.bind(this)}
             likeStatus={this.state.likeState}
-            showInput = {() => this.props.showInput()}
           />
         </section>
       </div>
