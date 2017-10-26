@@ -32,7 +32,8 @@ function findPosts(array, res) {
           } else {
             let newUserName = [];
 
-            newUserName.push(item.userName, ' shared ', val.username, '\'s post.');
+            newUserName.push(item.userName,
+              ' shared ', val.username, '\'s post.');
             newVal.username = newUserName;
           }
 

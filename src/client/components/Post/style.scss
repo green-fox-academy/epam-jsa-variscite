@@ -65,12 +65,13 @@
     }
 
     .share-header {
-      display: flex;
-      margin: 1em 0em;
       border-bottom: 1px solid $bordergrey;
+      display: flex;
+      margin: 1em 0;
       padding-bottom: .5em;
 
-      p, .name {
+      p,
+      .name {
         font-size: 18px;
       }
 
@@ -105,7 +106,9 @@
     width: 100%;
   }
 
-  .name, .user-pic, .post-pic:hover {
+  .name,
+  .user-pic,
+  .post-pic:hover {
     cursor: pointer;
   }
 

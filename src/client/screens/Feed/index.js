@@ -183,7 +183,7 @@ class FeedPage extends React.Component {
       });
 
       this.setState({posts: posts});
-      console.log(this.state.posts);
+
       this.setState({isSharing: false});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
