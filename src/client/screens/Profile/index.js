@@ -60,7 +60,7 @@ class ProfilePage extends React.Component {
       <div>
         <Header isLoggedIn={true} user={this.state.userInfo.username} />
         <div className="photo-container">
-          <img className="cover-photo" src="https://fb-s-c-a.akamaihd.net/h-ak-fbx/v/t31.0-8/1040146_477356329007858_898768630_o.jpg?oh=cdc892c2c395fd316feb6de63c4ff5b2&oe=5A7E205C&__gda__=1517761775_4a9c6cd0e7ddf36f151a3767c7943789"/>
+          <img className="cover-photo" src="http://www.f-covers.com/cover/dont-care-facebook-cover-timeline-banner-for-fb.jpg"/>
           <img className="user-pic" src="https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg" />
           <ProfileNav />
         </div>

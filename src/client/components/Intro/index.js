@@ -17,7 +17,7 @@ class Intro extends React.Component {
         </div>
         <div className="album">Album</div>
         <div className="img-container">
-          <img src="http://cdn4.spiegel.de/images/image-2953-640_panofree-rejo-2953.jpg" />
+          <img src="http://static6.businessinsider.com/image/55918b77ecad04a3465a0a63/nbc-fires-donald-trump-after-he-calls-mexicans-rapists-and-drug-runners.jpg" />
         </div>
       </div>
     );
