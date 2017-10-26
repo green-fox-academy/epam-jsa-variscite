@@ -91,6 +91,14 @@
       content: attr(data-likes);
     }
 
+    .shares::before {
+      content: attr(data-shares);
+    }
+
+    .shares {
+      margin-left: 0;
+    }
+
     .likes {
       margin-left: 0;
     }

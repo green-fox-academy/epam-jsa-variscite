@@ -23,6 +23,7 @@ function findPosts(array, res) {
 
       let obj = {post: data};
 
+      console.log(obj.post);
       res.status(HTTP_STATUSES.OK).json(obj);
     } else {
       res.status(HTTP_STATUSES.OK).json({});
@@ -113,6 +114,15 @@ function dataValidationLike(req) {
   return true;
 }
 
+function dataValidationShare(req) {
+  if (req.header('content-type').toLowerCase() !== 'application/json') {
+    return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
+  } else if (req.header('Authorization') === undefined) {
+    return {'status': HTTP_STATUSES.UNAUTHORIZED, 'errorType': 'Unauthorized'};
+  }
+  return true;
+}
+
 function handleDBError(res, err, item) {
   if (err) {
     res.status(HTTP_STATUSES.SERVER_ERROR).json({'errorType': 'server error'});
@@ -153,6 +163,32 @@ function like(req, res) {
   }
 }
 
+function share(req, res) {
+  let id = req.params.id;
+  let validationResult = dataValidationShare(req);
+
+  if (validationResult === true) {
+    let token = req.header('authorization');
+
+    getAccessToken(token, function(err, item) {
+      handleDBError(res, err, item);
+      usersCollection.findUsername(item.userId, (result) => {
+        postsCollection.sharePost(id, result.username, function(data) {
+          if (data === null) {
+            res.status(HTTP_STATUSES.SERVER_ERROR)
+              .json({'errorType': 'server error'});
+            return;
+          }
+          res.status(HTTP_STATUSES.OK).json({numberOfShares: data});
+        });
+      });
+    });
+  } else {
+    res.status(validationResult.status)
+      .json({'errorType': validationResult.errorType});
+  }
+}
+
 function createNewPost(req, res) {
   let postInfo = collectData(req);
 
@@ -178,4 +214,5 @@ module.exports = {
   createNewPost: createNewPost,
   displayPosts: displayPosts,
   like: like,
+  share: share,
 };

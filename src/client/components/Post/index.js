@@ -90,6 +90,7 @@ class Post extends React.Component {
           <img className="post-pic" src={this.props.item.postPicURL} />
           <PostInfo
             numOfLikes={this.state.numOfLikes}
+            numOfShares={this.state.numOfShares}
             postInfo={this.props.item}
           />
           {this.state.errorMessage !== null ? <span className="error">
