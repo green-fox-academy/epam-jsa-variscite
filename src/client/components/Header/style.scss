@@ -183,6 +183,11 @@ header {
   position: absolute;
   right: -3em;
   z-index: 1;
+
+  @media (max-width: 480px) {
+    position: fixed;
+    top: 3em;
+  }
 }
 
 .arrow {
@@ -195,6 +200,12 @@ header {
   position: relative;
   right: -3.2em;
   width: 0;
+
+  @media (max-width: 480px) {
+    position: fixed;
+    right: 1.3em;
+    top: 2.5em;
+  }
 }
 
 .arrow:after {
