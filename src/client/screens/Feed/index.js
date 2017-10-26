@@ -1,5 +1,6 @@
 'use strict';
 
+import './style.scss';
 import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
 import Header from '../../components/Header';
@@ -7,6 +8,7 @@ import PostAndComment from '../../components/PostAndComment';
 import AddPost from '../../components/AddPost';
 import HTTP_STATUSES from '../../httpStatuses';
 import NavigationBar from '../../components/NavigationBar';
+import SuggestedPage from '../../components/SuggestedPage';
 import formatDate from '../../components/Module/formatDate';
 const MIN_LEN = 2;
 
@@ -162,14 +164,17 @@ class FeedPage extends React.Component {
           show = {() => this.handleOpen()}
           user={this.state.userInfo.username}
         />
-        <NavigationBar />
-        <main className="container">
-          <AddPost
-            errorMessage={this.state.errorMessage}
-            onSubmit={this.addPost.bind(this)}
-          />
-          {postsToRender}
-        </main>
+        <div className="feed-page-container">
+          <NavigationBar />
+          <main className="container">
+            <AddPost
+              errorMessage={this.state.errorMessage}
+              onSubmit={this.addPost.bind(this)}
+            />
+            {postsToRender}
+          </main>
+          <SuggestedPage />
+        </div>
       </div>
     );
   }

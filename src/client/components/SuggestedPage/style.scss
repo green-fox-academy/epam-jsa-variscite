@@ -1,0 +1,52 @@
+@import '../../style';
+
+.suggested-page {
+  background: $whitecolor;
+  box-shadow: 0 2px 4px 0 $shadowcolor;
+  font-size: .9em;
+  margin-right: 1em;
+  margin-top: 0;
+  padding: 1em 2em;
+  position: relative;
+  top: 80px;
+  width: calc(15% - 2em);
+
+  .page-preview {
+    background-color: $suggestedpagewhite;
+    margin: 1em 0;
+    width: 100%;
+
+    img {
+      width: 100%;
+    }
+
+    span {
+      font-size: .9em;
+    }
+
+    p {
+      color: $lightgrey;
+      font-size: .8em;
+    }
+  }
+
+  h1 {
+    font-size: 1em;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+  a {
+    color: $bluecolor;
+    display: block;
+    font-size: .9em;
+    font-weight: bold;
+    pointer-events: none;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+}
