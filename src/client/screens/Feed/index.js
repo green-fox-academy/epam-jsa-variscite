@@ -200,7 +200,7 @@ class FeedPage extends React.Component {
     let postsToRender = this.state.posts;
 
     postsToRender = postsToRender.map((item, key) => (
-      <PostAndComment item={item}
+      <PostAndComment key={key} item={item}
         onShareClick={() => {
           this.share(event, item);
         }}
