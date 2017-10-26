@@ -13,11 +13,11 @@ header {
 
   @media (max-width: 480px) {
     min-width: 320px;
+    position: initial;
   }
 
   .logo-field {
     color: $whitecolor;
-    width: 17%;
 
     button {
       background: $whitecolor;
@@ -40,6 +40,7 @@ header {
 
       button {
         margin-left: 3em;
+        padding: 0 .5em;
       }
     }
 
@@ -159,6 +160,8 @@ header {
 
       .img-button {
         display: inline;
+        margin: 0;
+
       }
     }
   }
@@ -189,6 +192,12 @@ header {
 .menu-container {
   position: absolute;
   right: -3em;
+  z-index: 1;
+
+  @media (max-width: 480px) {
+    position: fixed;
+    top: 3em;
+  }
 }
 
 .arrow {
@@ -201,6 +210,12 @@ header {
   position: relative;
   right: -3.2em;
   width: 0;
+
+  @media (max-width: 480px) {
+    position: fixed;
+    right: 1.3em;
+    top: 2.5em;
+  }
 }
 
 .arrow:after {
