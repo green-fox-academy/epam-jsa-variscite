@@ -28,7 +28,9 @@ class OtherOptions extends React.Component {
   render() {
     return (
       <div className="other-options">
-        <button className="option-button">Home</button>
+        <button className="option-button" onClick={function() {
+          window.location.href = '/feed';
+        }}>Home</button>
         <button className="option-button">Friends</button>
         <button className="option-button mystery-button img-button"></button>
         <div className="menu-block">

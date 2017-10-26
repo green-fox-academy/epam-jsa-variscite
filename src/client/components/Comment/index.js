@@ -11,7 +11,7 @@ class Comment extends React.Component {
     this.state = {
       comments: [],
       errorMessage: null,
-      myPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg',
+      myPicURL: 'https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg',
     };
   }
 

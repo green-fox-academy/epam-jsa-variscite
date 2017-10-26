@@ -6,7 +6,7 @@ class Logo extends React.Component {
       return (
         <div className="logo-field">
           <button>V</button>
-          <a>{this.props.user}</a>
+          <a href="/profile">{this.props.user}</a>
         </div>
       );
     }

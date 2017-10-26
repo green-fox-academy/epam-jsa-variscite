@@ -47,6 +47,10 @@ header {
       background-color: $userblue;
       color: $whitecolor;
     }
+    a {
+      color: white;
+      text-decoration: none;
+    }
 
     a:hover {
       color: $userblue;

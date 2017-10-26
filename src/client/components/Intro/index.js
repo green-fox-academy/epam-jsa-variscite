@@ -8,12 +8,12 @@ class Intro extends React.Component {
       <div className="profile-intro">
         <div className="intro">Intro</div>
         <div className="info">
-          <div className="text">Full Name: <a href="/profile">Chase Wang</a></div>
+          <div className="text">Full Name: <a href="/profile">Donald Trump</a></div>
           <div className="text">Gender: <span>Male</span></div>
-          <div className="text">Age: <span>24</span></div>
-          <div className="text">Lives in <a href="https://en.wikipedia.org/wiki/London">London, United Kindom</a></div>
-          <div className="text">Works at <a href="https://www.epam.com/">EPAM System</a></div>
-          <div className="text">Studied at <a href="https://www.cass.city.ac.uk/">Cass Business School</a></div>
+          <div className="text">Age: <span>71</span></div>
+          <div className="text">Lives in <a href="https://en.wikipedia.org/wiki/Washington,_D.C.">Washington D.C., United States</a></div>
+          <div className="text">Works at <a href="https://www.usa.gov/">United States Government</a></div>
+          <div className="text">Studied at <a href="https://www.wharton.upenn.edu/">The Wharton School, University of Pennsylvania</a></div>
         </div>
         <div className="album">Album</div>
         <div className="img-container">
