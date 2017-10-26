@@ -70,11 +70,14 @@ class Comment extends React.Component {
 
     return (
       <div className="comment-container">
-        {commentsToRender}
+        <div className="comment-container2">
+          {commentsToRender}
+        </div>
         {this.props.isInputBoxDisplay === true ?
           <CommentInput getCommentsInfo={this.getAllComments.bind(this)}
             postId={this.props.postId} myPicURL={this.state.myPicURL}
             isInputBoxDisplay={this.props.isInputBoxDisplay}/> : null}
+
       </div>
     );
   }

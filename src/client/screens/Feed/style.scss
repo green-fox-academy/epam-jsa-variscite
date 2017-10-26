@@ -3,7 +3,7 @@
 .feed-page-container {
   align-items: flex-start;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
 
   @media (max-width: 480px) {
     display: block;

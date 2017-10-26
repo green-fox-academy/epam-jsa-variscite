@@ -1,26 +1,27 @@
 @import '../../style';
-.container {
+// .container {
   .compose-container {
     position: relative;
-    width: 90%;
+    width: 100%;
     
     @media (max-width: 480px) {
       min-width: 320px;
     }
 
     img {
-      height: 80px;
-      left: 30px;
+      left: 3%;
       position: relative;
       top: 30px;
-      width: 80px;
+      width: 12%;
       z-index: 10;
+      border: 1px solid $whitecolor;
+      box-shadow: 7px 7px 8px 0 black;
     }
 
     form {
       box-shadow: 2px 2px 5px 0 $shadowcolor;
       position: relative;
-      top: -20px;
+      top: -30px;
       z-index: 0;
 
       textarea {
@@ -30,11 +31,11 @@
         display: flex;
         font-family: 'Lato', sans-serif;
         font-size: 20px;
-        height: 130px;
+        height: 150px;
         justify-content: center;
-        padding-left: 120px;
+        padding-left: 18%;
         resize: none;
-        width: calc(100% - 6px - 120px);
+        width: calc(82% - 6px);
       }
 
       textarea:focus {
@@ -47,6 +48,7 @@
         display: flex;
         justify-content: space-between;
         padding: 5px 5px 5px 0;
+        // width: calc(100% - 5px);
         width: calc(100% - 5px);
       }
 
@@ -106,8 +108,8 @@
         color: $whitecolor;
         font-size: 15px;
         height: 35px;
-        width: 80px;
+        width: 11%;
       }
     }
   }
-}
+// }

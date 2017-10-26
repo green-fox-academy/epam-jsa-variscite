@@ -7,7 +7,7 @@
   margin: 0;
   position: relative;
   top: 50px;
-  width: 61%;
+  width: 50%;
 
   @media (max-width: 480px) {
     min-width: 320px;
@@ -22,7 +22,7 @@
   }
 }
 
-.container {
+// .container {
 .post-container {
   align-items: center;
   background-color: $whitecolor;
@@ -30,7 +30,7 @@
   display: flex;
   justify-content: center;
   margin: 0;
-  width: 90%;
+  width: 100%;
 }
 
 .post-box {
@@ -148,4 +148,4 @@
     }
   }
 }
-}
+// }
