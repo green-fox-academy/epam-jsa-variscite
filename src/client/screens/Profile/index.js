@@ -64,7 +64,7 @@ class ProfilePage extends React.Component {
           <img className="user-pic" src="https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg" />
           <ProfileNav />
         </div>
-        <ProfileMain />
+        <ProfileMain user={this.state.userInfo.username} />
       </div>
     );
   }

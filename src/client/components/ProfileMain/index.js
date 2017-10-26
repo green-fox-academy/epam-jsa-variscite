@@ -8,7 +8,7 @@ class ProfileMain extends React.Component {
   render() {
     return (
       <div className="profile-main">
-        <Intro />
+        <Intro user={this.props.user}/>
         <ProfilePost />
       </div>
     );
