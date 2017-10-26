@@ -37,6 +37,10 @@
   padding: 1.5em;
   width: 100%;
 
+  @media (max-width: 480px) {
+    padding: 1.5em 0;
+  }
+
   .post-header {
     display: flex;
 
