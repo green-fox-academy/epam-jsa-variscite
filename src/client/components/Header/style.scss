@@ -7,16 +7,17 @@ header {
   height: 3em;
   justify-content: space-around;
   min-width: 1160px;
+  position: fixed;
   width: 100%;
   z-index: 100;
 
   @media (max-width: 480px) {
     min-width: 320px;
+    position: initial;
   }
 
   .logo-field {
     color: $whitecolor;
-    width: 17%;
 
     button {
       background: $whitecolor;
@@ -39,6 +40,7 @@ header {
 
       button {
         margin-left: 3em;
+        padding: 0 .5em;
       }
     }
 

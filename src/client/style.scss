@@ -20,7 +20,16 @@ body {
   padding: 0;
 }
 
-input[type='submit']
+input
+{
+  @media (max-width: 480px) {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+textarea
 {
    -webkit-appearance: none;
    -moz-appearance: none;
