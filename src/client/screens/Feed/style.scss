@@ -1,0 +1,12 @@
+@import '../../style';
+
+.feed-page-container {
+  align-items: flex-start;
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 480px) {
+    display: block;
+    min-width: 320px;
+  }
+}
