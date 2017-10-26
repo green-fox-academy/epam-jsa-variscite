@@ -19,3 +19,19 @@ body {
   margin: 0;
   padding: 0;
 }
+
+input
+{
+  @media (max-width: 480px) {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+}
+
+textarea
+{
+   -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+}
