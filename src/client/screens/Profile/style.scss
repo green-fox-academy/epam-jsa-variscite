@@ -13,14 +13,14 @@
 
     .cover-photo {
         width: 100%;
-        height: 14em;
+        height: 17em;
     }
 
     .user-pic {
         width: 7em;
         height: 7em;
         position: absolute;
-        top: 9em;
+        top: 12em;
         left: 1em;
         border: 1px solid white;
         box-shadow: 8px 8px 10px 0 black;
@@ -376,6 +376,7 @@
         .comment-input {
           display: flex;
           margin-bottom: 16px;
+          margin-top: 16px;
           width: 93%;
     
           textarea {

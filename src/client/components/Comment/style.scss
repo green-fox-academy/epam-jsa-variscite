@@ -9,8 +9,11 @@
   flex-flow: column;
   justify-content: center;
   margin: 0 auto;
-  margin-top: 5px;
+  margin-top: 1%;
+  margin-bottom: 2%;
   width: 90%;
+  padding-top: 2%;
+  padding-bottom: 3%;
 
   .user-pic {
     height: 45px;
@@ -23,19 +26,23 @@
 
   .comment-input {
     display: flex;
-    margin-bottom: 16px;
+    margin: 3% 2.5% 0 2.5%;
     width: 93%;
 
     textarea {
       border: 1px solid $bordergrey;
-      height: 41px;
-      line-height: 41px;
-      margin-left: 2em;
+      height: 43px;
+      line-height: 43px;
+      margin-left: 20px;
       padding: 0;
       padding-left: 1em;
       padding-right: 3em;
       resize: none;
-      width: calc(100% - 6em - 45px);
+      width: calc(100% - 4em - 65px);
+      border-radius: .2em;
+    }
+    textarea:focus {
+      outline-style: none;
     }
 
     button {
@@ -44,8 +51,8 @@
       background-size: contain;
       border: 0;
       height: 1.5em;
-      margin: 1.5em 0 0 -3em;
-      padding: 0;
+      margin: 0.9em 0 0 -3em;
+      // padding: 0;
       width: 1.5em;
     }
   }
@@ -55,13 +62,13 @@
   border-bottom: 1px solid $bordergrey;
   display: flex;
   justify-content: flex-start;
-  margin: 20px 0 10px;
-  padding-bottom: 5px;
+  margin: 1% 0 0 0; 
+  padding-bottom: 1%;
   width: 93%;
 
   .comment-info {
     margin-left: 20px;
-    width: calc(100% - 20px);
+    width: calc(100% - 65px);
 
     .name {
       color: $bluecolor;
@@ -73,6 +80,7 @@
     .text {
       font-size: 13px;
       margin: 0;
+      word-wrap: break-word;
     }
 
     button {
