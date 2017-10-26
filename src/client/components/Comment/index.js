@@ -17,10 +17,12 @@ class Comment extends React.Component {
 
   handleGetCommentError(status) {
     if (status === HTTP_STATUSES.BAD_REQUEST) {
-      this.setState({errorMessage: 'Something went wrong, please try again later!'});
+      this.setState(
+        {errorMessage: 'Something went wrong, please try again later!'});
       return false;
     } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
-      this.setState({errorMessage: 'You are not authorized, please log in first!'});
+      this.setState(
+        {errorMessage: 'You are not authorized, please log in first!'});
       return false;
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       this.setState({errorMessage: 'Server error, please try again later!'});
