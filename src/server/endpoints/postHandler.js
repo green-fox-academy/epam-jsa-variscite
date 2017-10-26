@@ -14,16 +14,35 @@ function findPosts(array, res) {
     }
 
     if (result !== null) {
-      let data = result.map(function(val) {
+      let data = [];
+
+      result.forEach(function(val) {
         val.numOfComments = val.comments.length;
         val.numOfLikes = val.likes.length;
         val.numOfShares = val.shares.length;
-        return val;
+        data.push(val);
+        val.shares.forEach(function(item) {
+          let newVal = Object.assign({}, val);
+
+          if (item.userName === val.username) {
+            let newUserName = [];
+
+            newUserName.push(item.userName, ' shared his ', 'post');
+            newVal.username = newUserName;
+          } else {
+            let newUserName = [];
+
+            newUserName.push(item.userName, ' shared ', val.username, '\'s post.');
+            newVal.username = newUserName;
+          }
+
+          newVal.timeStamp = item.timeStamp;
+          data.push(newVal);
+        });
       });
 
       let obj = {post: data};
 
-      console.log(obj.post);
       res.status(HTTP_STATUSES.OK).json(obj);
     } else {
       res.status(HTTP_STATUSES.OK).json({});
@@ -179,9 +198,9 @@ function share(req, res) {
               .json({'errorType': 'server error'});
             return;
           }
-          res.status(HTTP_STATUSES.OK).json({numberOfShares: data});
         });
       });
+      findUserFriends(item, res);
     });
   } else {
     res.status(validationResult.status)

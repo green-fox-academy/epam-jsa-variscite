@@ -164,7 +164,6 @@ function sharePost(id, userName, callback) {
           return;
         }
         element.shares.push({userName: userName, timeStamp: Date.now()});
-        console.log(element.shares);
 
         db.collection('posts').findAndModify(
           {_id: ObjectId(id)},

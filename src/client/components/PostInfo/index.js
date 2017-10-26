@@ -9,10 +9,7 @@ class PostInfo extends React.Component {
           className="likes"
         > likes</span>
         <span>{this.props.postInfo.numOfComments} comments</span>
-        <span
-          data-shares={this.props.numOfShares}
-          className="shares"
-        > shares</span>
+        <span>{this.props.postInfo.numOfShares} shares</span>
       </div>
     );
   }
