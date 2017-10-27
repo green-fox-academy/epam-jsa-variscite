@@ -43,7 +43,12 @@ function connectMongoTo(operation, callback) {
 }
 
 function retrievePosts(db, array, callback) {
-  let filter = {userId: {'$in': array}};
+  let newArray = array.map(function(id) {
+    let stringId = id.toString();
+
+    return stringId;
+  });
+  let filter = {userId: {'$in': newArray}};
 
   db.collection('posts').find(filter).toArray((err, result) => {
     if (err !== null) {
@@ -149,6 +154,42 @@ function likePost(id, userName, callback) {
   });
 }
 
+function sharePost(id, userName, userPicURL, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('Couldn\'t get connect to the db', err);
+      callback(null);
+      return;
+    }
+    db.collection('posts')
+      .findOne({'_id': ObjectId(id)}, function(err, element) {
+        if (err !== null) {
+          console.log('Couldn\'t get connect to the db', err);
+          callback(null);
+          return;
+        }
+        element.shares.push({userName: userName, userPicURL: userPicURL, timeStamp: Date.now()});
+
+        db.collection('posts').findAndModify(
+          {_id: ObjectId(id)},
+          [['_id', 1]],
+          {$set: {shares: element.shares}},
+          {new: true, w: 1},
+          function(err, item) {
+            if (err !== null) {
+              console.log('Couldn\'t get connect to the db', err);
+              callback(null);
+              return;
+            }
+            db.close();
+            callback(item.value.shares.length);
+            return;
+          }
+        );
+      });
+  });
+}
+
 module.exports = {
   insertDocument: (postInfo, callback) => {
     connectMongoTo((db) => {
@@ -159,4 +200,5 @@ module.exports = {
   insertComment: insertComment,
   findComments: findComments,
   likePost: likePost,
+  sharePost: sharePost,
 };
