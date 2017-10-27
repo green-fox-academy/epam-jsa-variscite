@@ -18,9 +18,19 @@ class PostHeader extends React.Component {
         <div className="share-header">
           <img className="user-pic" src={this.props.userInfo.userPicURL} />
           <div className="post-title">
-            <p className="name">
-              {this.props.userInfo.username[0]}<span>{this.props.userInfo.username[1]}</span>{this.props.userInfo.username[2]}
-            </p>
+            {this.props.userInfo.username[0] !== this.props.userInfo.username[1] ?
+              <p className="name">
+                {this.props.userInfo.username[0]}
+                <span> shared </span>
+                {this.props.userInfo.username[1]}
+                <span> 's </span>
+                post
+              </p> :
+              <p className="name">
+                {this.props.userInfo.username[0]}
+                <span> shared his </span>
+                post
+              </p>}
             <p className="time">{this.props.userInfo.timeInDate}</p>
           </div>
         </div>
@@ -28,7 +38,7 @@ class PostHeader extends React.Component {
           <img className="user-pic" src={this.props.userInfo.userPicURL} />
           <div className="post-title">
             <p className="name">{this.props.userInfo.username[0]} </p>
-            <p className="time">{this.props.userInfo.timeInDate}</p>
+            <p className="time">{this.props.userInfo.originTimeInDate}</p>
           </div>
         </div>
       </div>

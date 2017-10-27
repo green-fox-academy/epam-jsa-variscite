@@ -68,8 +68,10 @@ class FeedPage extends React.Component {
           posts.reverse(posts.timeStamp);
           posts = posts.map(function(item, index) {
             let newDate = new Date(item.timeStamp);
+            let newOriginDate = new Date(item.originTimeStamp);
 
             item.timeInDate = formatDate(newDate);
+            item.originTimeInDate = formatDate(newOriginDate);
             return item;
           });
           this.setState({posts: posts});
@@ -177,8 +179,10 @@ class FeedPage extends React.Component {
       posts.reverse(posts.timeStamp);
       posts = posts.map(function(item, index) {
         let newDate = new Date(item.timeStamp);
+        let newOriginDate = new Date(item.originTimeStamp);
 
         item.timeInDate = formatDate(newDate);
+        item.originTimeInDate = formatDate(newOriginDate);
         return item;
       });
 

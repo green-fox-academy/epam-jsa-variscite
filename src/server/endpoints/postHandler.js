@@ -23,20 +23,11 @@ function findPosts(array, res) {
         data.push(val);
         val.shares.forEach(function(item) {
           let newVal = Object.assign({}, val);
+          let newUserName = [];
 
-          if (item.userName === val.username) {
-            let newUserName = [];
-
-            newUserName.push(item.userName, ' shared his ', 'post');
-            newVal.username = newUserName;
-          } else {
-            let newUserName = [];
-
-            newUserName.push(item.userName,
-              ' shared ', val.username, '\'s post.');
-            newVal.username = newUserName;
-          }
-
+          newUserName.push(item.userName, val.username);
+          newVal.username = newUserName;
+          newVal.originTimeStamp = newVal.timeStamp;
           newVal.timeStamp = item.timeStamp;
           data.push(newVal);
         });
