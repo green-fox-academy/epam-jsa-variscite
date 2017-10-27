@@ -71,7 +71,11 @@ function findAllPosts(id, item, req, res) {
 
     users.push(item.userId);
     findPosts(users, res);
-  } else if (req.query.author === 'me' || item === null) {
+  } else if (req.query !== undefined && req.query.author === 'me' || item === null) {
+    let user = [id];
+
+    findPosts(user, res);
+  } else {
     let user = [id];
 
     findPosts(user, res);
@@ -194,7 +198,7 @@ function share(req, res) {
             }
           });
       });
-      findUserFriends(item, res);
+      findUserFriends(item, req, res);
     });
   } else {
     res.status(validationResult.status)
