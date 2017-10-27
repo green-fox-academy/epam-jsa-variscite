@@ -29,6 +29,7 @@ function findPosts(array, res) {
           newVal.username = newUserName;
           newVal.originTimeStamp = newVal.timeStamp;
           newVal.timeStamp = item.timeStamp;
+          newVal.newUserPicURL = item.userPicURL;
           data.push(newVal);
         });
       });
@@ -184,13 +185,14 @@ function share(req, res) {
     getAccessToken(token, function(err, item) {
       handleDBError(res, err, item);
       usersCollection.findUsername(item.userId, (result) => {
-        postsCollection.sharePost(id, result.username, function(data) {
-          if (data === null) {
-            res.status(HTTP_STATUSES.SERVER_ERROR)
-              .json({'errorType': 'server error'});
-            return;
-          }
-        });
+        postsCollection.sharePost(id, result.username,
+          result.userPicURL, function(data) {
+            if (data === null) {
+              res.status(HTTP_STATUSES.SERVER_ERROR)
+                .json({'errorType': 'server error'});
+              return;
+            }
+          });
       });
       findUserFriends(item, res);
     });

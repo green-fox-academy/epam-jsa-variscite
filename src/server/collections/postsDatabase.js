@@ -43,7 +43,12 @@ function connectMongoTo(operation, callback) {
 }
 
 function retrievePosts(db, array, callback) {
-  let filter = {userId: {'$in': array}};
+  let newArray = array.map(function(id) {
+    let stringId = id.toString();
+
+    return stringId;
+  });
+  let filter = {userId: {'$in': newArray}};
 
   db.collection('posts').find(filter).toArray((err, result) => {
     if (err !== null) {
@@ -149,7 +154,7 @@ function likePost(id, userName, callback) {
   });
 }
 
-function sharePost(id, userName, callback) {
+function sharePost(id, userName, userPicURL, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
       console.log('Couldn\'t get connect to the db', err);
@@ -163,7 +168,7 @@ function sharePost(id, userName, callback) {
           callback(null);
           return;
         }
-        element.shares.push({userName: userName, timeStamp: Date.now()});
+        element.shares.push({userName: userName, userPicURL: userPicURL, timeStamp: Date.now()});
 
         db.collection('posts').findAndModify(
           {_id: ObjectId(id)},

@@ -16,7 +16,7 @@ class PostHeader extends React.Component {
     return (
       <div className="origin post-header">
         <div className="share-header">
-          <img className="user-pic" src={this.props.userInfo.userPicURL} />
+          <img className="user-pic" src={this.props.userInfo.newUserPicURL} />
           <div className="post-title">
             {this.props.userInfo.username[0] !== this.props.userInfo.username[1] ?
               <p className="name">
