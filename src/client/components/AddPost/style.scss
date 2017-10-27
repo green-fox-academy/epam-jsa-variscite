@@ -124,9 +124,9 @@
       padding-left: 30%;
       width: calc(70% - 6px);
     }
-    
+
     form input[type=submit] {
-      width: 16%;
+      width: initial;
     }
   }
 }
