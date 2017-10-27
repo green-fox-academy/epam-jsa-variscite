@@ -5,7 +5,9 @@ class Logo extends React.Component {
     if (this.props.isLoggedIn === true) {
       return (
         <div className="logo-field">
-          <button>V</button>
+          <button onClick={function() {
+            window.location.href = '/feed';
+          }}>V</button>
           <a href="/profile">{this.props.user}</a>
         </div>
       );
