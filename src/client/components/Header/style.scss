@@ -48,6 +48,10 @@ header {
       background-color: $userblue;
       color: $whitecolor;
     }
+    a {
+      color: white;
+      text-decoration: none;
+    }
 
     a:hover {
       color: $userblue;
@@ -121,7 +125,13 @@ header {
       margin-right: 10px;
       padding: 0;
     }
-
+    .link {
+      display: flex;
+      align-items: center;
+      font-size: 1em;
+      text-decoration: none;
+      font-weight: bold;
+    }
     .option-button:hover {
       cursor: pointer;
       opacity: .2;

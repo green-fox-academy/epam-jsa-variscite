@@ -11,16 +11,18 @@ class Comment extends React.Component {
     this.state = {
       comments: [],
       errorMessage: null,
-      myPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg',
+      myPicURL: 'https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg',
     };
   }
 
   handleGetCommentError(status) {
     if (status === HTTP_STATUSES.BAD_REQUEST) {
-      this.setState({errorMessage: 'Something went wrong, please try again later!'});
+      this.setState(
+        {errorMessage: 'Something went wrong, please try again later!'});
       return false;
     } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
-      this.setState({errorMessage: 'You are not authorized, please log in first!'});
+      this.setState(
+        {errorMessage: 'You are not authorized, please log in first!'});
       return false;
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       this.setState({errorMessage: 'Server error, please try again later!'});
@@ -70,11 +72,14 @@ class Comment extends React.Component {
 
     return (
       <div className="comment-container">
-        {commentsToRender}
+        <div className="comment-text-container">
+          {commentsToRender}
+        </div>
         {this.props.isInputBoxDisplay === true ?
           <CommentInput getCommentsInfo={this.getAllComments.bind(this)}
             postId={this.props.postId} myPicURL={this.state.myPicURL}
             isInputBoxDisplay={this.props.isInputBoxDisplay}/> : null}
+
       </div>
     );
   }

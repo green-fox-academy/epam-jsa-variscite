@@ -6,8 +6,8 @@
   flex-flow: column;
   margin: 0;
   position: relative;
-  top: 50px;
-  width: 61%;
+  top: 80px;
+  width: 50%;
 
   @media (max-width: 480px) {
     min-width: 320px;
@@ -20,9 +20,12 @@
     display: flex;
     flex-flow: column;
     width: 100%;
+    position: relative;
+    top: -40px;
   }
 }
 
+// .container {
 .post-container {
   align-items: center;
   background-color: $whitecolor;
@@ -30,11 +33,12 @@
   display: flex;
   justify-content: center;
   margin: 0;
-  width: 90%;
+  width: 100%;
 }
 
 .post-box {
   padding: 1.5em;
+  padding-bottom: .8em;
   width: 100%;
 
   @media (max-width: 480px) {
@@ -202,3 +206,4 @@
     }
   }
 }
+// }

@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import LoginPage from './screens/Login';
 import FeedPage from './screens/Feed';
 import SignupPage from './screens/Signup';
+import ProfilePage from './screens/Profile';
 
 class App extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class App extends React.Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/feed" component={FeedPage} />
             <Route path="/signup" component={SignupPage} />
+            <Route path="/profile" component={ProfilePage} />
           </div>
         </Router>
       );
