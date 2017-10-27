@@ -72,7 +72,7 @@ class Comment extends React.Component {
 
     return (
       <div className="comment-container">
-        <div className="comment-container2">
+        <div className="comment-text-container">
           {commentsToRender}
         </div>
         {this.props.isInputBoxDisplay === true ?
