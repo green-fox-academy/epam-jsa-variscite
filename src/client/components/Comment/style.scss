@@ -1,6 +1,5 @@
 @import '../Module/style';
 
-// .container {
 .comment-container {
   align-items: center;
   background-color: $whitecolor;
@@ -28,6 +27,7 @@
     margin: 0 2.5% 0 2.5%;
     width: 93%;
     padding-bottom: 3%;
+    padding-top: 3%;
 
     textarea {
       border: 1px solid $bordergrey;
@@ -64,8 +64,6 @@
   justify-content: center;
   margin: 0 auto;
   width: 100%;
-  margin-top: 2%;
-  margin-bottom: 2%;
 }
 .comment-box {
   border-bottom: 1px solid $bordergrey;
@@ -124,4 +122,10 @@
     }
   }
 }
-// }
+.comment-box:first-child{
+  margin-top: 2%;
+}
+.comment-box:last-child {
+  margin-bottom: 2%;
+  border: none;
+}
