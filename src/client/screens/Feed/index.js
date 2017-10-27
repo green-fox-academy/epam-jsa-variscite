@@ -65,15 +65,7 @@ class FeedPage extends React.Component {
         if (this.handleGetPostError(xhr.status)) {
           let posts = JSON.parse(xhr.response).post;
 
-          posts.reverse(posts.timeStamp);
-          posts = posts.map(function(item, index) {
-            let newDate = new Date(item.timeStamp);
-            let newOriginDate = new Date(item.originTimeStamp);
-
-            item.timeInDate = formatDate(newDate);
-            item.originTimeInDate = formatDate(newOriginDate);
-            return item;
-          });
+          this.formatTimeStamp(posts);
           this.setState({posts: posts});
         }
       }
@@ -83,6 +75,18 @@ class FeedPage extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
     xhr.send();
+  }
+
+  formatTimeStamp(array) {
+    array.reverse(array.timeStamp);
+    array = array.map(function(item, index) {
+      let newDate = new Date(item.timeStamp);
+      let newOriginDate = new Date(item.originTimeStamp);
+
+      item.timeInDate = formatDate(newDate);
+      item.originTimeInDate = formatDate(newOriginDate);
+      return item;
+    });
   }
 
   getUserInfo() {
@@ -176,18 +180,8 @@ class FeedPage extends React.Component {
     if (xhr.status === HTTP_STATUSES.OK) {
       let posts = JSON.parse(xhr.response).post;
 
-      posts.reverse(posts.timeStamp);
-      posts = posts.map(function(item, index) {
-        let newDate = new Date(item.timeStamp);
-        let newOriginDate = new Date(item.originTimeStamp);
-
-        item.timeInDate = formatDate(newDate);
-        item.originTimeInDate = formatDate(newOriginDate);
-        return item;
-      });
-
+      this.formatTimeStamp(posts);
       this.setState({posts: posts});
-
       this.setState({isSharing: false});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
