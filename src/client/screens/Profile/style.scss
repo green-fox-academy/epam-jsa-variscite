@@ -115,11 +115,9 @@
 
     .profile-post {
         width: 68%;
-        position: relative;
-        top: -30px;        
+        position: relative;        
             form {
-                top: -10px;
-        
+                top: -40px;    
                 textarea {
                   height: 5em;
                 }
@@ -127,8 +125,11 @@
     }
 }
 
-
 .profile-post {
+    .post-comment-container {
+        position: relative;
+        top: -30px;
+    }
     .post-container {
         margin-top: .5em;
       }

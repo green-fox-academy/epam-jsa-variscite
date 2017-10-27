@@ -4,14 +4,9 @@
   position: relative;
   width: 100%;
 
-  @media (max-width: 480px) {
-    min-width: 320px;
-  }
-
   img {
-    left: 3%;
+    left: 4%;
     position: relative;
-    top: 30px;
     width: 12%;
     z-index: 10;
     border: 1px solid $whitecolor;
@@ -21,7 +16,7 @@
   form {
     box-shadow: 2px 2px 5px 0 $shadowcolor;
     position: relative;
-    top: -30px;
+    top: -60px;
     z-index: 0;
 
     textarea {
@@ -31,11 +26,11 @@
       display: flex;
       font-family: 'Lato', sans-serif;
       font-size: 20px;
-      height: 150px;
+      height: 120px;
       justify-content: center;
-      padding-left: 18%;
+      padding-left: 19%;
       resize: none;
-      width: calc(82% - 6px);
+      width: calc(81% - 6px);
     }
 
     textarea:focus {
@@ -109,6 +104,25 @@
       font-size: 15px;
       height: 35px;
       width: 11%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    min-width: 320px;
+    top: 10px;
+    img {
+      top: 10px;
+      left: 20px;
+      width: 22%;
+      box-shadow: none;
+    }
+    .compose {
+      top: -40px;
+    }
+
+    form textarea {
+      padding-left: 30%;
+      width: calc(70% - 6px);
     }
   }
 }
