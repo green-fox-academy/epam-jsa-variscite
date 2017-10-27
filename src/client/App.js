@@ -4,6 +4,7 @@ import LoginPage from './screens/Login';
 import FeedPage from './screens/Feed';
 import SignupPage from './screens/Signup';
 import ProfilePage from './screens/Profile';
+import './style.scss';
 
 class App extends React.Component {
   constructor(props) {

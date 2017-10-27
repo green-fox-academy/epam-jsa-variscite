@@ -1,4 +1,4 @@
-@import '../../style';
+@import '../Module/style';
 
 .login-form {
   input {
@@ -8,7 +8,7 @@
     margin-top: .5em;
     padding: 0 .5em;
     width: 60%;
-    
+
     @media (max-width: 480px) {
       border: 1px solid #ebe9ed;
     }
