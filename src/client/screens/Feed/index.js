@@ -20,6 +20,7 @@ class FeedPage extends React.Component {
       'errorMessage': null,
       'userInfo': {username: 'Obama'},
       'isLoggedIn': true,
+      'isSharing': false,
     };
   }
 
@@ -64,13 +65,7 @@ class FeedPage extends React.Component {
         if (this.handleGetPostError(xhr.status)) {
           let posts = JSON.parse(xhr.response).post;
 
-          posts.reverse(posts.timeStamp);
-          posts = posts.map(function(item, index) {
-            let newDate = new Date(item.timeStamp);
-
-            item.timeInDate = formatDate(newDate);
-            return item;
-          });
+          this.formatTimeStamp(posts);
           this.setState({posts: posts});
         }
       }
@@ -80,6 +75,18 @@ class FeedPage extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
     xhr.send();
+  }
+
+  formatTimeStamp(array) {
+    array.reverse(array.timeStamp);
+    array = array.map(function(item, index) {
+      let newDate = new Date(item.timeStamp);
+      let newOriginDate = new Date(item.originTimeStamp);
+
+      item.timeInDate = formatDate(newDate);
+      item.originTimeInDate = formatDate(newOriginDate);
+      return item;
+    });
   }
 
   getUserInfo() {
@@ -152,11 +159,49 @@ class FeedPage extends React.Component {
     xhr.send(JSON.stringify(data));
   }
 
+  share(event, item) {
+    let xhr = new XMLHttpRequest();
+    let token = window.localStorage.getItem('token');
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        this.handleErrorShare(xhr);
+      }
+    }.bind(this));
+    xhr.open('PUT', '/api/post/' + item._id + '/share');
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', token);
+    this.setState({isSharing: true});
+    xhr.send(null);
+  }
+
+  handleErrorShare(xhr) {
+    if (xhr.status === HTTP_STATUSES.OK) {
+      let posts = JSON.parse(xhr.response).post;
+
+      this.formatTimeStamp(posts);
+      this.setState({posts: posts, isSharing: false});
+    } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
+      this.setState(
+        {errorMessage: 'Sorry, you are not authorized, please log in first!'}
+      );
+    } else {
+      this.setState(
+        {errorMessage: 'Sorry, Server Error! Please try again later!'}
+      );
+    }
+  }
+
   render() {
     let postsToRender = this.state.posts;
 
     postsToRender = postsToRender.map((item, key) => (
-      <PostAndComment item={item} />
+      <PostAndComment key={key} item={item}
+        onShareClick={() => {
+          this.share(event, item);
+        }}
+        isSharing={this.state.isSharing} />
     ));
     return (
       <div>

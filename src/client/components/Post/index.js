@@ -51,7 +51,9 @@ class Post extends React.Component {
     return (
       <div className="post-container">
         <section className="post-box">
-          <PostHeader userInfo={this.props.item} />
+          <PostHeader
+            userInfo={this.props.item}
+          />
           <p className="post-text">{this.props.item.postText}</p>
           <img className="post-pic" src={this.props.item.postPicURL} />
           <PostInfo
@@ -64,6 +66,8 @@ class Post extends React.Component {
             onLikeClick={this.like.bind(this)}
             likeStatus={this.state.likeState}
             showInput = {() => this.props.showInput()}
+            onShareClick={this.props.shareClick}
+            isSharing={this.props.isSharing}
           />
         </section>
       </div>

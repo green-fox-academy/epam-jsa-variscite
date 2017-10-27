@@ -1,6 +1,7 @@
 'use strict';
 
 const MongoClient = require('mongodb').MongoClient;
+const ObjectId = require('mongodb').ObjectId;
 const url = process.env.DB_URL;
 
 function retrieveFriends(db, id, callback) {
@@ -19,8 +20,9 @@ function findFriends(id, callback) {
       console.log('[MONGO ERROR] Unable to connect to db: ', err);
       return;
     }
+    let objectId = new ObjectId(id);
 
-    retrieveFriends(db, id, callback);
+    retrieveFriends(db, objectId, callback);
   });
 }
 

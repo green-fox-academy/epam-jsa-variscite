@@ -14,11 +14,24 @@ function findPosts(array, res) {
     }
 
     if (result !== null) {
-      let data = result.map(function(val) {
+      let data = [];
+
+      result.forEach(function(val) {
         val.numOfComments = val.comments.length;
         val.numOfLikes = val.likes.length;
         val.numOfShares = val.shares.length;
-        return val;
+        data = data.concat(val);
+        data = data.concat(val.shares.map(function(item) {
+          let newVal = Object.assign({}, val);
+          let newUserName = [];
+
+          newUserName.push(item.userName, val.username);
+          newVal.username = newUserName;
+          newVal.originTimeStamp = newVal.timeStamp;
+          newVal.timeStamp = item.timeStamp;
+          newVal.newUserPicURL = item.userPicURL;
+          return newVal;
+        }));
       });
 
       let obj = {post: data};
@@ -113,6 +126,15 @@ function dataValidationLike(req) {
   return true;
 }
 
+function dataValidationShare(req) {
+  if (req.header('content-type').toLowerCase() !== 'application/json') {
+    return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
+  } else if (req.header('Authorization') === undefined) {
+    return {'status': HTTP_STATUSES.UNAUTHORIZED, 'errorType': 'Unauthorized'};
+  }
+  return true;
+}
+
 function handleDBError(res, err, item) {
   if (err) {
     res.status(HTTP_STATUSES.SERVER_ERROR).json({'errorType': 'server error'});
@@ -153,6 +175,33 @@ function like(req, res) {
   }
 }
 
+function share(req, res) {
+  let id = req.params.id;
+  let validationResult = dataValidationShare(req);
+
+  if (validationResult === true) {
+    let token = req.header('authorization');
+
+    getAccessToken(token, function(err, item) {
+      handleDBError(res, err, item);
+      usersCollection.findUsername(item.userId, (result) => {
+        postsCollection.sharePost(id, result.username,
+          result.userPicURL, function(data) {
+            if (data === null) {
+              res.status(HTTP_STATUSES.SERVER_ERROR)
+                .json({'errorType': 'server error'});
+              return;
+            }
+          });
+      });
+      findUserFriends(item, res);
+    });
+  } else {
+    res.status(validationResult.status)
+      .json({'errorType': validationResult.errorType});
+  }
+}
+
 function createNewPost(req, res) {
   let postInfo = collectData(req);
 
@@ -178,4 +227,5 @@ module.exports = {
   createNewPost: createNewPost,
   displayPosts: displayPosts,
   like: like,
+  share: share,
 };

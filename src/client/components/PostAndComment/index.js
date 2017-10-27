@@ -20,7 +20,11 @@ class PostAndComment extends React.Component {
   render() {
     return (
       <div key={this.props.item._id} className="post-comment-container">
-        <Post item={this.props.item} showInput = {() => this.showInput()} />
+        <Post item={this.props.item}
+          showInput = {() => this.showInput()}
+          shareClick={this.props.onShareClick}
+          isSharing={this.props.isSharing}
+        />
         <Comment postId={this.props.item._id}
           isInputBoxDisplay={this.state.isInputBoxDisplay} />
       </div>

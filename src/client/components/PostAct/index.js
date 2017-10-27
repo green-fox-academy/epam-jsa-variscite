@@ -12,7 +12,10 @@ class PostAct extends React.Component {
         <button className="comment" onClick={function() {
           this.props.showInput();
         }.bind(this)}>Comment</button>
-        <button className="share">Share</button>
+        <button className={this.props.isSharing ? 'sharing' : 'share'}
+          onClick={this.props.onShareClick}>
+          {this.props.isSharing ? 'Sharing...' : 'Share'}
+        </button>
       </div>
     );
   }
