@@ -181,8 +181,7 @@ class FeedPage extends React.Component {
       let posts = JSON.parse(xhr.response).post;
 
       this.formatTimeStamp(posts);
-      this.setState({posts: posts});
-      this.setState({isSharing: false});
+      this.setState({posts: posts, isSharing: false});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
         {errorMessage: 'Sorry, you are not authorized, please log in first!'}

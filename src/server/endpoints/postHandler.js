@@ -20,8 +20,8 @@ function findPosts(array, res) {
         val.numOfComments = val.comments.length;
         val.numOfLikes = val.likes.length;
         val.numOfShares = val.shares.length;
-        data.push(val);
-        val.shares.forEach(function(item) {
+        data = data.concat(val);
+        data = data.concat(val.shares.map(function(item) {
           let newVal = Object.assign({}, val);
           let newUserName = [];
 
@@ -30,8 +30,8 @@ function findPosts(array, res) {
           newVal.originTimeStamp = newVal.timeStamp;
           newVal.timeStamp = item.timeStamp;
           newVal.newUserPicURL = item.userPicURL;
-          data.push(newVal);
-        });
+          return newVal;
+        }));
       });
 
       let obj = {post: data};
