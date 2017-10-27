@@ -1,5 +1,6 @@
 import React from 'react';
 import Menu from '../Menu';
+import {Link} from 'react-router-dom';
 
 class OtherOptions extends React.Component {
   constructor(props) {
@@ -28,8 +29,11 @@ class OtherOptions extends React.Component {
   render() {
     return (
       <div className="other-options">
-        <button className="option-button">Home</button>
-        <button className="option-button">Friends</button>
+        <Link className="option-button link" to="/feed">Home</Link>
+        {/* <button className="option-button" onClick={function() {
+          window.location.href = '/feed';
+        }}>Home</button> */}
+        <Link className="option-button link" to="/friends">Friends</Link>
         <button className="option-button mystery-button img-button"></button>
         <div className="menu-block">
           <button className="option-button setting-button img-button" >

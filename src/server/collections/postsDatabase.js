@@ -10,7 +10,7 @@ function createNewPost(postInfo) {
     username: postInfo.username,
     postText: postInfo.postText,
     timeStamp: Date.now(),
-    userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg',
+    userPicURL: 'https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg',
     postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
     likes: [],
     comments: [],

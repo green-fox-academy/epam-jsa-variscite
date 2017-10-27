@@ -1,45 +1,23 @@
 'use strict';
 
-import './style.scss';
-import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
-import Header from '../../components/Header';
-import PostAndComment from '../../components/PostAndComment';
-import AddPost from '../../components/AddPost';
+import PostAndComment from '../PostAndComment';
+import AddPost from '../AddPost';
 import HTTP_STATUSES from '../../httpStatuses';
-import NavigationBar from '../../components/NavigationBar';
-import SuggestedPage from '../../components/SuggestedPage';
 import formatDate from '../../components/Module/formatDate';
+
 const MIN_LEN = 2;
 
-class FeedPage extends React.Component {
+class ProfilePost extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       'posts': [],
       'errorMessage': null,
-      'userInfo': {username: 'Obama'},
-      'isLoggedIn': true,
     };
   }
 
   handleGetPostError(status) {
-    let errorMessage = null;
-    let pass = true;
-
-    if (status === HTTP_STATUSES.UNAUTHORIZED) {
-      window.location.href = '/login';
-      pass = false;
-      errorMessage = 'You are not authorized! Please log in first!';
-    } else if (status === HTTP_STATUSES.SERVER_ERROR) {
-      pass = false;
-      errorMessage = 'Cannot connect to the database, please try again later!';
-    }
-    this.setState({'errorMessage': errorMessage});
-    return pass;
-  }
-
-  handleGetUserInfoError(status) {
     let errorMessage = null;
     let pass = true;
 
@@ -75,27 +53,7 @@ class FeedPage extends React.Component {
         }
       }
     }.bind(this));
-    xhr.open('GET', '/api/post');
-    xhr.setRequestHeader('Accept', 'application/json');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('Authorization', token);
-    xhr.send();
-  }
-
-  getUserInfo() {
-    let xhr = new XMLHttpRequest();
-    let token = window.localStorage.getItem('token');
-
-    xhr.addEventListener('readystatechange', function() {
-      if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (this.handleGetPostError(xhr.status)) {
-          let userInfo = JSON.parse(xhr.response).info;
-
-          this.setState({userInfo: userInfo});
-        }
-      }
-    }.bind(this));
-    xhr.open('GET', '/api/user');
+    xhr.open('GET', '/api/post?author=me');
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
@@ -104,7 +62,7 @@ class FeedPage extends React.Component {
 
   componentDidMount() {
     this.getAllPosts();
-    this.getUserInfo();
+    // this.getUserInfo();
   }
 
   addPost(event) {
@@ -155,28 +113,18 @@ class FeedPage extends React.Component {
   render() {
     let postsToRender = this.state.posts;
 
-    postsToRender = postsToRender.map((item, key) => (
-      <PostAndComment item={item} />
-    ));
+    postsToRender = postsToRender.map((item, key) =>
+      <PostAndComment item={item} key={key}/>
+    );
+
     return (
-      <div>
-        <Header isLoggedIn={this.state.isLoggedIn}
-          user={this.state.userInfo.username}
-        />
-        <div className="feed-page-container">
-          <NavigationBar />
-          <main className="container">
-            <AddPost
-              errorMessage={this.state.errorMessage}
-              onSubmit={this.addPost.bind(this)}
-            />
-            {postsToRender}
-          </main>
-          <SuggestedPage />
-        </div>
+      <div className="profile-post">
+        <AddPost errorMessage={this.state.errorMessage}
+          onSubmit={this.addPost.bind(this)}/>
+        {postsToRender}
       </div>
     );
   }
 }
 
-export default FeedPage;
+export default ProfilePost;
