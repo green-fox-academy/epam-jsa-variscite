@@ -190,6 +190,23 @@ function sharePost(id, userName, userPicURL, callback) {
   });
 }
 
+function retrievePostsByPostText(postText, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      return;
+    }
+
+    db.collection('posts').find({postText: {$regex: postText}}).toArray((err, result) => {
+      if (err !== null) {
+        console.log('[MONGO ERROR] Unable to retrieve posts: ', err);
+      }
+      db.close();
+      callback(result);
+    });
+  });
+}
+
 module.exports = {
   insertDocument: (postInfo, callback) => {
     connectMongoTo((db) => {
@@ -201,4 +218,5 @@ module.exports = {
   findComments: findComments,
   likePost: likePost,
   sharePost: sharePost,
+  retrievePostsByPostText: retrievePostsByPostText,
 };

@@ -42,7 +42,7 @@ app.put('/api/post/:id/like', postHandler.like);
 
 app.put('/api/post/:id/share', postHandler.share);
 
-app.get('/api/search/:type', jsonParser, searchHandler.search);
+app.get('/api/search/:type/:searchText', jsonParser, searchHandler.search);
 
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
