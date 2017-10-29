@@ -60,7 +60,7 @@ function search(req, res) {
   } else if (type === 'posts') {
     searchPosts(searchText, res);
   } else {
-    res.status(HTTP_STATUSES.NO_CONTENT).json({});
+    res.status(HTTP_STATUSES.BAD_REQUEST).json({});
   }
 }
 
