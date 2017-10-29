@@ -90,8 +90,6 @@ class SearchPage extends React.Component {
       }
     }.bind(this));
     xhr.open('GET', '/api/search/' + this.state.searchType + '/' + data);
-    console.log(this.state.searchType);
-    console.log(data);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
