@@ -224,6 +224,8 @@ class FeedPage extends React.Component {
           let peopleInfo = JSON.parse(xhr.response).people;
 
           this.setState({'peopleInfo': peopleInfo});
+          localStorage.setItem('peopleInfo', JSON.stringify(peopleInfo));
+          window.location.href = '/search?p=' + data;
         }
       }
     }.bind(this));
@@ -240,9 +242,6 @@ class FeedPage extends React.Component {
 
     let searchText = event.target.elements.namedItem('input').value;
 
-    localStorage.setItem('searchText', searchText);
-    localStorage.setItem('searchType', this.state.searchType);
-    window.location.href = '/search';
     if (searchText !== null) {
       this.sendSearchRequest(searchText);
       event.target.elements.namedItem('input').value = '';
