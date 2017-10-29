@@ -14,6 +14,12 @@ class ProfilePage extends React.Component {
     this.state = {
       'userInfo': {username: ''},
       'isLoggedIn': true,
+      'searchType': 'people',
+      'peopleInfo': [
+        {username: 'Obama', userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg'},
+        {username: 'Hillary', userPicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk9HKJuqE3ZmpAWaWHEbFAvsCsktkwEFZ-aNKy9eo1VGvTh_hE'},
+      ],
+      'errorMessage': null,
     };
   }
   handleGetUserInfoError(status) {
@@ -110,7 +116,10 @@ class ProfilePage extends React.Component {
   render() {
     return (
       <div>
-        <Header isLoggedIn={true} user={this.state.userInfo.username} />
+        <Header isLoggedIn={true}
+          user={this.state.userInfo.username}
+          onSubmit={this.search.bind(this)}
+          searchType={this.state.searchType} />
         <div className="photo-container">
           <img className="cover-photo" src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg"/>
           <img className="user-pic" src="https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg" />

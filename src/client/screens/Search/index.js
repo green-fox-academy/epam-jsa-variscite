@@ -128,7 +128,7 @@ class SearchPage extends React.Component {
         <Header isLoggedIn={true}
           user={this.state.userInfo.username}
           onSubmit={this.search.bind(this)}
-          searchType={this.state.searchType}/>
+          searchType={this.state.searchType} />
         <SearchNav />
         {main}
       </div>
