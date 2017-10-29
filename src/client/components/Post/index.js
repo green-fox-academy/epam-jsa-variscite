@@ -67,7 +67,6 @@ class Post extends React.Component {
             likeStatus={this.state.likeState}
             showInput = {() => this.props.showInput()}
             onShareClick={this.props.shareClick}
-            isSharing={this.props.isSharing}
           />
         </section>
       </div>

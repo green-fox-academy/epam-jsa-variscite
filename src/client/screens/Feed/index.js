@@ -10,6 +10,7 @@ import HTTP_STATUSES from '../../httpStatuses';
 import NavigationBar from '../../components/NavigationBar';
 import SuggestedPage from '../../components/SuggestedPage';
 import formatDate from '../../components/Module/formatDate';
+import Loading from '../../components/LoadingComponent';
 const MIN_LEN = 2;
 
 class FeedPage extends React.Component {
@@ -20,7 +21,7 @@ class FeedPage extends React.Component {
       'errorMessage': null,
       'userInfo': {username: 'Obama'},
       'isLoggedIn': true,
-      'isSharing': false,
+      'isLoading': false,
     };
   }
 
@@ -98,7 +99,7 @@ class FeedPage extends React.Component {
         if (this.handleGetPostError(xhr.status)) {
           let userInfo = JSON.parse(xhr.response).info;
 
-          this.setState({userInfo: userInfo});
+          this.setState({'userInfo': userInfo, 'isLoading': false});
         }
       }
     }.bind(this));
@@ -106,6 +107,7 @@ class FeedPage extends React.Component {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
+    this.setState({isLoading: true});
     xhr.send();
   }
 
@@ -140,7 +142,7 @@ class FeedPage extends React.Component {
     } else {
       this.getAllPosts();
     }
-    this.setState({'errorMessage': errorMessage});
+    this.setState({'errorMessage': errorMessage, 'isLoading': false});
   }
 
   sendPost(data) {
@@ -156,6 +158,7 @@ class FeedPage extends React.Component {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
+    this.setState({isLoading: true});
     xhr.send(JSON.stringify(data));
   }
 
@@ -172,7 +175,7 @@ class FeedPage extends React.Component {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
-    this.setState({isSharing: true});
+    this.setState({isLoading: true});
     xhr.send(null);
   }
 
@@ -181,7 +184,7 @@ class FeedPage extends React.Component {
       let posts = JSON.parse(xhr.response).post;
 
       this.formatTimeStamp(posts);
-      this.setState({posts: posts, isSharing: false});
+      this.setState({posts: posts, isLoading: false});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
         {errorMessage: 'Sorry, you are not authorized, please log in first!'}
@@ -200,8 +203,7 @@ class FeedPage extends React.Component {
       <PostAndComment key={key} item={item}
         onShareClick={() => {
           this.share(event, item);
-        }}
-        isSharing={this.state.isSharing} />
+        }} />
     ));
     return (
       <div>
@@ -215,7 +217,7 @@ class FeedPage extends React.Component {
               errorMessage={this.state.errorMessage}
               onSubmit={this.addPost.bind(this)}
             />
-            {postsToRender}
+            {this.state.isLoading === false ? <p>{postsToRender}</p> : <Loading />}
           </main>
           <SuggestedPage />
         </div>
