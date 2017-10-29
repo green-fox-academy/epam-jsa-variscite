@@ -17,10 +17,15 @@ class FeedPage extends React.Component {
     super(props);
     this.state = {
       'posts': [],
-      'errorMessage': null,
       'userInfo': {username: 'Obama'},
       'isLoggedIn': true,
       'isSharing': false,
+      'searchType': 'people',
+      'peopleInfo': [
+        {username: 'Obama', userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg'},
+        {username: 'Hillary', userPicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk9HKJuqE3ZmpAWaWHEbFAvsCsktkwEFZ-aNKy9eo1VGvTh_hE'},
+      ],
+      'errorMessage': null,
     };
   }
 
@@ -192,6 +197,61 @@ class FeedPage extends React.Component {
       );
     }
   }
+  // ///////////////////////////////////////
+  handleSearchError(status) {
+    let errorMessage = null;
+
+    if (status === HTTP_STATUSES.BAD_REQUEST) {
+      errorMessage = 'Something went wrong, please try later!';
+    } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      window.location.href = '/login';
+      errorMessage = 'You are not authorized! Please log in first!';
+    } else if (status === HTTP_STATUSES.SERVER_ERROR) {
+      errorMessage = 'Cannot connect to the database, please try again later!';
+    } else if (status === HTTP_STATUSES.OK) {
+      return true;
+    }
+    this.setState({'errorMessage': errorMessage});
+    return false;
+  }
+
+  sendSearchRequest(data) {
+    let xhr = new XMLHttpRequest();
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (this.handleSearchError(xhr.status)) {
+          let peopleInfo = JSON.parse(xhr.response).people;
+
+          this.setState({'peopleInfo': peopleInfo});
+        }
+      }
+    }.bind(this));
+    xhr.open('GET', '/api/search/' + this.state.searchType + '/' + data);
+    console.log(this.state.searchType);
+    console.log(data);
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(data));
+  }
+
+  search(event) {
+    event.preventDefault();
+
+    let searchText = event.target.elements.namedItem('input').value;
+
+    localStorage.setItem('searchText', searchText);
+    localStorage.setItem('searchType', this.state.searchType);
+    window.location.href = '/search';
+    if (searchText !== null) {
+      this.sendSearchRequest(searchText);
+      event.target.elements.namedItem('input').value = '';
+    } else {
+      this.setState({'errorMessage': 'Please fill out thi field!'});
+    }
+  }
+
+  // /////////////////////////////////////////////////////////////
 
   render() {
     let postsToRender = this.state.posts;
@@ -207,6 +267,8 @@ class FeedPage extends React.Component {
       <div>
         <Header isLoggedIn={this.state.isLoggedIn}
           user={this.state.userInfo.username}
+          onSubmit={this.search.bind(this)}
+          searchType={this.state.searchType} />
         />
         <div className="feed-page-container">
           <NavigationBar />

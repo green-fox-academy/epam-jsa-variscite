@@ -14,6 +14,12 @@ class ProfilePage extends React.Component {
     this.state = {
       'userInfo': {username: ''},
       'isLoggedIn': true,
+      'searchType': 'people',
+      'peopleInfo': [
+        {username: 'Obama', userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg'},
+        {username: 'Hillary', userPicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk9HKJuqE3ZmpAWaWHEbFAvsCsktkwEFZ-aNKy9eo1VGvTh_hE'},
+      ],
+      'errorMessage': null,
     };
   }
   handleGetUserInfoError(status) {
@@ -51,6 +57,59 @@ class ProfilePage extends React.Component {
     xhr.setRequestHeader('Authorization', token);
     xhr.send();
   }
+  // ////////
+  handleSearchError(status) {
+    let errorMessage = null;
+
+    if (status === HTTP_STATUSES.BAD_REQUEST) {
+      errorMessage = 'Something went wrong, please try later!';
+    } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      window.location.href = '/login';
+      errorMessage = 'You are not authorized! Please log in first!';
+    } else if (status === HTTP_STATUSES.SERVER_ERROR) {
+      errorMessage = 'Cannot connect to the database, please try again later!';
+    } else if (status === HTTP_STATUSES.OK) {
+      return true;
+    }
+    this.setState({'errorMessage': errorMessage});
+    return false;
+  }
+
+  sendSearchRequest(data) {
+    let xhr = new XMLHttpRequest();
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (this.handleSearchError(xhr.status)) {
+          let peopleInfo = JSON.parse(xhr.response).people;
+
+          this.setState({'peopleInfo': peopleInfo});
+          window.location.href = '/search';
+        }
+      }
+    }.bind(this));
+    xhr.open('GET', '/api/search/' + this.state.searchType + '/' + data);
+    console.log(this.state.searchType);
+    console.log(data);
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(data));
+  }
+
+  search(event) {
+    event.preventDefault();
+
+    let searchText = event.target.elements.namedItem('input').value;
+
+    if (searchText !== null) {
+      this.sendSearchRequest(searchText);
+      event.target.elements.namedItem('input').value = '';
+    } else {
+      this.setState({'errorMessage': 'Please fill out thi field!'});
+    }
+  }
+
+  // ////
 
   componentDidMount() {
     this.getUserInfo();
@@ -58,7 +117,10 @@ class ProfilePage extends React.Component {
   render() {
     return (
       <div>
-        <Header isLoggedIn={true} user={this.state.userInfo.username} />
+        <Header isLoggedIn={true}
+          user={this.state.userInfo.username}
+          onSubmit={this.search.bind(this)}
+          searchType={this.state.searchType} />
         <div className="photo-container">
           <img className="cover-photo" src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg"/>
           <img className="user-pic" src="https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg" />

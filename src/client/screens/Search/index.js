@@ -62,12 +62,56 @@ class SearchPage extends React.Component {
   componentDidMount() {
     this.getUserInfo();
   }
-  // ///////////////////////////
-  getErrorMessage(error) {
-    this.setState({'errorMessage': error});
+
+  // ///////////////////////////////////////
+  handleSearchError(status) {
+    let errorMessage = null;
+
+    if (status === HTTP_STATUSES.BAD_REQUEST) {
+      errorMessage = 'Something went wrong, please try later!';
+    } else if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      window.location.href = '/login';
+      errorMessage = 'You are not authorized! Please log in first!';
+    } else if (status === HTTP_STATUSES.SERVER_ERROR) {
+      errorMessage = 'Cannot connect to the database, please try again later!';
+    } else if (status === HTTP_STATUSES.OK) {
+      return true;
+    }
+    this.setState({'errorMessage': errorMessage});
+    return false;
   }
-  getPeopleInfo(info) {
-    this.setState({'peopleInfo': info});
+
+  sendSearchRequest(data) {
+    let xhr = new XMLHttpRequest();
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (this.handleSearchError(xhr.status)) {
+          let peopleInfo = JSON.parse(xhr.response).people;
+
+          this.setState({'peopleInfo': peopleInfo});
+        }
+      }
+    }.bind(this));
+    xhr.open('GET', '/api/search/' + this.state.searchType + '/' + data);
+    console.log(this.state.searchType);
+    console.log(data);
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(data));
+  }
+
+  search(event) {
+    event.preventDefault();
+
+    let searchText = event.target.elements.namedItem('input').value;
+
+    if (searchText !== null) {
+      this.sendSearchRequest(searchText);
+      event.target.elements.namedItem('input').value = '';
+    } else {
+      this.setState({'errorMessage': 'Please fill out thi field!'});
+    }
   }
 
   // /////////////////////////////////////////////////////////////
@@ -83,10 +127,8 @@ class SearchPage extends React.Component {
       <div>
         <Header isLoggedIn={true}
           user={this.state.userInfo.username}
-          searchType={this.state.searchType}
-          getPeopleInfo={this.getPeopleInfo.bind(this)}
-          getErrorMessage={this.getErrorMessage.bind(this)}
-          onSubmit={this.search.bind(this)} />
+          onSubmit={this.search.bind(this)}
+          searchType={this.state.searchType} />
         <SearchNav />
         {main}
       </div>
