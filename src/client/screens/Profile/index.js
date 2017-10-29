@@ -84,13 +84,12 @@ class ProfilePage extends React.Component {
           let peopleInfo = JSON.parse(xhr.response).people;
 
           this.setState({'peopleInfo': peopleInfo});
-          window.location.href = '/search';
+          localStorage.setItem('peopleInfo', JSON.stringify(peopleInfo));
+          window.location.href = '/search?p=' + data;
         }
       }
     }.bind(this));
     xhr.open('GET', '/api/search/' + this.state.searchType + '/' + data);
-    console.log(this.state.searchType);
-    console.log(data);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
