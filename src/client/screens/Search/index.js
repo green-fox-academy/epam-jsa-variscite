@@ -59,10 +59,6 @@ class SearchPage extends React.Component {
     xhr.send();
   }
 
-  componentDidMount() {
-    this.getUserInfo();
-  }
-
   // ///////////////////////////////////////
   handleSearchError(status) {
     let errorMessage = null;
@@ -110,6 +106,15 @@ class SearchPage extends React.Component {
     } else {
       this.setState({'errorMessage': 'Please fill out thi field!'});
     }
+  }
+  getPeopleInfo() {
+    this.setState({'peopleInfo': JSON.parse(localStorage.getItem('peopleInfo'))});
+    console.log('state: ', this.state.peopleInfo);
+  }
+
+  componentDidMount() {
+    this.getUserInfo();
+    this.getPeopleInfo();
   }
 
   // /////////////////////////////////////////////////////////////
