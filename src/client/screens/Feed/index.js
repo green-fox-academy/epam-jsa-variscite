@@ -217,7 +217,7 @@ class FeedPage extends React.Component {
               errorMessage={this.state.errorMessage}
               onSubmit={this.addPost.bind(this)}
             />
-            {this.state.isLoading === false ? <p>{postsToRender}</p> : <Loading />}
+            {this.state.isLoading === false ? <div>{postsToRender}</div> : <Loading />}
           </main>
           <SuggestedPage />
         </div>
