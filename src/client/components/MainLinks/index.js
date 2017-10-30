@@ -7,7 +7,7 @@ class MainLinks extends React.Component {
       <section className="main-links">
         <h1>good evening</h1>
         <Link className="home" to="/home" onClick={(e) => e.preventDefault()}>Home</Link>
-        <Link className="friends" to="/friends" onClick={(e) => e.preventDefault()}>Friends</Link>
+        <Link className="friends" to="/friendlist" onClick={(e) => e.preventDefault()}>Friends</Link>
         <Link className="news" to="/feed" onClick={(e) => e.preventDefault()}>News Feed</Link>
       </section>
     );
