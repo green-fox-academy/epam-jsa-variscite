@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
 import Header from '../../components/Header';
 import ProfileNav from '../../components/ProfileNav';
+import FriendNav from '../../components/FriendNav';
+import FriendInfo from '../../components/FriendInfo';
 import HTTP_STATUSES from '../../httpStatuses';
 
 class FriendListPage extends React.Component {
@@ -62,6 +64,15 @@ class FriendListPage extends React.Component {
           <img className="cover-photo" src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg"/>
           <img className="user-pic" src="https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg" />
           <ProfileNav />
+          <FriendNav />
+          <div className="friend-list">
+            <FriendInfo />
+            <FriendInfo />
+            <FriendInfo />
+            <FriendInfo />
+            <FriendInfo />
+            <FriendInfo />
+          </div>
         </div>
       </div>
     );
