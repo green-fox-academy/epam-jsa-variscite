@@ -15,6 +15,7 @@ class FriendListPage extends React.Component {
     this.state = {
       'userInfo': {username: ''},
       'isLoggedIn': true,
+      'friendsInfo': [],
     };
   }
   handleGetUserInfoError(status) {
@@ -53,10 +54,52 @@ class FriendListPage extends React.Component {
     xhr.send();
   }
 
+  handleGetFriendsInfoError(status) {
+    let errorMessage = null;
+    let pass = true;
+
+    if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      window.location.href = '/login';
+      pass = false;
+      errorMessage = 'You are not authorized! Please log in first!';
+    } else if (status === HTTP_STATUSES.SERVER_ERROR) {
+      pass = false;
+      errorMessage = 'Cannot connect to the database, please try again later!';
+    }
+    this.setState({'errorMessage': errorMessage});
+    return pass;
+  }
+
+  getFriendsInfo() {
+    let xhr = new XMLHttpRequest();
+    let token = window.localStorage.getItem('token');
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (this.handleGetFriendsInfoError(xhr.status)) {
+          let friendsInfo = JSON.parse(xhr.response).friends;
+
+          this.setState({friendsInfo: friendsInfo});
+        }
+      }
+    }.bind(this));
+    xhr.open('GET', '/api/friend');
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', token);
+    xhr.send();
+  }
+
   componentDidMount() {
     this.getUserInfo();
+    this.getFriendsInfo();
   }
   render() {
+    let friendsToRender = this.state.friendsInfo;
+
+    friendsToRender = friendsToRender.map((item, key) => (
+      <FriendInfo key={key} item={item}/>
+    ));
     return (
       <div>
         <Header isLoggedIn={true} user={this.state.userInfo.username} />
@@ -66,12 +109,10 @@ class FriendListPage extends React.Component {
           <ProfileNav />
           <FriendNav />
           <div className="friend-list">
-            <FriendInfo />
-            <FriendInfo />
-            <FriendInfo />
-            <FriendInfo />
-            <FriendInfo />
-            <FriendInfo />
+            {friendsToRender}
+
+            {friendsToRender}
+            {friendsToRender}
           </div>
         </div>
       </div>

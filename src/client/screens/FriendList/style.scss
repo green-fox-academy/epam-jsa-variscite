@@ -1,94 +1,139 @@
 @import '../../components/Module/style';
 
 .photo-container {
-    align-items: center;
+  align-items: center;
+  box-shadow: 2px 2px 5px 0 $shadowcolor;
+  display: flex;
+  flex-flow: column;
+  margin: 0 auto;
+  position: relative;
+  top: 3em;
+  width: 50em;
+
+  .cover-photo {
+    height: 17em;
+    width: 100%;
+  }
+
+  .user-pic {
+    border: 1px solid #fff;
+    box-shadow: 8px 8px 10px 0 #000;
+    height: 7em;
+    left: 1em;
+    position: absolute;
+    top: 12em;
+    width: 7em;
+  }
+
+  .cover-photo,
+  .user-pic:hover {
+    cursor: pointer;
+  }
+
+  nav {
+    background-color: fff;
     display: flex;
-    flex-flow: column;
-    margin: 0 auto;
-    position: relative;
-    top: 3em;
-    width: 50em;
-    box-shadow: 2px 2px 5px 0 $shadowcolor;
+    height: 3em;
+    justify-content: center;
+    width: 100%;
 
-    .cover-photo {
-        width: 100%;
-        height: 17em;
+    button {
+      background-color: $whitecolor;
+      border: 0;
+      color: $userblue;
+      font-weight: bold;
+      width: 6em;
     }
 
-    .user-pic {
-        width: 7em;
-        height: 7em;
-        position: absolute;
-        top: 12em;
-        left: 1em;
-        border: 1px solid white;
-        box-shadow: 8px 8px 10px 0 black;
-    }
-    .cover-photo, .user-pic:hover {
+    button:hover {
+      background-color: $background;
+      color: $bluecolor;
       cursor: pointer;
+      transition: color .5s;
     }
 
-    nav {
-        width: 100%;
-        height: 3em;
-        background-color: white;
-        display: flex;
-        justify-content: center;
+    button:focus {
+      outline-style: none;
+    }
+  }
 
-        button {
-            width: 6em;
-            color: $userblue;
-            background-color: $whitecolor;
-            border: 0;
-            font-weight: bold;
+  .friend-nav {
+    background-color: fff;
+    display: block;
+    height: 6em;
+    margin-top: 1.5em;
+    width: 100%;
 
-        }
-        button:hover {
-            background-color: $background;
-            color: $bluecolor;
-            cursor: pointer;
-            transition: color 0.5s;
-        }
-        button:focus {
-            outline-style: none;
-        }
+    h1 {
+      font-size: 1.5em;
+      margin-left: 1em;
     }
 
-    .friend-nav {
-        width: 100%;
-        height: 6em;
-        background-color: white;
-        margin-top: 1.5em;
+    a {
+      color: $userblue;
+      font-size: .8em;
+      font-weight: 700;
+      margin-left: 1.5em;
+      outline: 0;
+      text-decoration: none;
+    }
+  }
+
+  .friend-list {
+    align-content: stretch;
+    background: fff;
+    border: 1px solid $greycolor;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10%;
+    padding-bottom: 1em;
+    width: 100%;
+
+    .friend-info {
+      border: 2px solid $greycolor;
+      display: flex;
+      height: 6em;
+      margin: 1em 0 0 1em;
+      width: 47%;
+
+      p {
+        color: $userblue;
         display: block;
+        flex-grow: 1;
+        font-size: 1.2em;
+        margin-left: .5em;
+      }
 
-        h1 {
-            font-size: 1.5em;
-            margin-left: 1em;
-        }
+      span {
+        color: $fontcolor;
+        display: block;
+        font-size: 0.7em;
+        margin-top: 5px;
+      }
 
-        a {
-            outline: 0;
-            text-decoration: none;
-            color: $blackcolor;
-            margin-left: 1.5em; 
-        }
+      img {
+        height: 6em;
+        width: 6em;
+      }
+
+      button {
+        background-color: #fff;
+        border: 0;
+        color: #3b5998;
+        font-size: .9em;
+        font-weight: bold;
+      }
+
+      button:hover {
+        background-color: $background;
+        color: $bluecolor;
+        cursor: pointer;
+        transition: color 0.5s;
+      }
+
+      button:focus {
+        outline-style: none;
+      }
     }
-
-    .friend-list {
-        background: white;
-        width: 100%;
-        display: flex;
-        border: 1px solid $greycolor;
-        
-        .friend-info {
-          width: 48%;
-          margin: 1em 0 0 1em;
-          border: 2px solid $greycolor;
-
-          img {
-              width: 50px;
-              height: 50px;
-          }
-        }
-    }
+  }
 }
