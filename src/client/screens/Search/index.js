@@ -17,8 +17,8 @@ class SearchPage extends React.Component {
       'isLoggedIn': true,
       'searchType': 'people',
       'searchInfo': [
-        {username: 'Obama', userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg'},
-        {username: 'Hillary', userPicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk9HKJuqE3ZmpAWaWHEbFAvsCsktkwEFZ-aNKy9eo1VGvTh_hE'},
+        // {username: 'Obama', userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg'},
+        // {username: 'Hillary', userPicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk9HKJuqE3ZmpAWaWHEbFAvsCsktkwEFZ-aNKy9eo1VGvTh_hE'},
       ],
       'errorMessage': null,
     };
@@ -77,8 +77,10 @@ class SearchPage extends React.Component {
     return false;
   }
 
-  sendSearchRequest(data) {
+  sendSearchRequest() {
     let xhr = new XMLHttpRequest();
+
+    let searchText = window.location.search.replace('?q=', '');
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -89,6 +91,7 @@ class SearchPage extends React.Component {
             searchInfo = JSON.parse(xhr.response).people;
           } else if (this.state.searchType === 'posts') {
             searchInfo = JSON.parse(xhr.response).post;
+            console.log(searchInfo);
           }
 
           this.setState({'searchInfo': searchInfo});
@@ -96,35 +99,38 @@ class SearchPage extends React.Component {
         }
       }
     }.bind(this));
-    xhr.open('GET', '/api/search/' + this.state.searchType + '/' + data);
+    xhr.open('GET', '/api/search/' + this.state.searchType + '/' + searchText);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(data));
+    xhr.send(JSON.stringify(searchText));
   }
 
-  search(event) {
-    event.preventDefault();
-
-    let searchText = event.target.elements.namedItem('input').value;
-
-    if (searchText !== null) {
-      this.sendSearchRequest(searchText);
-      event.target.elements.namedItem('input').value = '';
-    } else {
-      this.setState({'errorMessage': 'Please fill out thi field!'});
-    }
+  searchPeople() {
+    this.setState({'searchType': 'people'});
+    this.sendSearchRequest();
   }
 
-  getPeopleInfo() {
-    this.setState({'searchInfo': JSON.parse(localStorage.getItem('peopleInfo'))});
-    // console.log('state: ', this.state.searchInfo);
-    localStorage.removeItem('peopleInfo');
-    // console.log(JSON.parse(localStorage.getItem('peopleInfo')));
+  searchPosts() {
+    this.setState({'searchType': 'posts'});
+    this.sendSearchRequest();
   }
+
+  // search(event) {
+  //   event.preventDefault();
+
+  //   let searchText = event.target.elements.namedItem('input').value;
+
+  //   if (searchText !== null) {
+  //     this.sendSearchRequest(searchText);
+  //     event.target.elements.namedItem('input').value = '';
+  //   } else {
+  //     this.setState({'errorMessage': 'Please fill out thi field!'});
+  //   }
+  // }
 
   componentDidMount() {
     this.getUserInfo();
-    this.getPeopleInfo();
+    this.sendSearchRequest();
   }
 
   // /////////////////////////////////////////////////////////////
@@ -140,7 +146,6 @@ class SearchPage extends React.Component {
       <div>
         <Header isLoggedIn={true}
           user={this.state.userInfo.username}
-          onSubmit={this.search.bind(this)}
           searchType={this.state.searchType} />
         <SearchNav />
         {main}
@@ -150,3 +155,5 @@ class SearchPage extends React.Component {
 }
 
 export default SearchPage;
+
+// onSubmit={this.search.bind(this)}

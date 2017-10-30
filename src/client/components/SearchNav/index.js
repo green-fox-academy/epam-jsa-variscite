@@ -4,7 +4,7 @@ class SearchNav extends React.Component {
   render() {
     return (
       <nav className="search-nav">
-        <button>People</button>
+        <Link to="/search">People</Link>
         <button>Posts</button>
         <button>Photos</button>
         <button>Video</button>

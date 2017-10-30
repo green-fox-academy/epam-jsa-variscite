@@ -3,13 +3,13 @@ import React from 'react';
 class SearchBar extends React.Component {
   render() {
     return (
-      <form onSubmit={this.props.onSubmit}>
+      <form action="/search" method="get">
         <input
           type="text"
           required
           placeholder="Search"
           className="search-input"
-          name="input"
+          name="q"
         />
         <input
           type="submit"
