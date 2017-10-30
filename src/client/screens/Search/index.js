@@ -16,7 +16,7 @@ class SearchPage extends React.Component {
       'userInfo': {username: ''},
       'isLoggedIn': true,
       'searchType': 'people',
-      'peopleInfo': [
+      'searchInfo': [
         {username: 'Obama', userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg'},
         {username: 'Hillary', userPicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk9HKJuqE3ZmpAWaWHEbFAvsCsktkwEFZ-aNKy9eo1VGvTh_hE'},
       ],
@@ -80,20 +80,38 @@ class SearchPage extends React.Component {
   sendSearchRequest() {
     let xhr = new XMLHttpRequest();
 
-    let searchText = window.location.search.replace('?p=', '');
-
-    console.log(searchText);
+    let searchText = window.location.search.replace('?q=', '');
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleSearchError(xhr.status)) {
-          let peopleInfo = JSON.parse(xhr.response).people;
+          let searchInfo = JSON.parse(xhr.response).people;
 
-          this.setState({'peopleInfo': peopleInfo});
+          this.setState({'searchInfo': searchInfo});
         }
       }
     }.bind(this));
     xhr.open('GET', '/api/search/' + this.state.searchType + '/' + searchText);
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(searchText));
+  }
+
+  sendSearchPostRequest() {
+    let xhr = new XMLHttpRequest();
+
+    let searchText = window.location.search.replace('?q=', '');
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (this.handleSearchError(xhr.status)) {
+          let searchInfo = JSON.parse(xhr.response).post;
+
+          this.setState({'searchInfo': searchInfo});
+        }
+      }
+    }.bind(this));
+    xhr.open('GET', '/api/search/posts/' + searchText);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(searchText));
@@ -111,6 +129,7 @@ class SearchPage extends React.Component {
       this.setState({'errorMessage': 'Please fill out thi field!'});
     }
   }
+
   getPeopleInfo() {
     this.setState({'peopleInfo': JSON.parse(localStorage.getItem('peopleInfo'))});
     console.log('state: ', this.state.peopleInfo);
@@ -127,15 +146,15 @@ class SearchPage extends React.Component {
     let main = null;
 
     if (this.state.searchType === 'post') {
-      main = <SearchPost />;
+      main = <SearchPost postsInfo={this.state.searchInfo} />;
     } else if (this.state.searchType === 'people') {
-      main = <SearchPeople peopleInfo={this.state.peopleInfo} />;
+      main = <SearchPeople peopleInfo={this.state.searchInfo} />;
     }
     return (
       <div>
         <Header isLoggedIn={true}
           user={this.state.userInfo.username}
-          onSubmit={this.search.bind(this)}
+          {/* onSubmit={this.search.bind(this)} */}
           searchType={this.state.searchType} />
         <SearchNav />
         {main}

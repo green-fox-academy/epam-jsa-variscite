@@ -9,7 +9,7 @@ class SearchBar extends React.Component {
           required
           placeholder="Search"
           className="search-input"
-          name="p"
+          name="q"
         />
         <input
           type="submit"
