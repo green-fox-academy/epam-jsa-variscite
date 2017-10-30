@@ -79,6 +79,7 @@ class SearchPost extends React.Component {
   render() {
     let postsToRender = this.props.postsInfo;
 
+    console.log('SearchPosts: ', postsToRender);
     postsToRender = postsToRender.map((item, key) =>
       <PostAndComment item={item} key={key}/>
     );

@@ -11,17 +11,47 @@ import HTTP_STATUSES from '../../httpStatuses';
 
 class SearchPage extends React.Component {
   constructor(props) {
+    console.log('aaa');
     super(props);
+    let searchArray = window.location.search.split('?')[1].split('&').map(function(querySetting) {
+      return querySetting.split('=');
+    });
+
+    let searchObj = searchArray.reduce(function(pre, cur) {
+      pre[cur[0]] = cur[1];
+      return pre;
+    }, {});
+
     this.state = {
+      'searchText': searchObj.q,
       'userInfo': {username: ''},
       'isLoggedIn': true,
-      'searchType': 'people',
+      'searchType': searchObj.type === undefined ? 'people' : searchObj.type,
       'searchInfo': [
         // {username: 'Obama', userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg'},
         // {username: 'Hillary', userPicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk9HKJuqE3ZmpAWaWHEbFAvsCsktkwEFZ-aNKy9eo1VGvTh_hE'},
       ],
       'errorMessage': null,
     };
+  }
+  componentWillReceiveProps() {
+    let searchArray = window.location.search.split('?')[1].split('&').map(function(querySetting) {
+      return querySetting.split('=');
+    });
+
+    let searchObj = searchArray.reduce(function(pre, cur) {
+      pre[cur[0]] = cur[1];
+      return pre;
+    }, {});
+
+    this.setState({
+      'searchInfo': [],
+      'searchType': searchObj.type,
+      'searchText': searchObj.q,
+    }, function() {
+      console.log('state: ', this.state.searchType);
+      this.sendSearchRequest();
+    }.bind(this));
   }
   handleGetUserInfoError(status) {
     let errorMessage = null;
@@ -78,9 +108,9 @@ class SearchPage extends React.Component {
   }
 
   sendSearchRequest() {
+    console.log(this.state.searchText);
+    console.log(this.state.searchType);
     let xhr = new XMLHttpRequest();
-
-    let searchText = window.location.search.replace('?q=', '');
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -91,46 +121,32 @@ class SearchPage extends React.Component {
             searchInfo = JSON.parse(xhr.response).people;
           } else if (this.state.searchType === 'posts') {
             searchInfo = JSON.parse(xhr.response).post;
-            console.log(searchInfo);
+            console.log('from backend: ', searchInfo);
           }
 
           this.setState({'searchInfo': searchInfo});
-          console.log(this.state.searchInfo);
+          // console.log(this.state.searchInfo);
         }
       }
     }.bind(this));
-    xhr.open('GET', '/api/search/' + this.state.searchType + '/' + searchText);
+    console.log('text: ', this.state.searchText);
+    console.log('type: ', this.state.searchType);
+
+    xhr.open('GET', '/api/search/' + this.state.searchType + '/' + this.state.searchText);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(searchText));
+    xhr.send(JSON.stringify(this.state.searchText));
   }
-
-  searchPeople() {
-    this.setState({'searchType': 'people'});
-    this.sendSearchRequest();
-  }
-
-  searchPosts() {
-    this.setState({'searchType': 'posts'});
-    this.sendSearchRequest();
-  }
-
-  // search(event) {
-  //   event.preventDefault();
-
-  //   let searchText = event.target.elements.namedItem('input').value;
-
-  //   if (searchText !== null) {
-  //     this.sendSearchRequest(searchText);
-  //     event.target.elements.namedItem('input').value = '';
-  //   } else {
-  //     this.setState({'errorMessage': 'Please fill out thi field!'});
-  //   }
-  // }
 
   componentDidMount() {
     this.getUserInfo();
     this.sendSearchRequest();
+
+    // let obj = {};
+
+    // searchArray.forEach(function(data) {
+    //   obj[data[0]] = data[1];
+    // });
   }
 
   // /////////////////////////////////////////////////////////////
@@ -147,7 +163,7 @@ class SearchPage extends React.Component {
         <Header isLoggedIn={true}
           user={this.state.userInfo.username}
           searchType={this.state.searchType} />
-        <SearchNav />
+        <SearchNav query={this.state.searchText} />
         {main}
       </div>
     );
@@ -155,5 +171,3 @@ class SearchPage extends React.Component {
 }
 
 export default SearchPage;
-
-// onSubmit={this.search.bind(this)}
