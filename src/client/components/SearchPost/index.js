@@ -5,13 +5,13 @@ import HTTP_STATUSES from '../../httpStatuses';
 import formatDate from '../../components/Module/formatDate';
 
 class SearchPost extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      'posts': [],
-      'errorMessage': null,
-    };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     'posts': [],
+  //     'errorMessage': null,
+  //   };
+  // }
 
   handleGetPostError(status) {
     let errorMessage = null;
@@ -77,7 +77,7 @@ class SearchPost extends React.Component {
   }
 
   render() {
-    let postsToRender = this.state.posts;
+    let postsToRender = this.props.postsInfo;
 
     postsToRender = postsToRender.map((item, key) =>
       <PostAndComment item={item} key={key}/>

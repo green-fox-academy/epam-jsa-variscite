@@ -16,7 +16,7 @@ class SearchPage extends React.Component {
       'userInfo': {username: ''},
       'isLoggedIn': true,
       'searchType': 'people',
-      'peopleInfo': [
+      'searchInfo': [
         {username: 'Obama', userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg'},
         {username: 'Hillary', userPicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk9HKJuqE3ZmpAWaWHEbFAvsCsktkwEFZ-aNKy9eo1VGvTh_hE'},
       ],
@@ -83,9 +83,16 @@ class SearchPage extends React.Component {
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleSearchError(xhr.status)) {
-          let peopleInfo = JSON.parse(xhr.response).people;
+          let searchInfo = [];
 
-          this.setState({'peopleInfo': peopleInfo});
+          if (this.state.searchType === 'people') {
+            searchInfo = JSON.parse(xhr.response).people;
+          } else if (this.state.searchType === 'posts') {
+            searchInfo = JSON.parse(xhr.response).post;
+          }
+
+          this.setState({'searchInfo': searchInfo});
+          console.log(this.state.searchInfo);
         }
       }
     }.bind(this));
@@ -107,11 +114,12 @@ class SearchPage extends React.Component {
       this.setState({'errorMessage': 'Please fill out thi field!'});
     }
   }
+
   getPeopleInfo() {
-    this.setState({'peopleInfo': []});
-    this.setState({'peopleInfo': JSON.parse(localStorage.getItem('peopleInfo'))});
-    // console.log(typeof JSON.parse(localStorage.getItem('peopleInfo')));
-    console.log('state: ', this.state.peopleInfo);
+    this.setState({'searchInfo': JSON.parse(localStorage.getItem('peopleInfo'))});
+    // console.log('state: ', this.state.searchInfo);
+    localStorage.removeItem('peopleInfo');
+    // console.log(JSON.parse(localStorage.getItem('peopleInfo')));
   }
 
   componentDidMount() {
@@ -123,10 +131,10 @@ class SearchPage extends React.Component {
   render() {
     let main = null;
 
-    if (this.state.searchType === 'post') {
-      main = <SearchPost />;
+    if (this.state.searchType === 'posts') {
+      main = <SearchPost postsInfo={this.state.searchInfo} />;
     } else if (this.state.searchType === 'people') {
-      main = <SearchPeople peopleInfo={this.state.peopleInfo} />;
+      main = <SearchPeople peopleInfo={this.state.searchInfo} />;
     }
     return (
       <div>
