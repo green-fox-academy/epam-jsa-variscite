@@ -77,8 +77,12 @@ class SearchPage extends React.Component {
     return false;
   }
 
-  sendSearchRequest(data) {
+  sendSearchRequest() {
     let xhr = new XMLHttpRequest();
+
+    let searchText = window.location.search.replace('?p=', '');
+
+    console.log(searchText);
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -89,10 +93,10 @@ class SearchPage extends React.Component {
         }
       }
     }.bind(this));
-    xhr.open('GET', '/api/search/' + this.state.searchType + '/' + data);
+    xhr.open('GET', '/api/search/' + this.state.searchType + '/' + searchText);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(data));
+    xhr.send(JSON.stringify(searchText));
   }
 
   search(event) {
@@ -114,7 +118,8 @@ class SearchPage extends React.Component {
 
   componentDidMount() {
     this.getUserInfo();
-    this.getPeopleInfo();
+    // this.getPeopleInfo();
+    this.sendSearchRequest();
   }
 
   // /////////////////////////////////////////////////////////////
