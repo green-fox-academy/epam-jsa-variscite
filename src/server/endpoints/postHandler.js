@@ -66,15 +66,11 @@ function newPostHandler(req, res, postInfo) {
 }
 
 function findAllPosts(id, item, req, res) {
-  if (item !== null) {
+  if (item !== null && (req.query === undefined || req.query.author !== 'me')) {
     let users = item.userFriends;
 
     users.push(item.userId);
     findPosts(users, res);
-  } else if (req.query !== undefined && req.query.author === 'me' || item === null) {
-    let user = [id];
-
-    findPosts(user, res);
   } else {
     let user = [id];
 
