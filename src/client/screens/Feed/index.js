@@ -194,11 +194,10 @@ class FeedPage extends React.Component {
   }
 
   checkLiked(item) {
-    if(item.likes.includes(this.state.userInfo.username)) {
+    if (item.likes.includes(this.state.userInfo.username)) {
       return 'liked';
-    } else {
-      return 'like';
     }
+    return 'like';
   }
 
   render() {
@@ -210,7 +209,8 @@ class FeedPage extends React.Component {
           this.share(event, item);
         }}
         isSharing={this.state.isSharing}
-        isLiked={this.checkLiked(item)} />
+        isLiked={this.checkLiked(item)}
+        myName={this.state.userInfo.username} />
     ));
     return (
       <div>

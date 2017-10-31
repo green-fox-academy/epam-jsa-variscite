@@ -11,14 +11,15 @@ class Post extends React.Component {
     this.state = {
       numOfLikes: this.props.item.numOfLikes,
       errorMessage: null,
-      likeState: this.props.item.isLiked,
+      likeState: 'like',
     };
   }
 
   handleErrorLike(xhr) {
     if (xhr.status === HTTP_STATUSES.OK) {
       let data = JSON.parse(xhr.response);
-      console.log(this.state.likeState);
+
+      console.log('like res: ', xhr.response);
       this.setState({numOfLikes: data.numberOfLikes, likeState: data.isUserLiked ? 'liked' : 'like'});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
@@ -45,6 +46,12 @@ class Post extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
     xhr.send(null);
+  }
+
+  componentDidMount() {
+    if (this.props.item.likes.includes(this.props.myName)) {
+      this.setState({likeState: 'liked'});
+    }
   }
 
   render() {
