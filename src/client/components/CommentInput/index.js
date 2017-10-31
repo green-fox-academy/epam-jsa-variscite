@@ -75,7 +75,8 @@ class CommentInput extends React.Component {
       <div className="comment-input">
         <img className="user-pic" src={this.props.myPicURL} />
         <textarea onKeyPress={this.keyPressHandler.bind(this)}
-          id="comment-input" required name="input" placeholder="Write a comment" ref={(input) => {
+          id="comment-input" required name="input"
+          placeholder="Write a comment" ref={(input) => {
             this.nameInput = input;
           }}></textarea>
         <button></button>
