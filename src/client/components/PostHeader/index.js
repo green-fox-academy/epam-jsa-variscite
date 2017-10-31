@@ -1,6 +1,15 @@
 import React from 'react';
 
 class PostHeader extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      comments: [],
+      errorMessage: null,
+      myPicURL: 'https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg',
+    };
+  }
+
   render() {
     if (typeof this.props.userInfo.username === 'string') {
       return (
