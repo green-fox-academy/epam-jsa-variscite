@@ -202,6 +202,6 @@ module.exports = {
   checkUserInfo: checkUserInfo,
   signUp: signUp,
   findUsername: findUsername,
+  retrieveUsersByUsername: retrieveUsersByUsername,
   retrieveUserByUsername: retrieveUserByUsername,
-
 };
