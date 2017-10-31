@@ -47,6 +47,12 @@ class Post extends React.Component {
     xhr.send(null);
   }
 
+  componentDidMount() {
+    if (this.props.item.likes.includes(this.props.myName)) {
+      this.setState({likeState: 'liked'});
+    }
+  }
+
   render() {
     return (
       <div className="post-container">

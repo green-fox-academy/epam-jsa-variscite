@@ -237,6 +237,7 @@ class FeedPage extends React.Component {
           this.share(event, item);
         }}
         isSharing={this.state.isSharing}
+        myName={this.state.userInfo.username}
         deletePost={() => {
           this.deletePost(event, item);
         }}
