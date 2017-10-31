@@ -59,6 +59,7 @@ class Post extends React.Component {
         <section className="post-box">
           <PostHeader
             userInfo={this.props.item}
+            deletePost = {this.props.deletePost}
           />
           <p className="post-text">{this.props.item.postText}</p>
           <img className="post-pic" src={this.props.item.postPicURL} />

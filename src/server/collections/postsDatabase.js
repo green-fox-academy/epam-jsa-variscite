@@ -190,6 +190,24 @@ function sharePost(id, userName, userPicURL, callback) {
   });
 }
 
+function removePost(db, id, callback) {
+  db.collection('posts').remove({_id: ObjectId(id)}, function(err, obj) {
+    if (err !== null) {
+      console.log('Couldn\'t find post from db', err);
+      callback(null);
+      return;
+    }
+    db.close();
+    callback(err);
+  });
+}
+
+function deletePost(id, callback) {
+  connectMongoTo((db) => {
+    removePost(db, id, callback);
+  });
+}
+
 module.exports = {
   insertDocument: (postInfo, callback) => {
     connectMongoTo((db) => {
@@ -201,4 +219,5 @@ module.exports = {
   findComments: findComments,
   likePost: likePost,
   sharePost: sharePost,
+  deletePost: deletePost,
 };

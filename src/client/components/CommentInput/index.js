@@ -43,6 +43,7 @@ class CommentInput extends React.Component {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleCommentError(xhr.status) === true) {
           this.props.getCommentsInfo();
+          this.props.increaseCommentNum();
         }
       }
     }.bind(this));

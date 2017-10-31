@@ -193,11 +193,39 @@ class FeedPage extends React.Component {
     }
   }
 
-  checkLiked(item) {
-    if (item.likes.includes(this.state.userInfo.username)) {
-      return 'liked';
+  handleErrorDelete(xhr, _id) {
+    if (xhr.status === HTTP_STATUSES.OK) {
+      let newPosts = this.state.posts;
+
+      newPosts.splice(this.state.posts.map(function(post) {
+        return post._id;
+      }).indexOf(_id), 1);
+      this.setState({posts: newPosts});
+    } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
+      this.setState(
+        {errorMessage: 'Sorry, you are not authorized, please log in first!'}
+      );
+    } else {
+      this.setState(
+        {errorMessage: 'Sorry, Server Error! Please try again later!'}
+      );
     }
-    return 'like';
+  }
+
+  deletePost(event, item) {
+    let xhr = new XMLHttpRequest();
+    let token = window.localStorage.getItem('token');
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        this.handleErrorDelete(xhr, item._id);
+      }
+    }.bind(this));
+    xhr.open('DELETE', '/api/post/' + item._id);
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', token);
+    xhr.send();
   }
 
   render() {
@@ -209,7 +237,13 @@ class FeedPage extends React.Component {
           this.share(event, item);
         }}
         isSharing={this.state.isSharing}
-        myName={this.state.userInfo.username} />
+        myName={this.state.userInfo.username}
+        deletePost={() => {
+          this.deletePost(event, item);
+        }}
+        increaseCommentNum = {() => this.getAllPosts()}
+      />
+
     ));
     return (
       <div>

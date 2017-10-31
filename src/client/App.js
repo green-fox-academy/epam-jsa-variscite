@@ -4,6 +4,7 @@ import LoginPage from './screens/Login';
 import FeedPage from './screens/Feed';
 import SignupPage from './screens/Signup';
 import ProfilePage from './screens/Profile';
+import FriendListPage from './screens/FriendList';
 import './style.scss';
 
 class App extends React.Component {
@@ -22,6 +23,7 @@ class App extends React.Component {
             <Route path="/feed" component={FeedPage} />
             <Route path="/signup" component={SignupPage} />
             <Route path="/profile" component={ProfilePage} />
+            <Route path="/friendlist" component={FriendListPage} />
           </div>
         </Router>
       );
