@@ -10,6 +10,7 @@ class PostHeader extends React.Component {
             <p className="name">{this.props.userInfo.username} </p>
             <p className="time">{this.props.userInfo.timeInDate}</p>
           </div>
+          <button className="delete">delete</button>
         </div>
       );
     }
@@ -33,6 +34,7 @@ class PostHeader extends React.Component {
               </p>}
             <p className="time">{this.props.userInfo.timeInDate}</p>
           </div>
+          <button className="delete">delete</button>
         </div>
         <div className="origin-header">
           <img className="user-pic" src={this.props.userInfo.userPicURL} />
