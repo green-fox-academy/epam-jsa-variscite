@@ -9,7 +9,7 @@ class ProfileMain extends React.Component {
     return (
       <div className="profile-main">
         <Intro user={this.props.user}/>
-        <ProfilePost />
+        <ProfilePost user={this.props.user} isSelf={this.props.isSelf}/>
       </div>
     );
   }
