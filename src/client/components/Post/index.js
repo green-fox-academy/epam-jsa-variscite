@@ -19,7 +19,6 @@ class Post extends React.Component {
     if (xhr.status === HTTP_STATUSES.OK) {
       let data = JSON.parse(xhr.response);
 
-      console.log('like res: ', xhr.response);
       this.setState({numOfLikes: data.numberOfLikes, likeState: data.isUserLiked ? 'liked' : 'like'});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
