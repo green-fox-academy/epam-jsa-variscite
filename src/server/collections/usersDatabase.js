@@ -188,9 +188,27 @@ function findUsers(idArray, callback) {
   });
 }
 
+function retrieveUserByUsername(username, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      return;
+    }
+
+    db.collection('users').findOne({username: username}, (err, result) => {
+      if (err !== null) {
+        console.log('[MONGO ERROR] Unable to retrieve user: ', err);
+      }
+      db.close();
+      callback(result);
+    });
+  });
+}
+
 module.exports = {
   checkUserInfo: checkUserInfo,
   signUp: signUp,
   findUsername: findUsername,
   findUsers: findUsers,
+  retrieveUserByUsername: retrieveUserByUsername,
 };
