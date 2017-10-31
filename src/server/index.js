@@ -13,6 +13,7 @@ const signupHandler = require('./endpoints/signUpHandler');
 const postHandler = require('./endpoints/postHandler');
 const userHandler = require('./endpoints/userHandler');
 const commentHandler = require('./endpoints/commentHandler');
+const friendHandler = require('./endpoints/friendHandler');
 const LOCAL_PORT = 8080;
 const PORT = process.env.PORT || LOCAL_PORT;
 const app = express();
@@ -40,6 +41,8 @@ app.post('/api/post/:id/comment', jsonParser, commentHandler.createComment);
 app.put('/api/post/:id/like', postHandler.like);
 
 app.put('/api/post/:id/share', postHandler.share);
+
+app.get('/api/friend', friendHandler.getFriendsInfo);
 
 app.delete('/api/post/:id', postHandler.deletePost);
 
