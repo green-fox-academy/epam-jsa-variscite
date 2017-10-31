@@ -91,19 +91,33 @@ function findUserFriends(tokenDescriptor, req, res) {
 }
 
 function displayPosts(req, res) {
-  let token = req.header('Authorization');
+  if (req.query !== undefined && req.query.username !== undefined) {
+    usersCollection.retrieveUserByUsername(req.query.username, (result) => {
+      let user = [result._id];
 
-  getAccessToken(token, (err, tokenDescriptor) => {
-    if (err !== null) {
-      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+      findPosts(user, res);
+    });
+  } else {
+    let token = req.header('Authorization');
+
+    if (token === null) {
+      res.status(HTTP_STATUSES.UNAUTHORIZED)
+        .json({'errorType': 'Unauthorized'});
       return;
     }
-    if (tokenDescriptor === null) {
-      res.status(HTTP_STATUSES.UNAUTHORIZED).json({errorType: 'loginError'});
-      return;
-    }
-    findUserFriends(tokenDescriptor, req, res);
-  });
+
+    getAccessToken(token, (err, tokenDescriptor) => {
+      if (err !== null) {
+        res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+        return;
+      }
+      if (tokenDescriptor === null) {
+        res.status(HTTP_STATUSES.UNAUTHORIZED).json({errorType: 'loginError'});
+        return;
+      }
+      findUserFriends(tokenDescriptor, req, res);
+    });
+  }
 }
 
 function dataValidation(req, res, postInfo) {
