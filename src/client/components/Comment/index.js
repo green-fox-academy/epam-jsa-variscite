@@ -78,7 +78,8 @@ class Comment extends React.Component {
         {this.props.isInputBoxDisplay === true ?
           <CommentInput getCommentsInfo={this.getAllComments.bind(this)}
             postId={this.props.postId} myPicURL={this.state.myPicURL}
-            isInputBoxDisplay={this.props.isInputBoxDisplay}/> : null}
+            isInputBoxDisplay={this.props.isInputBoxDisplay}
+            increaseCommentNum = {() => this.props.increaseCommentNum()} /> : null}
 
       </div>
     );

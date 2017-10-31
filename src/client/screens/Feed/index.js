@@ -201,7 +201,8 @@ class FeedPage extends React.Component {
         onShareClick={() => {
           this.share(event, item);
         }}
-        isSharing={this.state.isSharing} />
+        isSharing={this.state.isSharing}
+        increaseCommentNum = {() => this.getAllPosts()} />
     ));
     return (
       <div>

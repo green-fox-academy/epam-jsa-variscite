@@ -26,7 +26,8 @@ class PostAndComment extends React.Component {
           isSharing={this.props.isSharing}
         />
         <Comment postId={this.props.item._id}
-          isInputBoxDisplay={this.state.isInputBoxDisplay} />
+          isInputBoxDisplay={this.state.isInputBoxDisplay}
+          increaseCommentNum = {() => this.props.increaseCommentNum()} />
       </div>
     );
   }
