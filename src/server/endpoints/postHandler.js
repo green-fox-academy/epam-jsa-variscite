@@ -135,16 +135,7 @@ function dataValidation(req, res, postInfo) {
   return true;
 }
 
-function dataValidationLike(req) {
-  if (req.header('content-type').toLowerCase() !== 'application/json') {
-    return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
-  } else if (req.header('Authorization') === undefined) {
-    return {'status': HTTP_STATUSES.UNAUTHORIZED, 'errorType': 'Unauthorized'};
-  }
-  return true;
-}
-
-function dataValidationShare(req) {
+function validationForOperation(req) {
   if (req.header('content-type').toLowerCase() !== 'application/json') {
     return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
   } else if (req.header('Authorization') === undefined) {
@@ -166,7 +157,7 @@ function handleDBError(res, err, item) {
 
 function like(req, res) {
   let id = req.params.id;
-  let validationResult = dataValidationLike(req);
+  let validationResult = validationForOperation(req);
 
   if (validationResult === true) {
     let token = req.header('authorization');
@@ -195,7 +186,7 @@ function like(req, res) {
 
 function share(req, res) {
   let id = req.params.id;
-  let validationResult = dataValidationShare(req);
+  let validationResult = validationForOperation(req);
 
   if (validationResult === true) {
     let token = req.header('authorization');
@@ -241,9 +232,25 @@ function createNewPost(req, res) {
   }
 }
 
+function deletePost(req, res) {
+  let id = req.params.id;
+  let validationResult = validationForOperation(req);
+
+  if (validationResult === true) {
+    postsCollection.deletePost(id, (err) => {
+      if (err !== null) {
+        res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+        return;
+      }
+      res.status(HTTP_STATUSES.OK).json({});
+    });
+  }
+}
+
 module.exports = {
   createNewPost: createNewPost,
   displayPosts: displayPosts,
   like: like,
   share: share,
+  deletePost: deletePost,
 };

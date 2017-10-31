@@ -83,6 +83,7 @@ function signup(req, res) {
     fullname: fullname,
     password: encrypted,
     userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg',
+    numberOfFriends: 0,
 
   };
 

@@ -42,7 +42,11 @@ app.put('/api/post/:id/like', postHandler.like);
 
 app.put('/api/post/:id/share', postHandler.share);
 
+app.get('/api/friend', friendHandler.getFriendsInfo);
+
 app.put('/api/friend/:username', friendHandler.addFriend);
+
+app.delete('/api/post/:id', postHandler.deletePost);
 
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
