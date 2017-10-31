@@ -54,4 +54,40 @@ function getFriendsInfo(req, res) {
   });
 }
 
-module.exports = {getFriendsInfo: getFriendsInfo};
+function addFriend(req, res) {
+  let token = req.header('Authorization');
+
+  getAccessToken(token, function(err, item) {
+    if (err) {
+      res.status(HTTP_STATUSES.SERVER_ERROR)
+        .json({'errorType': 'server error'});
+      return;
+    }
+    if (item === null) {
+      res.status(HTTP_STATUSES.UNAUTHORIZED)
+        .json({'errorType': 'Unauthorized'});
+      return;
+    }
+    usersCollection.retrieveUserByUsername(req.params.username, (err, friendId) => {
+      if (err) {
+        res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+        return;
+      }
+      console.log(friendId);
+      friendsCollection.addFriend(item.userId, friendId._id, (err, result) => {
+        if (err !== null) {
+          res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+          return;
+        }
+        res.status(HTTP_STATUSES.OK).json();
+      });
+    });
+
+
+  });
+}
+
+module.exports = {
+  getFriendsInfo: getFriendsInfo,
+  addFriend: addFriend,
+};
