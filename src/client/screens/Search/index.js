@@ -8,14 +8,15 @@ import SearchNav from '../../components/SearchNav';
 import SearchPeople from '../../components/SearchPeople';
 import SearchPost from '../../components/SearchPost';
 import HTTP_STATUSES from '../../httpStatuses';
-
+import formatDate from '../../components/Module/formatDate';
+/* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/
 class SearchPage extends React.Component {
   constructor(props) {
-    console.log('aaa');
     super(props);
-    let searchArray = window.location.search.split('?')[1].split('&').map(function(querySetting) {
-      return querySetting.split('=');
-    });
+    let searchArray = window.location.search.split('?')[1]
+      .split('&').map(function(querySetting) {
+        return querySetting.split('=');
+      });
 
     let searchObj = searchArray.reduce(function(pre, cur) {
       pre[cur[0]] = cur[1];
@@ -27,17 +28,15 @@ class SearchPage extends React.Component {
       'userInfo': {username: ''},
       'isLoggedIn': true,
       'searchType': searchObj.type === undefined ? 'people' : searchObj.type,
-      'searchInfo': [
-        // {username: 'Obama', userPicURL: 'https://pixel.nymag.com/imgs/daily/vulture/2016/08/11/11-obama-sex-playlist.w190.h190.2x.jpg'},
-        // {username: 'Hillary', userPicURL: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTk9HKJuqE3ZmpAWaWHEbFAvsCsktkwEFZ-aNKy9eo1VGvTh_hE'},
-      ],
+      'searchInfo': [],
       'errorMessage': null,
     };
   }
   componentWillReceiveProps() {
-    let searchArray = window.location.search.split('?')[1].split('&').map(function(querySetting) {
-      return querySetting.split('=');
-    });
+    let searchArray = window.location.search.split('?')[1]
+      .split('&').map(function(querySetting) {
+        return querySetting.split('=');
+      });
 
     let searchObj = searchArray.reduce(function(pre, cur) {
       pre[cur[0]] = cur[1];
@@ -49,7 +48,6 @@ class SearchPage extends React.Component {
       'searchType': searchObj.type,
       'searchText': searchObj.q,
     }, function() {
-      console.log('state: ', this.state.searchType);
       this.sendSearchRequest();
     }.bind(this));
   }
@@ -89,9 +87,8 @@ class SearchPage extends React.Component {
     xhr.send();
   }
 
-  // ///////////////////////////////////////
   handleSearchError(status) {
-    let errorMessage = null;
+    let errorMessage = 'aaa';
 
     if (status === HTTP_STATUSES.BAD_REQUEST) {
       errorMessage = 'Something went wrong, please try later!';
@@ -106,10 +103,18 @@ class SearchPage extends React.Component {
     this.setState({'errorMessage': errorMessage});
     return false;
   }
+  formatTimeStamp(array) {
+    array.reverse(array.timeStamp);
+    array = array.map(function(item, index) {
+      let newDate = new Date(item.timeStamp);
+      let newOriginDate = new Date(item.originTimeStamp);
 
+      item.timeInDate = formatDate(newDate);
+      item.originTimeInDate = formatDate(newOriginDate);
+      return item;
+    });
+  }
   sendSearchRequest() {
-    console.log(this.state.searchText);
-    console.log(this.state.searchType);
     let xhr = new XMLHttpRequest();
 
     xhr.addEventListener('readystatechange', function() {
@@ -121,18 +126,19 @@ class SearchPage extends React.Component {
             searchInfo = JSON.parse(xhr.response).people;
           } else if (this.state.searchType === 'posts') {
             searchInfo = JSON.parse(xhr.response).post;
-            console.log('from backend: ', searchInfo);
+            this.formatTimeStamp(searchInfo);
           }
-
-          this.setState({'searchInfo': searchInfo});
-          // console.log(this.state.searchInfo);
+          if (searchInfo.length === 0) {
+            this.setState({'searchInfo': null});
+          } else {
+            this.setState({'searchInfo': searchInfo});
+          }
         }
       }
     }.bind(this));
-    console.log('text: ', this.state.searchText);
-    console.log('type: ', this.state.searchType);
 
-    xhr.open('GET', '/api/search/' + this.state.searchType + '/' + this.state.searchText);
+    xhr.open('GET', '/api/search/' + this.state.searchType +
+    '/' + this.state.searchText);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(this.state.searchText));
@@ -141,29 +147,29 @@ class SearchPage extends React.Component {
   componentDidMount() {
     this.getUserInfo();
     this.sendSearchRequest();
-
-    // let obj = {};
-
-    // searchArray.forEach(function(data) {
-    //   obj[data[0]] = data[1];
-    // });
   }
-
-  // /////////////////////////////////////////////////////////////
   render() {
     let main = null;
 
-    if (this.state.searchType === 'posts') {
+    if (this.state.errorMessage !== null) {
+      main = <h1 className="no-result">{this.state.errorMessage}</h1>;
+    } else if (this.state.searchInfo === null) {
+      main = <h1 className="no-result">Sorry, we couldn't find anything.</h1>;
+    } else if (this.state.searchType === 'posts' &&
+     this.state.searchInfo.length !== 0) {
       main = <SearchPost postsInfo={this.state.searchInfo} />;
-    } else if (this.state.searchType === 'people') {
+    } else if (this.state.searchType === 'people' &&
+    this.state.searchInfo.length !== 0) {
       main = <SearchPeople peopleInfo={this.state.searchInfo} />;
     }
+
     return (
       <div>
         <Header isLoggedIn={true}
           user={this.state.userInfo.username}
           searchType={this.state.searchType} />
-        <SearchNav query={this.state.searchText} />
+        <SearchNav searchType= {this.state.searchType}
+          query={this.state.searchText} />
         {main}
       </div>
     );

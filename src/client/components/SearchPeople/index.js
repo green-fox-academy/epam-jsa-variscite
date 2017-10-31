@@ -11,6 +11,7 @@ class SearchPeople extends React.Component {
     );
     return (
       <div className="search-people">
+        <h1 className="search-title">People</h1>
         {peopleToRender}
       </div>
     );
