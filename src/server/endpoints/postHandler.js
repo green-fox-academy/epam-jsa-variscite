@@ -66,7 +66,7 @@ function newPostHandler(req, res, postInfo) {
 }
 
 function findAllPosts(id, item, req, res) {
-  if (item !== null && req.query === undefined || req.query.author !== 'me') {
+  if (item !== null && (req.query === undefined || req.query.author !== 'me')) {
     let users = item.userFriends;
 
     users.push(item.userId);

@@ -14,26 +14,30 @@ function getUserInfo(req, res) {
         'fullname': result.fullname,
       };
 
-      let obj = {userInfo: user};
-
-      res.status(HTTP_STATUSES.OK).json(obj);
+      res.status(HTTP_STATUSES.OK).json({userInfo: user});
     });
   } else {
     let token = req.header('Authorization');
 
-    getAccessToken(token, function(err, item) {
+    if (token === null) {
+      res.status(HTTP_STATUSES.UNAUTHORIZED)
+        .json({'errorType': 'Unauthorized'});
+      return;
+    }
+
+    getAccessToken(token, function(err, tokenDescriptor) {
       if (err) {
         res.status(HTTP_STATUSES.SERVER_ERROR)
           .json({'errorType': 'server error'});
         return;
       }
-      if (item === null) {
+      if (tokenDescriptor === null) {
         res.status(HTTP_STATUSES.UNAUTHORIZED)
           .json({'errorType': 'Unauthorized'});
         return;
       }
 
-      usersCollection.findUsername(item.userId, (result) => {
+      usersCollection.findUsername(tokenDescriptor.userId, (result) => {
         let user = {
           'username': result.username,
           'email': result.email,
@@ -41,9 +45,7 @@ function getUserInfo(req, res) {
           'fullname': result.fullname,
         };
 
-        let obj = {info: user};
-
-        res.status(HTTP_STATUSES.OK).json(obj);
+        res.status(HTTP_STATUSES.OK).json({info: user});
       });
     });
   }
