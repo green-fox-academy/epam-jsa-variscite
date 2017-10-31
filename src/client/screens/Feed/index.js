@@ -240,7 +240,9 @@ class FeedPage extends React.Component {
         deletePost={() => {
           this.deletePost(event, item);
         }}
+        increaseCommentNum = {() => this.getAllPosts()}
       />
+
     ));
     return (
       <div>
