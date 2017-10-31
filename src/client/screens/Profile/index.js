@@ -44,6 +44,7 @@ class ProfilePage extends React.Component {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleGetUserInfoError(xhr.status)) {
           let userInfo = JSON.parse(xhr.response).info;
+          console.log(userInfo);
 
           this.setState({userInfo: userInfo});
         }
@@ -104,7 +105,9 @@ class ProfilePage extends React.Component {
 
   componentDidMount() {
     this.getUserInfo();
+    console.log(this.state.userInfo);
     this.getProfileInfo();
+    console.log(this.state.profileName);
   }
 
   render() {
@@ -114,7 +117,7 @@ class ProfilePage extends React.Component {
         <div className="photo-container">
           <img className="cover-photo" src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg"/>
           <img className="user-pic" src="https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg" />
-          {this.state.isSelf !== true && isFriend === false ? <button className="add-friend"
+          {this.state.isSelf !== true && this.state.isFriend === false ? <button className="add-friend"
           onClick={this.addFriend.bind(this)}> Add
           </button> : null}
           <ProfileNav />
