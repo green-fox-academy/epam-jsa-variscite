@@ -72,7 +72,7 @@ class ProfilePage extends React.Component {
         if (this.handleGetUserInfoError(xhr.status)) {
           let profileName = JSON.parse(xhr.response).info;
 
-          this.setState({profileName: profileName});
+          this.setState({profileName: profileName, isFriend: profileName.isFriend});
         }
       }
     }.bind(this));
@@ -90,9 +90,7 @@ class ProfilePage extends React.Component {
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleGetUserInfoError(xhr.status)) {
-          let profileName = JSON.parse(xhr.response).info;
-
-          this.setState({profileName: profileName});
+          this.setState({isFriend:true});
         }
       }
     }.bind(this));
@@ -103,18 +101,9 @@ class ProfilePage extends React.Component {
     xhr.send();
   }
 
-  // checkIsSelf() {
-  //   if(this.stats.profileName.username === this.state.userInfo.username) {
-  //     this.setState({isSelf:true});
-  //   } else {
-  //     this.setState({isSelf:false});
-  //   }
-  // }
-
   componentDidMount() {
     this.getUserInfo();
     this.getProfileInfo();
-    // this.checkIsSelf();
   }
 
   render() {

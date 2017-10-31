@@ -26,6 +26,35 @@ function findFriends(id, callback) {
   });
 }
 
+function checkIsFriend(visitor, friend, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      return;
+    }
+    let objectId = new ObjectId(visitor);
+
+    db.collection('friends').findOne({userId: objectId}, (err, result) => {
+      if (err !== null) {
+        console.log('[MONGO ERROR] Unable to retrieve friends: ', err);
+        return
+      }
+      let friendList = result.userFriends.map(function(obj) {
+        return obj.toString();
+      })
+      if (friendList.includes(friend.toString())) {
+        db.close();
+        callback(true);
+        return;
+      } else {
+        db.close();
+        callback(false);
+        return;
+      }
+    });
+  });
+}
+
 function addFriend(id, friend, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
@@ -45,7 +74,7 @@ function addFriend(id, friend, callback) {
         if (element === null) {
           db.collection('friends').insert({
             "userId" : objectId,
-            "userFriends" : [friendId]
+            "userFriends" : [friend]
           }, function(err, result) {
             if (err !== null) {
               console.log('Couldn\'t get connect to the db', err);
@@ -58,9 +87,7 @@ function addFriend(id, friend, callback) {
           });
           return;
         } else {
-          console.log(element.userFriends);
           element.userFriends.push(friendId);
-          console.log(element.userFriends);
           db.collection('friends').findAndModify(
             {userId: objectId},
             [['_id', 1]],
@@ -85,4 +112,5 @@ function addFriend(id, friend, callback) {
 module.exports = {
   findFriends: findFriends,
   addFriend: addFriend,
+  checkIsFriend: checkIsFriend,
 };
