@@ -9,12 +9,24 @@ class SearchNav extends React.Component {
           to={'/search?type=people&q=' + this.props.query}>People</Link>
         <Link className={this.props.searchType === 'posts' ? 'search-link' : ''}
           to={'/search?type=posts&q=' + this.props.query}>Posts</Link>
-        <Link to={'/search'}>Photos</Link>
-        <Link to={'/search'}>Videos</Link>
-        <Link to={'/search'}>Pages</Link>
-        <Link to={'/search'}>Group</Link>
-        <Link to={'/search'}>Apps</Link>
-        <Link to={'/search'}>Events</Link>
+        <Link to={'#'} onClick={function(event) {
+          event.preventDefault();
+        }}>Photos</Link>
+        <Link to={'#'} onClick={function(event) {
+          event.preventDefault();
+        }}>Videos</Link>
+        <Link to={'#'} onClick={function(event) {
+          event.preventDefault();
+        }}>Pages</Link>
+        <Link to={'#'} onClick={function(event) {
+          event.preventDefault();
+        }}>Group</Link>
+        <Link to={'#'} onClick={function(event) {
+          event.preventDefault();
+        }}>Apps</Link>
+        <Link to={'#'} onClick={function(event) {
+          event.preventDefault();
+        }}>Events</Link>
       </nav>
     );
   }

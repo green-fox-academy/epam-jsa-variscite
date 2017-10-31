@@ -28,6 +28,11 @@
         border-bottom: 2px solid $bluecolor;
         background-color: $background;
     }
+    a:focus {
+        outline-style: none;
+        border-bottom: 3px solid $userblue;
+        background-color: $background;   
+    }
     .search-link {
         outline-style: none;
         border-bottom: 3px solid $userblue;

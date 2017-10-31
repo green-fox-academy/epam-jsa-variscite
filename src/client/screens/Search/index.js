@@ -25,6 +25,9 @@ class SearchPage extends React.Component {
   }
 
   extractSearchObj() {
+    if (window.location.search === '') {
+      return {q: '', type: ''};
+    }
     let searchArray = window.location.search.split('?')[1]
       .split('&').map(function(querySetting) {
         return querySetting.split('=');
