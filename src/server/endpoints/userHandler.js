@@ -14,7 +14,7 @@ function getUserInfo(req, res) {
         'fullname': result.fullname,
       };
 
-      res.status(HTTP_STATUSES.OK).json({userInfo: user});
+      res.status(HTTP_STATUSES.OK).json({info: user});
     });
   } else {
     let token = req.header('Authorization');

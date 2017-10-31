@@ -14,7 +14,7 @@ class ProfilePage extends React.Component {
     this.state = {
       'userInfo': {username: ''},
       'isLoggedIn': true,
-      'profileName': {},
+      'profileName': {username: ''},
       'isSelf': true,
       'isFriend': false,
     };
@@ -44,7 +44,6 @@ class ProfilePage extends React.Component {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleGetUserInfoError(xhr.status)) {
           let userInfo = JSON.parse(xhr.response).info;
-          console.log(userInfo);
 
           this.setState({userInfo: userInfo});
         }
@@ -55,6 +54,7 @@ class ProfilePage extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
     xhr.send();
+    return;
   }
 
   getProfileInfo() {
@@ -62,7 +62,6 @@ class ProfilePage extends React.Component {
     let token = window.localStorage.getItem('token');
     if (window.location.href.split('?')[1] !== undefined) {
       let profileName = window.location.href.split('?')[1].split('=')[1];
-      console.log(profileName);
       this.setState({isSelf: false});
       xhr.open('GET', '/api/user?username=' + profileName);
     } else {
@@ -81,6 +80,7 @@ class ProfilePage extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
     xhr.send();
+    return;
   }
 
   addFriend(event){
@@ -103,11 +103,18 @@ class ProfilePage extends React.Component {
     xhr.send();
   }
 
+  // checkIsSelf() {
+  //   if(this.stats.profileName.username === this.state.userInfo.username) {
+  //     this.setState({isSelf:true});
+  //   } else {
+  //     this.setState({isSelf:false});
+  //   }
+  // }
+
   componentDidMount() {
     this.getUserInfo();
-    console.log(this.state.userInfo);
     this.getProfileInfo();
-    console.log(this.state.profileName);
+    // this.checkIsSelf();
   }
 
   render() {

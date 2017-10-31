@@ -67,6 +67,10 @@ class ProfilePost extends React.Component {
     // this.getUserInfo();
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.getAllPosts();
+  }
+
   render() {
     let postsToRender = this.state.posts;
 
