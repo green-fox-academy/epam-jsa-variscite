@@ -91,7 +91,7 @@ function findUserFriends(tokenDescriptor, req, res) {
 }
 
 function displayPosts(req, res) {
-  if (req.query.username !== undefined) {
+  if (req.query !== undefined && req.query.username !== undefined) {
     usersCollection.retrieveUserByUsername(req.query.username, (result) => {
       let user = [result._id];
 
