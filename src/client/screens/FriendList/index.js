@@ -110,9 +110,6 @@ class FriendListPage extends React.Component {
           <FriendNav />
           <div className="friend-list">
             {friendsToRender}
-
-            {friendsToRender}
-            {friendsToRender}
           </div>
         </div>
       </div>
