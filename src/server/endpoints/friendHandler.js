@@ -11,20 +11,17 @@ function findFriends(idArray, res) {
       res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
       return;
     }
-    let friendsInfo = [];
 
-    result.forEach(function(user) {
-      let newUser = {};
-
-      newUser._id = user._id;
-      newUser.username = user.username;
-      newUser.userPicURL = user.userPicURL;
-      newUser.numberOfFriends = user.numberOfFriends;
-      friendsInfo = friendsInfo.concat(newUser);
+    res.status(HTTP_STATUSES.OK).json({
+      friends: result.map(function(user) {
+        return {
+          _id: user._id,
+          username: user.username,
+          userPicURL: user.userPicURL,
+          numberOfFriends: user.numberOfFriends,
+        };
+      }),
     });
-    let obj = {friends: friendsInfo};
-
-    res.status(HTTP_STATUSES.OK).json(obj);
   });
 }
 
@@ -43,13 +40,13 @@ function getFriendsInfo(req, res) {
       return;
     }
 
-    friendsCollection.findFriends(item.userId, (err, id, result) => {
+    friendsCollection.findFriends(item.userId, (err, userId, friendDescriptor) => {
       if (err !== null) {
         res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
         return;
       }
 
-      findFriends(result.userFriends, res);
+      findFriends(friendDescriptor.userFriends, res);
     });
   });
 }

@@ -1,7 +1,6 @@
 'use strict';
 
 import './style.scss';
-import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
 import Header from '../../components/Header';
 import ProfileNav from '../../components/ProfileNav';
@@ -41,9 +40,7 @@ class FriendListPage extends React.Component {
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleGetUserInfoError(xhr.status)) {
-          let userInfo = JSON.parse(xhr.response).info;
-
-          this.setState({userInfo: userInfo});
+          this.setState({userInfo: JSON.parse(xhr.response).info});
         }
       }
     }.bind(this));
@@ -77,9 +74,7 @@ class FriendListPage extends React.Component {
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleGetFriendsInfoError(xhr.status)) {
-          let friendsInfo = JSON.parse(xhr.response).friends;
-
-          this.setState({friendsInfo: friendsInfo});
+          this.setState({friendsInfo: JSON.parse(xhr.response).friends});
         }
       }
     }.bind(this));

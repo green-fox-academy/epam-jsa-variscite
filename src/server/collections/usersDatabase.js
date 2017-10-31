@@ -172,9 +172,7 @@ function findUsers(idArray, callback) {
     }
 
     let newIdArray = idArray.map(function(id) {
-      let newId = new ObjectId(id);
-
-      return newId;
+      return new ObjectId(id);
     });
     let filter = {_id: {'$in': newIdArray}};
 
