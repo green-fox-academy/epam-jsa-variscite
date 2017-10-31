@@ -157,6 +157,7 @@ function retrieveUsersByUsername(userName, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
       console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      callback(null);
       return;
     }
 

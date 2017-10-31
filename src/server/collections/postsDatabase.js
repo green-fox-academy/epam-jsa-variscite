@@ -194,6 +194,7 @@ function retrievePostsByPostText(postText, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
       console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      callback(null);
       return;
     }
 
@@ -202,7 +203,7 @@ function retrievePostsByPostText(postText, callback) {
         console.log('[MONGO ERROR] Unable to retrieve posts: ', err);
       }
       db.close();
-      callback(result);
+      callback(err, result);
     });
   });
 }

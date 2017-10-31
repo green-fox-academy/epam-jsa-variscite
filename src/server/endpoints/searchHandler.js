@@ -22,7 +22,11 @@ function searchUsers(searchText, res) {
 }
 
 function searchPosts(searchText, res) {
-  postsCollection.retrievePostsByPostText(searchText, (result) => {
+  postsCollection.retrievePostsByPostText(searchText, (err, result) => {
+    if (err !== null) {
+      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+      return;
+    }
     if (result !== null) {
       let data = [];
 
@@ -44,9 +48,7 @@ function searchPosts(searchText, res) {
         }));
       });
 
-      let obj = {post: data};
-
-      res.status(HTTP_STATUSES.OK).json(obj);
+      res.status(HTTP_STATUSES.OK).json({post: data});
     }
   });
 }
