@@ -14,7 +14,6 @@ class ProfilePage extends React.Component {
     this.state = {
       'userInfo': {username: ''},
       'isLoggedIn': true,
-      'searchType': 'people',
       'errorMessage': null,
     };
   }

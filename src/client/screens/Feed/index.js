@@ -20,7 +20,6 @@ class FeedPage extends React.Component {
       'userInfo': {username: 'Obama'},
       'isLoggedIn': true,
       'isSharing': false,
-      'searchType': 'people',
       'errorMessage': null,
     };
   }

@@ -1,7 +1,6 @@
 'use strict';
 
 import './style.scss';
-import ReactDOM from 'react-dom'; // eslint-disable-line no-unused-vars
 import React from 'react';
 import Header from '../../components/Header';
 import SearchNav from '../../components/SearchNav';
@@ -13,15 +12,7 @@ import formatDate from '../../components/Module/formatDate';
 class SearchPage extends React.Component {
   constructor(props) {
     super(props);
-    let searchArray = window.location.search.split('?')[1]
-      .split('&').map(function(querySetting) {
-        return querySetting.split('=');
-      });
-
-    let searchObj = searchArray.reduce(function(pre, cur) {
-      pre[cur[0]] = cur[1];
-      return pre;
-    }, {});
+    let searchObj = this.extractSearchObj();
 
     this.state = {
       'searchText': searchObj.q,
@@ -32,7 +23,8 @@ class SearchPage extends React.Component {
       'errorMessage': null,
     };
   }
-  componentWillReceiveProps() {
+
+  extractSearchObj() {
     let searchArray = window.location.search.split('?')[1]
       .split('&').map(function(querySetting) {
         return querySetting.split('=');
@@ -42,6 +34,12 @@ class SearchPage extends React.Component {
       pre[cur[0]] = cur[1];
       return pre;
     }, {});
+
+    return searchObj;
+  }
+
+  componentWillReceiveProps() {
+    let searchObj = this.extractSearchObj();
 
     this.setState({
       'searchInfo': [],
@@ -88,7 +86,7 @@ class SearchPage extends React.Component {
   }
 
   handleSearchError(status) {
-    let errorMessage = 'aaa';
+    let errorMessage = null;
 
     if (status === HTTP_STATUSES.BAD_REQUEST) {
       errorMessage = 'Something went wrong, please try later!';
@@ -141,7 +139,7 @@ class SearchPage extends React.Component {
     '/' + this.state.searchText);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(this.state.searchText));
+    xhr.send();
   }
 
   componentDidMount() {

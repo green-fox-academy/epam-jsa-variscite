@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class People extends React.Component {
   render() {
@@ -6,7 +7,7 @@ class People extends React.Component {
       <div className="people-container">
         <div className="people-info">
           <img src={this.props.item.userPicURL}/>
-          <h1>{this.props.item.username}</h1>
+          <Link to={'/profile?=' + this.props.item.username}>{this.props.item.username}</Link>
         </div>
         <button>Add Friend</button>
       </div>
