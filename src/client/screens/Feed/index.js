@@ -221,7 +221,7 @@ class FeedPage extends React.Component {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
-    xhr.send(null);
+    xhr.send();
   }
 
   render() {

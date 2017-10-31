@@ -233,7 +233,11 @@ function deletePost(req, res) {
   let validationResult = validationForOperation(req);
 
   if (validationResult === true) {
-    postsCollection.deletePost(id, () => {
+    postsCollection.deletePost(id, (err) => {
+      if (err !== null) {
+        res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+        return;
+      }
       res.status(HTTP_STATUSES.OK).json({});
     });
   }

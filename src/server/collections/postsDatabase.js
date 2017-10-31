@@ -198,7 +198,7 @@ function removePost(db, id, callback) {
       return;
     }
     db.close();
-    callback();
+    callback(err);
   });
 }
 
