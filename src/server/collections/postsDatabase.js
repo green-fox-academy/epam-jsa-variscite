@@ -192,8 +192,11 @@ function sharePost(id, userName, userPicURL, callback) {
 
 function removePost(db, id, callback) {
   db.collection('posts').remove({_id: ObjectId(id)}, function(err, obj) {
-    if (err) throw err;
-    console.log(obj + ' document(s) deleted');
+    if (err !== null) {
+      console.log('Couldn\'t find post from db', err);
+      callback(null);
+      return;
+    }
     db.close();
     callback();
   });
