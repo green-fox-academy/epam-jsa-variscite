@@ -21,7 +21,6 @@ class FeedPage extends React.Component {
       'userInfo': {username: 'Obama'},
       'isLoggedIn': true,
       'isSharing': false,
-      'deleteKey': [],
     };
   }
 
@@ -196,7 +195,12 @@ class FeedPage extends React.Component {
 
   handleErrorDelete(xhr, _id) {
     if (xhr.status === HTTP_STATUSES.OK) {
-      this.setState({deleteKey: this.state.deleteKey.concat(_id)});
+      let newPosts = this.state.posts;
+
+      newPosts.splice(this.state.posts.map(function(post) {
+        return post._id;
+      }).indexOf(_id), 1);
+      this.setState({posts: newPosts});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
         {errorMessage: 'Sorry, you are not authorized, please log in first!'}
@@ -236,7 +240,6 @@ class FeedPage extends React.Component {
         deletePost={() => {
           this.deletePost(event, item);
         }}
-        deleteKey={this.state.deleteKey}
       />
     ));
     return (
