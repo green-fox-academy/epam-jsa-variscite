@@ -216,7 +216,7 @@ function retrieveUserByUsername(username, callback) {
         console.log('[MONGO ERROR] Unable to retrieve user: ', err);
       }
       db.close();
-      callback(result);
+      callback(err, result);
     });
   });
 }
