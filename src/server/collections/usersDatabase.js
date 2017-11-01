@@ -225,10 +225,7 @@ module.exports = {
   checkUserInfo: checkUserInfo,
   signUp: signUp,
   findUsername: findUsername,
-<<<<<<< HEAD
   retrieveUsersByUsername: retrieveUsersByUsername,
-=======
   findUsers: findUsers,
->>>>>>> develop
   retrieveUserByUsername: retrieveUserByUsername,
 };

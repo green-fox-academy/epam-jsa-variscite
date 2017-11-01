@@ -190,7 +190,6 @@ function sharePost(id, userName, userPicURL, callback) {
   });
 }
 
-<<<<<<< HEAD
 function retrievePostsByPostText(postText, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
@@ -206,7 +205,9 @@ function retrievePostsByPostText(postText, callback) {
       db.close();
       callback(err, result);
     });
-=======
+  });
+}
+
 function removePost(db, id, callback) {
   db.collection('posts').remove({_id: ObjectId(id)}, function(err, obj) {
     if (err !== null) {
@@ -237,7 +238,6 @@ function deletePost(id, sharedUser, callback) {
     } else {
       removeSharedPost(db, id, sharedUser, callback);
     }
->>>>>>> develop
   });
 }
 
@@ -252,9 +252,6 @@ module.exports = {
   findComments: findComments,
   likePost: likePost,
   sharePost: sharePost,
-<<<<<<< HEAD
   retrievePostsByPostText: retrievePostsByPostText,
-=======
   deletePost: deletePost,
->>>>>>> develop
 };

@@ -25,11 +25,8 @@ class App extends React.Component {
             <Route path="/feed" component={FeedPage} />
             <Route path="/signup" component={SignupPage} />
             <Route path="/profile" component={ProfilePage} />
-<<<<<<< HEAD
             <Route path="/search" component={SearchPage} />
-=======
             <Route path="/friendlist" component={FriendListPage} />
->>>>>>> develop
           </div>
         </Router>
       );
