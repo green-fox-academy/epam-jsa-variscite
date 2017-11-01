@@ -71,9 +71,11 @@ class ProfilePost extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({username: nextProps.user});
-    console.log('will receive, next value: ', nextProps.user);
-    console.log('will receive, current value: ', this.props.user);
+    this.setState({username: nextProps.user}, function() {
+        console.log('callback', this.state.username);
+    });
+    // console.log('will receive, next value: ', nextProps.user);
+    // console.log('will receive, current value: ', this.props.user);
     this.getAllPosts();
   }
 

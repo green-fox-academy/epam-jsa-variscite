@@ -31,7 +31,6 @@ function getUserInfo(req, res) {
               'fullname': result.fullname,
               'isFriend': item,
             };
-            console.log(user);
             res.status(HTTP_STATUSES.OK).json({info: user});
           });
         });

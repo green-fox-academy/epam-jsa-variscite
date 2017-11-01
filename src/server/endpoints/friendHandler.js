@@ -70,7 +70,6 @@ function addFriend(req, res) {
         res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
         return;
       }
-      console.log(friendId);
       friendsCollection.addFriend(item.userId, friendId._id, (err, result) => {
         if (err !== null) {
           res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
