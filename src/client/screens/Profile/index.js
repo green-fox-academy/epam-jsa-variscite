@@ -142,14 +142,18 @@ class ProfilePage extends React.Component {
       <div>
         <Header isLoggedIn={true} user={this.state.userInfo.username} />
         <div className="photo-container">
-          <img className="cover-photo" src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg" />
-          <img className="user-pic" src={this.state.userInfo.userPicURL} onClick={this.openProfileDialog} />
+          <img className="cover-photo"
+            src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg" />
+          <img className="user-pic"
+            src={this.state.userInfo.userPicURL}
+            onClick={this.openProfileDialog} />
           <Upload {...profileProps} className="upload-profile-dialog">
             <div>upload</div>
           </Upload>
           <ProfileNav />
         </div>
-        <ProfileMain user={this.state.userInfo.username} userInfo={this.state.userInfo}/>
+        <ProfileMain user={this.state.userInfo.username}
+          userInfo={this.state.userInfo}/>
       </div>
     );
   }
