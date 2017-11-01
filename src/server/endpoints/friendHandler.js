@@ -51,18 +51,35 @@ function getFriendsInfo(req, res) {
   });
 }
 
+function handleDBError(res, err, tokenDescriptor) {
+  if (err) {
+    res.status(HTTP_STATUSES.SERVER_ERROR).json({'errorType': 'server error'});
+    return;
+  }
+  if (tokenDescriptor === null) {
+    res.status(HTTP_STATUSES.UNAUTHORIZED).json({'errorType': 'Unauthorized'});
+    return;
+  }
+}
+
 function deleteFriend(req, res) {
   if (req.params === undefined) {
     res.status(HTTP_STATUSES.BAD_REQUEST).json({});
     return;
   }
 
-  friendsCollection.deleteAFriend(req.params.userId, req.params.friendId, (err) => {
-    if (err !== null) {
-      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
-      return;
-    }
-    res.status(HTTP_STATUSES.OK).json({});
+  let token = req.header('authorization');
+
+  getAccessToken(token, function(err, tokenDescriptor) {
+    handleDBError(res, err, tokenDescriptor);
+
+    friendsCollection.deleteAFriend(tokenDescriptor.userId, req.params.friendId, (err) => {
+      if (err !== null) {
+        res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+        return;
+      }
+      res.status(HTTP_STATUSES.OK).json({});
+    });
   });
 }
 

@@ -85,6 +85,41 @@ class FriendListPage extends React.Component {
     xhr.send();
   }
 
+  handleUnfriendError(xhr, friendId) {
+    if (xhr.status === HTTP_STATUSES.OK) {
+      let newFriendsInfo = this.state.friendsInfo;
+
+      newFriendsInfo.splice(this.state.friendsInfo.map(function(friend) {
+        return friend._id;
+      }).indexOf(friendId), 1);
+      this.setState({friendsInfo: newFriendsInfo});
+    } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
+      this.setState(
+        {errorMessage: 'Sorry, you are not authorized, please log in first!'}
+      );
+    } else {
+      this.setState(
+        {errorMessage: 'Sorry, Server Error! Please try again later!'}
+      );
+    }
+  }
+
+  unfriend(event, friendId) {
+    let xhr = new XMLHttpRequest();
+    let token = window.localStorage.getItem('token');
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        this.handleUnfriendError(xhr, friendId);
+      }
+    }.bind(this));
+    xhr.open('DELETE', '/api/friend/' + friendId);
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', token);
+    xhr.send();
+  }
+
   componentDidMount() {
     this.getUserInfo();
     this.getFriendsInfo();
@@ -93,7 +128,10 @@ class FriendListPage extends React.Component {
     let friendsToRender = this.state.friendsInfo;
 
     friendsToRender = friendsToRender.map((item, key) => (
-      <FriendInfo key={key} item={item}/>
+      <FriendInfo key={key} item={item}
+        onUnfriendClick={() => {
+          this.unfriend(event, item._id);
+        }}/>
     ));
     return (
       <div>
