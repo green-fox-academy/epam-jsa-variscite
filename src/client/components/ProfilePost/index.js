@@ -123,7 +123,8 @@ class ProfilePost extends React.Component {
       <div className="profile-post">
         <AddPost errorMessage={this.state.errorMessage}
           onSubmit={this.addPost.bind(this)}/>
-        {postsToRender}
+        {(postsToRender.length === 0) ? <p className="no-post">You have not posted anything!</p> : <div>{postsToRender}</div>
+        }
       </div>
     );
   }
