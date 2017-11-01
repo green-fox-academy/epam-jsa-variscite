@@ -10,7 +10,6 @@ const MIN_LEN = 2;
 class ProfilePost extends React.Component {
   constructor(props) {
     super(props);
-    console.log('props on construct: ', props);
     this.state = {
       'username': props.user,
       'posts': [],
@@ -46,7 +45,6 @@ class ProfilePost extends React.Component {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleGetPostError(xhr.status)) {
           let posts = JSON.parse(xhr.response).post;
-          console.log(posts);
           posts.reverse(posts.timeStamp);
           posts = posts.map(function(item, index) {
             let newDate = new Date(item.timeStamp);
@@ -65,27 +63,23 @@ class ProfilePost extends React.Component {
   }
 
   componentDidMount() {
-    console.log('did mount props: ', this.props);
     this.getAllPosts();
     // this.getUserInfo();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({username: nextProps.user}, function() {
-        console.log('callback', this.state.username);
+      console.log(1);
+      this.getAllPosts();
     });
-    // console.log('will receive, next value: ', nextProps.user);
-    // console.log('will receive, current value: ', this.props.user);
-    this.getAllPosts();
   }
 
   render() {
-    console.log('on render: ', this.props);
     let postsToRender = this.state.posts;
 
     postsToRender = postsToRender.map((item, key) =>
       <PostAndComment item={item} key={key}
-        myName={this.props.myName}
+        myName={this.props.user}
         increaseCommentNum = {() => this.getAllPosts()} />
     );
 

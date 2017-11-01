@@ -23,7 +23,6 @@ function getUserInfo(req, res) {
 
         usersCollection.findUsername(tokenDescriptor.userId, (visitor) => {
           friendsCollection.checkIsFriend(visitor._id, result._id, (item) => {
-            console.log('item', item);
             let user = {
               'username': result.username,
               'email': result.email,
