@@ -133,7 +133,11 @@ class ProfilePost extends React.Component {
           userPicURL={this.props.userInfo.userPicURL}
           onSubmit={this.addPost.bind(this)}
           setImgURL = {this.storePostImgURL.bind(this)} />
-        {postsToRender}
+        {(postsToRender.length === 0) ?
+          <p className="no-post">You have not posted anything!</p>
+          : <div>{postsToRender}</div>
+        }
+
       </div>
     );
   }

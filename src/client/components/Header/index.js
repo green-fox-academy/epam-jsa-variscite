@@ -13,8 +13,8 @@ class Header extends React.Component {
             isLoggedIn={this.props.isLoggedIn}
             user={this.props.user}
           />
-          <SearchBar />
-          <OtherOptions show = {() => this.props.show()}/>
+          <SearchBar searchType={this.props.searchType}/>
+          <OtherOptions show = {() => this.props.show()} />
         </header>
       );
     }

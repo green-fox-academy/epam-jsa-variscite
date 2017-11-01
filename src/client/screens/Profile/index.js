@@ -140,7 +140,8 @@ class ProfilePage extends React.Component {
 
     return (
       <div>
-        <Header isLoggedIn={true} user={this.state.userInfo.username} />
+        <Header isLoggedIn={true}
+          user={this.state.userInfo.username} />
         <div className="photo-container">
           <img className="cover-photo"
             src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg" />
