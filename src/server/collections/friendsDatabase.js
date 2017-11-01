@@ -26,4 +26,25 @@ function findFriends(id, callback) {
   });
 }
 
-module.exports = {findFriends: findFriends};
+function deleteAFriend(userId, friendId, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      return;
+    }
+
+    db.collection('friends').updateOne({userId: new ObjectId(userId)}, {$pull: {userFriends: new ObjectId(friendId)}}, function(err, result) {
+      if (err !== null) {
+        console.log('Couldn\'t find friend from db', err);
+        callback(null);
+        return;
+      }
+      callback(err);
+    });
+  });
+}
+
+module.exports = {
+  findFriends: findFriends,
+  deleteAFriend: deleteAFriend,
+};
