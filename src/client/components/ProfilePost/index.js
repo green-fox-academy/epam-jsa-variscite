@@ -36,9 +36,12 @@ class ProfilePost extends React.Component {
   getAllPosts() {
     let xhr = new XMLHttpRequest();
     let token = window.localStorage.getItem('token');
+    if (this.state.username === '') {
+      return;
+    }
     if (this.props.isSelf) {
       xhr.open('GET', '/api/post?author=me');
-    } else {
+    } else{
       xhr.open('GET', '/api/post?username=' + this.state.username);
     }
     xhr.addEventListener('readystatechange', function() {
@@ -60,6 +63,7 @@ class ProfilePost extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
     xhr.send();
+    return;
   }
 
   componentDidMount() {
@@ -69,7 +73,6 @@ class ProfilePost extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({username: nextProps.user}, function() {
-      console.log(1);
       this.getAllPosts();
     });
   }

@@ -31,6 +31,8 @@ class ProfilePage extends React.Component {
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       pass = false;
       errorMessage = 'Cannot connect to the database, please try again later!';
+    } else if(status === HTTP_STATUSES.BAD_REQUEST) {
+      errorMessage = 'Sorry, No Such User!';
     }
     this.setState({'errorMessage': errorMessage});
     return pass;
