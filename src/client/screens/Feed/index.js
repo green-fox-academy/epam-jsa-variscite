@@ -205,6 +205,7 @@ class FeedPage extends React.Component {
           this.share(event, item);
         }} />
     ));
+
     return (
       <div>
         <Header isLoggedIn={this.state.isLoggedIn}
@@ -217,7 +218,10 @@ class FeedPage extends React.Component {
               errorMessage={this.state.errorMessage}
               onSubmit={this.addPost.bind(this)}
             />
-            {this.state.isLoading === false ? <div>{postsToRender}</div> : <Loading />}
+            { (postsToRender.length === 0 && this.state.isLoading) ?
+              <Loading /> : (postsToRender.length === 0 && !this.state.isLoading) ?
+                <p className="no-post">You have not post anything!</p> : <div>{postsToRender}</div>
+            }
           </main>
           <SuggestedPage />
         </div>
