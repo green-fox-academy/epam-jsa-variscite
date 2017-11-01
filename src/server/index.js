@@ -48,6 +48,8 @@ app.put('/api/friend/:username', friendHandler.addFriend);
 
 app.delete('/api/post/:id', postHandler.deletePost);
 
+app.delete('/api/friend/:friendId', friendHandler.deleteFriend);
+
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
 });

@@ -26,6 +26,24 @@ function findFriends(id, callback) {
   });
 }
 
+function deleteAFriend(userId, friendId, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      return;
+    }
+
+    db.collection('friends').updateOne({userId: new ObjectId(userId)}, {$pull: {userFriends: new ObjectId(friendId)}}, function(err, result) {
+      if (err !== null) {
+        console.log('Couldn\'t find friend from db', err);
+        callback(null);
+        return;
+      }
+      callback(err);
+    });
+  });
+}
+
 function checkIsFriend(visitor, friend, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
@@ -54,7 +72,6 @@ function checkIsFriend(visitor, friend, callback) {
     });
   });
 }
-
 function addFriend(id, friend, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
@@ -113,4 +130,5 @@ module.exports = {
   findFriends: findFriends,
   addFriend: addFriend,
   checkIsFriend: checkIsFriend,
+  deleteAFriend: deleteAFriend,
 };
