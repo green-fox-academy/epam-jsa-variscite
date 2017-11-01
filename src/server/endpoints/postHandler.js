@@ -220,6 +220,7 @@ function createNewPost(req, res) {
 
       usersCollection.findUsername(item.userId, (result) => {
         postInfo.username = result.username;
+        postInfo.userPicURL = result.userPicURL;
         newPostHandler(req, res, postInfo);
       });
     });

@@ -29,7 +29,8 @@ class PostAndComment extends React.Component {
         />
         <Comment postId={this.props.item._id}
           isInputBoxDisplay={this.state.isInputBoxDisplay}
-          increaseCommentNum = {() => this.props.increaseCommentNum()} />
+          increaseCommentNum = {() => this.props.increaseCommentNum()}
+          userPicURL={this.props.userPicURL} />
       </div>
     );
   }

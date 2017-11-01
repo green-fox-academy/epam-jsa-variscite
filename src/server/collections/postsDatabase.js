@@ -10,7 +10,7 @@ function createNewPost(postInfo) {
     username: postInfo.username,
     postText: postInfo.postText,
     timeStamp: Date.now(),
-    userPicURL: 'https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg',
+    userPicURL: postInfo.userPicURL,
     postPicURL: postInfo.postPicURL,
     likes: [],
     comments: [],

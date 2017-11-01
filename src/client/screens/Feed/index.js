@@ -253,6 +253,7 @@ class FeedPage extends React.Component {
         onShareClick={() => {
           this.share(event, item);
         }}
+        userPicURL={this.state.userInfo.userPicURL}
         isSharing={this.state.isSharing}
         myName={this.state.userInfo.username}
         deletePost={() => {
