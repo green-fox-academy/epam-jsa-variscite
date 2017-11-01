@@ -1,0 +1,158 @@
+@import '../../components/Module/style';
+
+.photo-container {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  margin: 0 auto;
+  position: relative;
+  top: 3em;
+  width: 50em;
+  box-shadow: 2px 2px 5px 0 $shadowcolor;
+
+
+  .cover-photo {
+      width: 100%;
+      height: 17em;
+  }
+
+  .user-pic {
+      width: 7em;
+      height: 7em;
+      position: absolute;
+      top: 12em;
+      left: 1em;
+      border: 1px solid white;
+      box-shadow: 8px 8px 10px 0 black;
+  }
+  .cover-photo, .user-pic:hover {
+    cursor: pointer;
+  }
+
+  nav {
+      width: 100%;
+      height: 3em;
+      background-color: white;
+      display: flex;
+      justify-content: center;
+
+      button {
+          width: 6em;
+          color: $userblue;
+          background-color: $whitecolor;
+          border: 0;
+          font-weight: bold;
+
+      }
+      button:hover {
+          background-color: $background;
+          color: $bluecolor;
+          cursor: pointer;
+          transition: color 0.5s;
+      }
+      button:focus {
+          outline-style: none;
+      }
+  }
+  @media (max-width: 480px) {
+      min-width: 320px;
+      top: 0;
+      width: 100%;
+      img.cover-photo {
+          height: 9em;
+      }
+      img.user-pic {
+          display: none;
+      }
+  }
+
+  .friend-nav {
+    background-color: #fff;
+    display: block;
+    height: 6em;
+    margin-top: 1.5em;
+    width: 100%;
+
+    h1 {
+      font-size: 1.5em;
+      margin-left: 1em;
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAeCAYAAABaKIzgAAAABGdBTUEAALGPC/xhBQAAA71JREFUWAnFmFuIVVUYx8+k5rUJhUBTaax5SEHFMBqvgxOIJto8RJSCiCgimKXhS0+FiPQgSkgEgYrVUyGKSkrEKIKgON5A0EzMMGUmovAS5i1/vzNrn87ZnnP23s059Yff2evyrW+ttdda39ozDbl0asBsFsyHmfAsDIXr8BOchR1wCv43zaPn0/B3oJvncfg2PH8N5dZ3Qiv8p+pHb1vBAfwV0pN5+naLZf5l+BTuwgPYCLavu/rQwz5wkMdgDKTRCxidANt9GWswkvyrsALWwWJ4CeITpyi9PsHUznZD//TN8pYD+N0Ptl8Pc+EAPATL4lyn7ENohEyagrXOTsKgTC3/MR5C0gMWDcrtsAvehddgGrwBm+Fn0K4L2iC1jmDp7F9J3aK84XSKHcA1eL68Sb7UvbwK/oT7sAgS1YSFzl2qWuh7nDhpw1mSJmJgBPHg+sarajW1DnRZVav0lSuDPw9QGk3F6B6cgz7FDZ4ozpBuDnnjYS3kPleR355c5d+jVH0O4+CtYrP4QEeESk9iLeT+VGmWvsey54CZfjMq8Bkf6K1Q6amthZ4KTjwoaXURwx/Bw1hQfKDRG0gb4AuOKiSaQvkvFeorFV+mYhgMjAziAz0cKox1tVDkJ/Kb1WfFW+tJPP0O7tHBWb3G7F12w430jdUlZS9g8EeS0QcYGKK8/nqjj2msH+/1LHLb2W5vUqNBGFwCb4l5ScYV6tsp99o8D4V9VsE2XryFAgfqR0uixmNxE25DSZhIbJnLLcTGUy7GwyzyM/Iu/ACptstsDN2rzky2w3NQTS7ZFxC18epMeyPpdyx4NryZSkIT+bJ6h1KX3ZjqlXoI7NyZHoQ18DrMAJd4LXwH1mvn/f4e+EbNe9M8A5XkVbkUboD2RojEt7koGLtHi5fNATmAB6Feh8U4MQc7HyJNIHEFtHMbbYO3oQUmgaFrA7jM2lyFMyFtX/5NVlZ+1t2Bbmgua5HLPU35XFgOnmafc6ARyulFCn+D4knF013Uu0p+cPcHJ6SNb9ZwWSIDvx8Q7qtU+6OkdfVMG9V27P7zY/l9+Aj8BrWvxwZD2U6wzWdQoiXkrHA29dBXONV/2gjSD9tO8MUZCQo6QeoeDC+U1DYxGnfu7+MZ3E7D1sm59/Nq4teCA/lc/X46Qj+jMnThPnWCI9ybC0LDb8KzXo/If5bb7msG4xjb/ZkaRubo66nI/5QMnRi3VauBtSWfzOU28XQL1Eu+FOUK7smnSv/50FClrMVKZzozGP3bR28nmNS+4xF+R9iJKynUdgAAAABJRU5ErkJggg==');
+      background-position: left;
+      background-repeat: no-repeat;
+      background-size: auto 1em;
+      text-decoration: none;
+      text-indent: 1.7em;  
+    }
+
+    a {
+      color: $userblue;
+      font-size: .8em;
+      font-weight: 700;
+      margin-left: 1.5em;
+      outline: 0;
+      text-decoration: none;
+    }
+  }
+
+  .friend-list {
+    align-content: stretch;
+    background: #fff;
+    border: 1px solid $greycolor;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10%;
+    padding-bottom: 1em;
+    width: 100%;
+
+    .friend-info {
+      border: 2px solid $greycolor;
+      display: flex;
+      height: 6em;
+      margin: 1em 0 0 1em;
+      width: 47%;
+
+      @media (max-width: 480px) {
+        width: 90%;
+      }
+
+      p {
+        color: $userblue;
+        display: block;
+        flex-grow: 1;
+        font-size: 1.2em;
+        margin-left: .5em;
+      }
+
+      span {
+        color: $fontcolor;
+        display: block;
+        font-size: 0.7em;
+        margin-top: 5px;
+      }
+
+      img {
+        height: 6em;
+        width: 6em;
+      }
+
+      button {
+        background-color: #fff;
+        border: 0;
+        color: #3b5998;
+        font-size: .9em;
+        font-weight: bold;
+      }
+
+      button:hover {
+        background-color: $background;
+        color: $bluecolor;
+        cursor: pointer;
+        transition: color 0.5s;
+      }
+
+      button:focus {
+        outline-style: none;
+      }
+    }
+  }
+}

@@ -13,7 +13,11 @@ const signupHandler = require('./endpoints/signUpHandler');
 const postHandler = require('./endpoints/postHandler');
 const userHandler = require('./endpoints/userHandler');
 const commentHandler = require('./endpoints/commentHandler');
+<<<<<<< HEAD
 const searchHandler = require('./endpoints/searchHandler');
+=======
+const friendHandler = require('./endpoints/friendHandler');
+>>>>>>> develop
 const LOCAL_PORT = 8080;
 const PORT = process.env.PORT || LOCAL_PORT;
 const app = express();
@@ -42,7 +46,15 @@ app.put('/api/post/:id/like', postHandler.like);
 
 app.put('/api/post/:id/share', postHandler.share);
 
+<<<<<<< HEAD
 app.get('/api/search/:type/:searchText', jsonParser, searchHandler.search);
+=======
+app.get('/api/friend', friendHandler.getFriendsInfo);
+
+app.delete('/api/post/:id', postHandler.deletePost);
+
+app.delete('/api/friend/:friendId', friendHandler.deleteFriend);
+>>>>>>> develop
 
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
