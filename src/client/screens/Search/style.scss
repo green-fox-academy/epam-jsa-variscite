@@ -1,0 +1,114 @@
+@import '../../components/Module/style';
+
+.search-nav {
+    height: 2.5em;
+    width: 100%;
+    position: relative;
+    top: 3em;
+    background-color: $whitecolor;
+    display: flex;
+    justify-content: center;
+    border-top: 2px solid white;
+    border-bottom: 4px solid white;
+    a {
+        width: 6%;
+        background-color: $whitecolor;
+        color: black;
+        border: 0;
+        font-size: 15px;
+        margin-right: 8px;
+        margin-left: 8px;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    a:hover {
+        cursor: pointer;
+        border-bottom: 2px solid $bluecolor;
+        background-color: $background;
+    }
+    a:focus {
+        outline-style: none;
+        border-bottom: 3px solid $userblue;
+        background-color: $background;   
+    }
+    .search-link {
+        outline-style: none;
+        border-bottom: 3px solid $userblue;
+        background-color: $background;
+    }
+}
+.no-result {
+    position: relative;
+    top:3em;
+    display: flex;
+    justify-content: center;
+}
+
+.search-post {
+    width: 40%;
+    margin: 0 auto;
+    position: relative;
+    top: 5em;
+}
+
+.search-people {
+    width: 40%;
+    min-width: 500px;
+    margin: 0 auto;
+    position: relative;
+    top: 5em;
+}
+
+.search-title {
+    font-size: 20px;
+    color: $textgrey;
+    margin-left: 1em;
+}
+
+.people-container {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    // height: 80px;
+    padding: 4%;
+    background-color: white;
+    border-bottom: 1px solid $bordergrey;
+    .people-info {
+        display: flex;
+        justify-content: flex-start;
+    }
+    img {
+        width: 80px;
+        height: 80px;
+    }
+    a {
+        display: inline-block;
+        font-size: 18px;
+        margin-left: 10px;
+        margin-top: 5px;
+        font-weight: bold;
+        color: $userblue;
+        text-decoration: none;
+    }
+    button {
+        width: 100px;
+        height: 25px;
+        margin: 5px;
+        font-weight: bold;
+        background-color: $bluecolor;
+        color: $whitecolor;
+        border: none;
+    }
+    button:hover {
+        cursor: pointer;
+    }
+    button:focus {
+        outline-style: none;
+    }
+}
+
+.people-container:last-child {
+    border: none;
+}
