@@ -57,17 +57,33 @@ function checkIsFriend(visitor, friend, callback) {
         console.log('[MONGO ERROR] Unable to retrieve friends: ', err);
         return
       }
-      let friendList = result.userFriends.map(function(obj) {
-        return obj.toString();
-      })
-      if (friendList.includes(friend.toString())) {
-        db.close();
-        callback(true);
-        return;
+      if (result === null) {
+        db.collection('friends').insert({
+          "userId" : objectId,
+          "userFriends" : []
+        }, function(err, item) {
+          if (err !== null) {
+            console.log('Couldn\'t get connect to the db', err);
+            callback(null);
+            return;
+          }
+          db.close();
+          callback(false);
+          return;
+        });
       } else {
-        db.close();
-        callback(false);
-        return;
+        let friendList = result.userFriends.map(function(obj) {
+          return obj.toString();
+        });
+        if (friendList.includes(friend.toString())) {
+          db.close();
+          callback(true);
+          return;
+        } else {
+          db.close();
+          callback(false);
+          return;
+        }
       }
     });
   });
