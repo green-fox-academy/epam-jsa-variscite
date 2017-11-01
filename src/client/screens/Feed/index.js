@@ -17,10 +17,10 @@ class FeedPage extends React.Component {
     super(props);
     this.state = {
       'posts': [],
-      'errorMessage': null,
       'userInfo': {username: 'Obama'},
       'isLoggedIn': true,
       'isSharing': false,
+      'errorMessage': null,
     };
   }
 
@@ -250,8 +250,7 @@ class FeedPage extends React.Component {
     return (
       <div>
         <Header isLoggedIn={this.state.isLoggedIn}
-          user={this.state.userInfo.username}
-        />
+          user={this.state.userInfo.username} />
         <div className="feed-page-container">
           <NavigationBar />
           <main className="container">
