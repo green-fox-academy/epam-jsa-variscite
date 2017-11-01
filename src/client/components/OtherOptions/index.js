@@ -33,7 +33,7 @@ class OtherOptions extends React.Component {
         {/* <button className="option-button" onClick={function() {
           window.location.href = '/feed';
         }}>Home</button> */}
-        <Link className="option-button link" to="/friends">Friends</Link>
+        <Link className="option-button link" to="/friendlist">Friends</Link>
         <button className="option-button mystery-button img-button"></button>
         <div className="menu-block">
           <button className="option-button setting-button img-button" >

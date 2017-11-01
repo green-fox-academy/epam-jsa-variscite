@@ -47,12 +47,19 @@ class Post extends React.Component {
     xhr.send(null);
   }
 
+  componentDidMount() {
+    if (this.props.item.likes.includes(this.props.myName)) {
+      this.setState({likeState: 'liked'});
+    }
+  }
+
   render() {
     return (
       <div className="post-container">
         <section className="post-box">
           <PostHeader
             userInfo={this.props.item}
+            deletePost = {this.props.deletePost}
           />
           <p className="post-text">{this.props.item.postText}</p>
           <img className="post-pic" src={this.props.item.postPicURL} />

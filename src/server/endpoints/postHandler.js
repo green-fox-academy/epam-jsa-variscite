@@ -66,15 +66,11 @@ function newPostHandler(req, res, postInfo) {
 }
 
 function findAllPosts(id, item, req, res) {
-  if (item !== null) {
+  if (item !== null && (req.query === undefined || req.query.author !== 'me')) {
     let users = item.userFriends;
 
     users.push(item.userId);
     findPosts(users, res);
-  } else if (req.query !== undefined && req.query.author === 'me' || item === null) {
-    let user = [id];
-
-    findPosts(user, res);
   } else {
     let user = [id];
 
@@ -95,19 +91,33 @@ function findUserFriends(tokenDescriptor, req, res) {
 }
 
 function displayPosts(req, res) {
-  let token = req.header('Authorization');
+  if (req.query !== undefined && req.query.username !== undefined) {
+    usersCollection.retrieveUserByUsername(req.query.username, (result) => {
+      let user = [result._id];
 
-  getAccessToken(token, (err, tokenDescriptor) => {
-    if (err !== null) {
-      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+      findPosts(user, res);
+    });
+  } else {
+    let token = req.header('Authorization');
+
+    if (token === null) {
+      res.status(HTTP_STATUSES.UNAUTHORIZED)
+        .json({'errorType': 'Unauthorized'});
       return;
     }
-    if (tokenDescriptor === null) {
-      res.status(HTTP_STATUSES.UNAUTHORIZED).json({errorType: 'loginError'});
-      return;
-    }
-    findUserFriends(tokenDescriptor, req, res);
-  });
+
+    getAccessToken(token, (err, tokenDescriptor) => {
+      if (err !== null) {
+        res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+        return;
+      }
+      if (tokenDescriptor === null) {
+        res.status(HTTP_STATUSES.UNAUTHORIZED).json({errorType: 'loginError'});
+        return;
+      }
+      findUserFriends(tokenDescriptor, req, res);
+    });
+  }
 }
 
 function dataValidation(req, res, postInfo) {
@@ -121,16 +131,7 @@ function dataValidation(req, res, postInfo) {
   return true;
 }
 
-function dataValidationLike(req) {
-  if (req.header('content-type').toLowerCase() !== 'application/json') {
-    return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
-  } else if (req.header('Authorization') === undefined) {
-    return {'status': HTTP_STATUSES.UNAUTHORIZED, 'errorType': 'Unauthorized'};
-  }
-  return true;
-}
-
-function dataValidationShare(req) {
+function validationForOperation(req) {
   if (req.header('content-type').toLowerCase() !== 'application/json') {
     return {'status': HTTP_STATUSES.BAD_REQUEST, 'errorType': 'ContentType'};
   } else if (req.header('Authorization') === undefined) {
@@ -152,7 +153,7 @@ function handleDBError(res, err, item) {
 
 function like(req, res) {
   let id = req.params.id;
-  let validationResult = dataValidationLike(req);
+  let validationResult = validationForOperation(req);
 
   if (validationResult === true) {
     let token = req.header('authorization');
@@ -181,7 +182,7 @@ function like(req, res) {
 
 function share(req, res) {
   let id = req.params.id;
-  let validationResult = dataValidationShare(req);
+  let validationResult = validationForOperation(req);
 
   if (validationResult === true) {
     let token = req.header('authorization');
@@ -227,9 +228,26 @@ function createNewPost(req, res) {
   }
 }
 
+function deletePost(req, res) {
+  let id = req.params.id;
+  let sharedUser = req.query.sharedByUser;
+  let validationResult = validationForOperation(req);
+
+  if (validationResult) {
+    postsCollection.deletePost(id, sharedUser, (err) => {
+      if (err !== null) {
+        res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+        return;
+      }
+      res.status(HTTP_STATUSES.OK).json({});
+    });
+  }
+}
+
 module.exports = {
   createNewPost: createNewPost,
   displayPosts: displayPosts,
   like: like,
   share: share,
+  deletePost: deletePost,
 };

@@ -43,6 +43,7 @@ class CommentInput extends React.Component {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleCommentError(xhr.status) === true) {
           this.props.getCommentsInfo();
+          this.props.increaseCommentNum();
         }
       }
     }.bind(this));
@@ -75,7 +76,8 @@ class CommentInput extends React.Component {
       <div className="comment-input">
         <img className="user-pic" src={this.props.myPicURL} />
         <textarea onKeyPress={this.keyPressHandler.bind(this)}
-          id="comment-input" required name="input" placeholder="Write a comment" ref={(input) => {
+          id="comment-input" required name="input"
+          placeholder="Write a comment" ref={(input) => {
             this.nameInput = input;
           }}></textarea>
         <button></button>

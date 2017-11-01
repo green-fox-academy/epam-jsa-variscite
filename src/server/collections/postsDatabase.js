@@ -190,6 +190,57 @@ function sharePost(id, userName, userPicURL, callback) {
   });
 }
 
+function retrievePostsByPostText(postText, callback) {
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      callback(null);
+      return;
+    }
+
+    db.collection('posts').find({postText: {$regex: postText}}).toArray((err, result) => {
+      if (err !== null) {
+        console.log('[MONGO ERROR] Unable to retrieve posts: ', err);
+      }
+      db.close();
+      callback(err, result);
+    });
+  });
+}
+
+function removePost(db, id, callback) {
+  db.collection('posts').remove({_id: ObjectId(id)}, function(err, obj) {
+    if (err !== null) {
+      console.log('Couldn\'t find post from db', err);
+      callback(null);
+      return;
+    }
+    db.close();
+    callback(err);
+  });
+}
+
+function removeSharedPost(db, id, sharedUser, callback) {
+  db.collection('posts').updateOne({_id: new ObjectId(id)}, {$pull: {shares: {userName: sharedUser}}}, function(err, result) {
+    if (err !== null) {
+      console.log('Couldn\'t find friend from db', err);
+      callback(null);
+      return;
+    }
+    callback(err);
+  });
+}
+
+function deletePost(id, sharedUser, callback) {
+  connectMongoTo((db) => {
+    if (sharedUser === undefined) {
+      removePost(db, id, callback);
+    } else {
+      removeSharedPost(db, id, sharedUser, callback);
+    }
+  });
+}
+
 module.exports = {
   insertDocument: (postInfo, callback) => {
     connectMongoTo((db) => {
@@ -201,4 +252,6 @@ module.exports = {
   findComments: findComments,
   likePost: likePost,
   sharePost: sharePost,
+  retrievePostsByPostText: retrievePostsByPostText,
+  deletePost: deletePost,
 };
