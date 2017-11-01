@@ -85,6 +85,7 @@ class ProfilePost extends React.Component {
 
     postsToRender = postsToRender.map((item, key) =>
       <PostAndComment item={item} key={key}
+        myName={this.props.myName}
         increaseCommentNum = {() => this.getAllPosts()} />
     );
 

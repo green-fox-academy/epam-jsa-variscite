@@ -118,7 +118,7 @@ class ProfilePage extends React.Component {
           </button> : null}
           <ProfileNav />
         </div>
-        <ProfileMain user={this.state.profileName.username} isSelf={this.state.isSelf} />
+        <ProfileMain myName={this.state.userInfo.username} user={this.state.profileName.username} isSelf={this.state.isSelf} />
       </div>
     );
   }
