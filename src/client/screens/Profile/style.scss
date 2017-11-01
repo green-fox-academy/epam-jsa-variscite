@@ -37,15 +37,16 @@
         justify-content: center;
 
         a {
+            display: flex;
             width: 6em;
             color: $userblue;
             background-color: $whitecolor;
             border: 0;
             font-weight: bold;
             text-decoration: none;
-            font-size: .8em;
-            text-align: center;
-            margin-top: 1em;
+            font-size: .9em;
+            justify-content: center;
+            align-items: center;    
         }
 
         a:hover {
