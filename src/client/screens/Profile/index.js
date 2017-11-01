@@ -113,7 +113,7 @@ class ProfilePage extends React.Component {
     this.setState({'errorMessage': errorMessage});
     return pass;
   }
-  // ////////////////////////////////////////////////////////////////////////////////////////////
+
   setProfileImg(imgURL) {
     let xhr = new XMLHttpRequest();
     let token = window.localStorage.getItem('token');

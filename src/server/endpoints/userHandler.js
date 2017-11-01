@@ -65,12 +65,8 @@ function handleDBError(res, err, item) {
 }
 
 function setProfileImg(req, res) {
-  console.log('gggg');
-  console.log(req.body.imgURL);
   getAccessToken(req.header('Authorization'), function(err, item) {
     handleDBError(res, err, item);
-    // item.userId;
-    console.log('1: ', req.body.imgURL);
     usersCollection.updateProfileImg(item.userId, req, res);
   });
 }
