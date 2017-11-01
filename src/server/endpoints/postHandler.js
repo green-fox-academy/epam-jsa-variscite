@@ -230,10 +230,11 @@ function createNewPost(req, res) {
 
 function deletePost(req, res) {
   let id = req.params.id;
+  let sharedUser = req.query.sharedByUser;
   let validationResult = validationForOperation(req);
 
-  if (validationResult === true) {
-    postsCollection.deletePost(id, (err) => {
+  if (validationResult) {
+    postsCollection.deletePost(id, sharedUser, (err) => {
       if (err !== null) {
         res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
         return;

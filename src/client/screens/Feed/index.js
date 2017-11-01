@@ -221,7 +221,9 @@ class FeedPage extends React.Component {
         this.handleErrorDelete(xhr, item._id);
       }
     }.bind(this));
-    xhr.open('DELETE', '/api/post/' + item._id);
+    let query = (typeof item.username !== 'string') ? '?sharedByUser=' + item.username[0] : '';
+
+    xhr.open('DELETE', '/api/post/' + item._id + query);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);

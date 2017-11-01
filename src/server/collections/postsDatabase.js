@@ -202,9 +202,24 @@ function removePost(db, id, callback) {
   });
 }
 
-function deletePost(id, callback) {
+function removeSharedPost(db, id, sharedUser, callback) {
+  db.collection('posts').updateOne({_id: new ObjectId(id)}, {$pull: {shares: {userName: sharedUser}}}, function(err, result) {
+    if (err !== null) {
+      console.log('Couldn\'t find friend from db', err);
+      callback(null);
+      return;
+    }
+    callback(err);
+  });
+}
+
+function deletePost(id, sharedUser, callback) {
   connectMongoTo((db) => {
-    removePost(db, id, callback);
+    if (sharedUser === undefined) {
+      removePost(db, id, callback);
+    } else {
+      removeSharedPost(db, id, sharedUser, callback);
+    }
   });
 }
 

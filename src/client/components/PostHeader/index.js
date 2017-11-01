@@ -34,12 +34,12 @@ class PostHeader extends React.Component {
               </p>}
             <p className="time">{this.props.userInfo.timeInDate}</p>
           </div>
-          <button className="delete" onClick={this.props.deletePost}>delete</button>
+          <button className="delete" onClick={this.props.deletePost}></button>
         </div>
         <div className="origin-header">
           <img className="user-pic" src={this.props.userInfo.userPicURL} />
           <div className="post-title">
-            <p className="name">{this.props.userInfo.username[0]} </p>
+            <p className="name">{this.props.userInfo.username[1]} </p>
             <p className="time">{this.props.userInfo.originTimeInDate}</p>
           </div>
         </div>
