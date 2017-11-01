@@ -268,6 +268,7 @@ class FeedPage extends React.Component {
               errorMessage={this.state.errorMessage}
               onSubmit={this.addPost.bind(this)}
               setImgURL = {this.storePostImgURL.bind(this)}
+              userPicURL = {this.state.userInfo.userPicURL}
             />
             {postsToRender}
           </main>
