@@ -16,6 +16,7 @@ class ProfilePage extends React.Component {
       'userInfo': {username: ''},
       'isLoggedIn': true,
       'profileImgURL': '',
+      'errorMessage': null,
     };
     this.handleProfileImgSubmit = this.handleProfileImgSubmit.bind(this);
   }
@@ -88,35 +89,47 @@ class ProfilePage extends React.Component {
       });
   }
   handleProfileImgSubmit(file) {
-    const that = this;
-
     this.uploadToS3(file.file)
       .then((url) => {
-        that.setState({'profileImgURL': url});
+        this.setProfileImg(url);
       });
   }
   openProfileDialog() {
     document.querySelector('.upload-profile-dialog .ant-upload input').click();
   }
 
-  setProfileImg() {
+  handlesetProfileImgInfoError() {
+    let errorMessage = null;
+    let pass = true;
+
+    if (status === HTTP_STATUSES.UNAUTHORIZED) {
+      window.location.href = '/login';
+      pass = false;
+      errorMessage = 'You are not authorized! Please log in first!';
+    } else if (status === HTTP_STATUSES.SERVER_ERROR) {
+      pass = false;
+      errorMessage = 'Cannot connect to the database, please try again later!';
+    }
+    this.setState({'errorMessage': errorMessage});
+    return pass;
+  }
+  // ////////////////////////////////////////////////////////////////////////////////////////////
+  setProfileImg(imgURL) {
     let xhr = new XMLHttpRequest();
     let token = window.localStorage.getItem('token');
 
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (this.handleGetUserInfoError(xhr.status)) {
-          let userInfo = JSON.parse(xhr.response).info;
-
-          this.setState({userInfo: userInfo});
+        if (this.handlesetProfileImgInfoError(xhr.status)) {
+          this.getUserInfo();
         }
       }
     }.bind(this));
-    xhr.open('POST', '/api/Profileimg');
+    xhr.open('POST', '/api/profile');
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
-    xhr.send();
+    xhr.send(JSON.stringify({'imgURL': imgURL}));
   }
 
   render() {

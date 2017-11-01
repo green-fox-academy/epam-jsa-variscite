@@ -53,4 +53,29 @@ function getUserInfo(req, res) {
   }
 }
 
-module.exports = {getUserInfo: getUserInfo};
+function handleDBError(res, err, item) {
+  if (err) {
+    res.status(HTTP_STATUSES.SERVER_ERROR).json({'errorType': 'server error'});
+    return;
+  }
+  if (item === null) {
+    res.status(HTTP_STATUSES.UNAUTHORIZED).json({'errorType': 'Unauthorized'});
+    return;
+  }
+}
+
+function setProfileImg(req, res) {
+  console.log('gggg');
+  console.log(req.body.imgURL);
+  getAccessToken(req.header('Authorization'), function(err, item) {
+    handleDBError(res, err, item);
+    // item.userId;
+    console.log('1: ', req.body.imgURL);
+    usersCollection.updateProfileImg(item.userId, req, res);
+  });
+}
+
+module.exports = {
+  getUserInfo: getUserInfo,
+  setProfileImg: setProfileImg,
+};

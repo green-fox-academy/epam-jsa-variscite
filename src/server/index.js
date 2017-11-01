@@ -47,6 +47,8 @@ app.get('/api/friend', friendHandler.getFriendsInfo);
 
 app.delete('/api/post/:id', postHandler.deletePost);
 
+app.post('/api/profile', jsonParser, userHandler.setProfileImg);
+
 app.get('/sign-s3', uploadImgHandler.uploadImg);
 
 app.get('*', (req, res) =>{
