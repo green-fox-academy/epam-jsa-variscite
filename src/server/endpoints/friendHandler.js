@@ -51,4 +51,22 @@ function getFriendsInfo(req, res) {
   });
 }
 
-module.exports = {getFriendsInfo: getFriendsInfo};
+function deleteFriend(req, res) {
+  if (req.params === undefined) {
+    res.status(HTTP_STATUSES.BAD_REQUEST).json({});
+    return;
+  }
+
+  friendsCollection.deleteAFriend(req.params.userId, req.params.friendId, (err) => {
+    if (err !== null) {
+      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+      return;
+    }
+    res.status(HTTP_STATUSES.OK).json({});
+  });
+}
+
+module.exports = {
+  getFriendsInfo: getFriendsInfo,
+  deleteFriend: deleteFriend,
+};
