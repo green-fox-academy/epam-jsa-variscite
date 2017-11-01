@@ -17,6 +17,7 @@ class ProfilePage extends React.Component {
       'profileName': {username: ''},
       'isSelf': true,
       'isFriend': false,
+      'errorMessage': null,
     };
   }
 
@@ -111,7 +112,8 @@ class ProfilePage extends React.Component {
   render() {
     return (
       <div>
-        <Header isLoggedIn={true} user={this.state.userInfo.username} />
+        <Header isLoggedIn={true}
+          user={this.state.userInfo.username} />
         <div className="photo-container">
           <img className="cover-photo" src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg"/>
           <img className="user-pic" src="https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg" />
