@@ -12,6 +12,7 @@ function getUserInfo(req, res) {
         'email': result.email,
         'phonenumber': result.phonenumber,
         'fullname': result.fullname,
+        'userPicURL': result.userPicURL,
       };
 
       res.status(HTTP_STATUSES.OK).json({userInfo: user});
@@ -43,6 +44,7 @@ function getUserInfo(req, res) {
           'email': result.email,
           'phonenumber': result.phonenumber,
           'fullname': result.fullname,
+          'userPicURL': result.userPicURL,
         };
 
         res.status(HTTP_STATUSES.OK).json({info: user});

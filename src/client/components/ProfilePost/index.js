@@ -14,7 +14,12 @@ class ProfilePost extends React.Component {
     this.state = {
       'posts': [],
       'errorMessage': null,
+      'postImgURL': '',
     };
+  }
+
+  storePostImgURL(imgURL) {
+    this.setState({'postImgURL': imgURL});
   }
 
   handleGetPostError(status) {
@@ -68,7 +73,10 @@ class ProfilePost extends React.Component {
   addPost(event) {
     event.preventDefault();
 
-    let postContent = {postText: event.target.elements.namedItem('input').value};
+    let postContent = {
+      postText: event.target.elements.namedItem('input').value,
+      imgURL: this.state.postImgURL,
+    };
 
     if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);
@@ -122,7 +130,9 @@ class ProfilePost extends React.Component {
     return (
       <div className="profile-post">
         <AddPost errorMessage={this.state.errorMessage}
-          onSubmit={this.addPost.bind(this)}/>
+          userPicURL={this.props.userInfo.userPicURL}
+          onSubmit={this.addPost.bind(this)}
+          setImgURL = {this.storePostImgURL.bind(this)} />
         {postsToRender}
       </div>
     );

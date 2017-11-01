@@ -48,6 +48,7 @@ function collectData(req) {
     token: req.header('Authorization'),
     postText: req.body.postText,
     username: '',
+    postPicURL: req.body.imgURL,
   };
 }
 

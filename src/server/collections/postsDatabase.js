@@ -11,7 +11,7 @@ function createNewPost(postInfo) {
     postText: postInfo.postText,
     timeStamp: Date.now(),
     userPicURL: 'https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg',
-    postPicURL: 'http://ronpaulinstitute.org/media/121032/donald-trumps-mexico-border-wall-557313.jpg',
+    postPicURL: postInfo.postPicURL,
     likes: [],
     comments: [],
     shares: [],

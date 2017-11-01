@@ -21,7 +21,14 @@ class FeedPage extends React.Component {
       'userInfo': {username: 'Obama'},
       'isLoggedIn': true,
       'isSharing': false,
+      'postImgURL': '',
     };
+  }
+
+  storePostImgURL(imgURL) {
+    console.log('img');
+    this.setState({'postImgURL': imgURL});
+    console.log(this.state.postImgURL);
   }
 
   handleGetPostError(status) {
@@ -117,7 +124,10 @@ class FeedPage extends React.Component {
   addPost(event) {
     event.preventDefault();
 
-    let postContent = {postText: event.target.elements.namedItem('input').value};
+    let postContent = {
+      postText: event.target.elements.namedItem('input').value,
+      imgURL: this.state.postImgURL,
+    };
 
     if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);
@@ -242,6 +252,7 @@ class FeedPage extends React.Component {
           this.deletePost(event, item);
         }}
         increaseCommentNum = {() => this.getAllPosts()}
+
       />
 
     ));
@@ -256,6 +267,7 @@ class FeedPage extends React.Component {
             <AddPost
               errorMessage={this.state.errorMessage}
               onSubmit={this.addPost.bind(this)}
+              setImgURL = {this.storePostImgURL.bind(this)}
             />
             {postsToRender}
           </main>

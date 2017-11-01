@@ -105,6 +105,10 @@
       height: 35px;
       width: 11%;
     }
+
+    .upload-dialog {
+      display: none;
+    }
   }
 
   @media (max-width: 480px) {

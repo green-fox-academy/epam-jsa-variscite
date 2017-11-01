@@ -14,6 +14,7 @@ const postHandler = require('./endpoints/postHandler');
 const userHandler = require('./endpoints/userHandler');
 const commentHandler = require('./endpoints/commentHandler');
 const friendHandler = require('./endpoints/friendHandler');
+const uploadImgHandler = require('./endpoints/uploadImgHandler');
 const LOCAL_PORT = 8080;
 const PORT = process.env.PORT || LOCAL_PORT;
 const app = express();
@@ -45,6 +46,8 @@ app.put('/api/post/:id/share', postHandler.share);
 app.get('/api/friend', friendHandler.getFriendsInfo);
 
 app.delete('/api/post/:id', postHandler.deletePost);
+
+app.get('/sign-s3', uploadImgHandler.uploadImg);
 
 app.get('*', (req, res) =>{
   res.sendFile('index.html', {root: path.join(__dirname, '../../dist')});
