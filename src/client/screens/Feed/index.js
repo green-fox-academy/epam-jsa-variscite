@@ -133,6 +133,7 @@ class FeedPage extends React.Component {
     if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);
       event.target.elements.namedItem('input').value = '';
+      this.storePostImgURL('');
     } else {
       this.setState({'errorMessage': 'Please enter more words!'});
     }
