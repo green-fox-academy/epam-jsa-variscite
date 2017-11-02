@@ -6,7 +6,7 @@ import Header from '../../components/Header';
 import SearchNav from '../../components/SearchNav';
 import SearchPeople from '../../components/SearchPeople';
 import SearchPost from '../../components/SearchPost';
-import Loading from '../../components/LoadingComponent';
+import Loader from 'halogen/ScaleLoader';
 import HTTP_STATUSES from '../../httpStatuses';
 import formatDate from '../../components/Module/formatDate';
 /* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/
@@ -158,7 +158,7 @@ class SearchPage extends React.Component {
     let main = null;
 
     if (this.state.isLoading) {
-      main = <Loading />;
+      main = <Loader color="#4a90e2" className="loader"/>;
     } else if (this.state.errorMessage !== null) {
       main = <h1 className="no-result">{this.state.errorMessage}</h1>;
     } else if (this.state.searchInfo === null) {

@@ -10,7 +10,8 @@ import HTTP_STATUSES from '../../httpStatuses';
 import NavigationBar from '../../components/NavigationBar';
 import SuggestedPage from '../../components/SuggestedPage';
 import formatDate from '../../components/Module/formatDate';
-import Loading from '../../components/LoadingComponent';
+// import Loading from '../../components/LoadingComponent';
+import Loader from 'halogen/ScaleLoader';
 const MIN_LEN = 2;
 
 class FeedPage extends React.Component {
@@ -277,7 +278,7 @@ class FeedPage extends React.Component {
               userPicURL = {this.state.userInfo.userPicURL}
             />
             { (this.state.isLoading) ?
-              <Loading /> : (postsToRender.length === 0) ?
+              <Loader color="#4a90e2"/> : (postsToRender.length === 0) ?
                 <p className="no-post">You have not posted anything!</p> : <div className="post-to-render-container">{postsToRender}</div>
             }
           </main>
