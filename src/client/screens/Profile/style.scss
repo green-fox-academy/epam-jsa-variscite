@@ -8,7 +8,6 @@
     position: relative;
     top: 3em;
     width: 50em;
-    box-shadow: 2px 2px 5px 0 $shadowcolor;
 
 
     .cover-photo {
@@ -23,7 +22,6 @@
         top: 12em;
         left: 1em;
         border: 1px solid white;
-        box-shadow: 8px 8px 10px 0 black;
     }
     .cover-photo, .user-pic:hover {
       cursor: pointer;
@@ -46,7 +44,7 @@
             text-decoration: none;
             font-size: .9em;
             justify-content: center;
-            align-items: center;    
+            align-items: center;
         }
 
         a:hover {
@@ -123,7 +121,6 @@
           width: 90%;
           height: 10em;
           border: 1px solid $whitecolor;
-          box-shadow: 5px 5px 8px 0 black;
         }
 
         h1, img:hover {
