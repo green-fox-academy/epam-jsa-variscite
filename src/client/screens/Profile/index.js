@@ -176,6 +176,7 @@ class ProfilePage extends React.Component {
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handlesetProfileImgInfoError(xhr.status)) {
+          this.getProfileInfo();
           this.getUserInfo();
         }
       }
