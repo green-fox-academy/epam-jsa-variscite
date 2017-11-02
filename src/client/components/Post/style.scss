@@ -120,6 +120,7 @@
       img {
         height: 50px;
         width: 50px;
+        background-color: $greycolor;
       }
     }
   }
@@ -138,10 +139,12 @@
   .user-pic {
     height: 45px;
     width: 45px;
+    background-color: $greycolor;
   }
 
   .post-pic {
     width: 100%;
+    background-color: $greycolor;
   }
 
   .name,
