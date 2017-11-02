@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 const badRequest = 400;
 
 class OtherOptions extends React.Component {
@@ -29,12 +30,14 @@ class OtherOptions extends React.Component {
     /* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/
     let list = [
       'Log out',
+      'Profile',
     ];
 
     return (
       <div className="menu-container">
         <div className="arrow"></div>
         <ul className="menu">
+          <li className="menu-option"><Link to="/profile">{list[1]}</Link></li>
           <li className="menu-option" onClick={function() {
             this.logout();
           }.bind(this)}>{list[0]}</li>
