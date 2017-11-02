@@ -24,7 +24,16 @@
         left: 1em;
         border: 1px solid white;
         background-color: $greycolor;
+
+        @media (max-width: 480px) {
+          position: absolute;
+          top: 3.4em;
+          left: .5em;
+          width: 5em;
+          height: 5em;
+        }
     }
+
     .cover-photo, .user-pic:hover {
       cursor: pointer;
     }
@@ -70,9 +79,6 @@
         width: 100%;
         img.cover-photo {
             height: 9em;
-        }
-        img.user-pic {
-            display: none;
         }
     }
 }
@@ -160,9 +166,9 @@
             display: none;
         }
         .img-container{
-            img {
-                display: none;
-            }
+          img {
+            display: none;
+          }
         }
     }
 }
