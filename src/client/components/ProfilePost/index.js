@@ -96,7 +96,7 @@ class ProfilePost extends React.Component {
 
     return (
       <div className="profile-post">
-        {(postsToRender.length === 0) ? <p className="no-post">You have not posted anything!</p> : <div>{postsToRender}</div>
+        {(postsToRender.length === 0) ? <p className="no-post">This user has not posted anything!</p> : <div>{postsToRender}</div>
         }
       </div>
     );
