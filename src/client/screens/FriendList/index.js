@@ -153,7 +153,7 @@ class FriendListPage extends React.Component {
         <Header isLoggedIn={true} user={this.state.userInfo.username} />
         <div className="photo-container">
           <img className="cover-photo" src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg"/>
-          <img className="user-pic" src={this.state.userInfo.userPicURL} />
+          <img className="user-pic-friend" src={this.state.userInfo.userPicURL} />
           <ProfileNav />
           <FriendNav />
           <div className="friend-list">
