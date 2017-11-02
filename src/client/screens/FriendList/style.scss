@@ -36,7 +36,7 @@
       display: flex;
       justify-content: center;
 
-      button {
+      a {
           width: 6em;
           color: $userblue;
           background-color: $whitecolor;
@@ -44,13 +44,13 @@
           font-weight: bold;
 
       }
-      button:hover {
+      a:hover {
           background-color: $background;
           color: $bluecolor;
           cursor: pointer;
           transition: color 0.5s;
       }
-      button:focus {
+      a:focus {
           outline-style: none;
       }
   }
@@ -91,6 +91,7 @@
       margin-left: 1.5em;
       outline: 0;
       text-decoration: none;
+      display: inline;
     }
   }
 
