@@ -277,7 +277,7 @@ class FeedPage extends React.Component {
             />
             { (postsToRender.length === 0 && this.state.isLoading) ?
               <Loading /> : (postsToRender.length === 0 && !this.state.isLoading) ?
-                <p className="no-post">You have not posted anything!</p> : <div>{postsToRender}</div>
+                <p className="no-post">You have not posted anything!</p> : <div className="post-to-render-container">{postsToRender}</div>
             }
           </main>
           <SuggestedPage />
