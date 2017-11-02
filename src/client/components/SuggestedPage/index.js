@@ -25,14 +25,14 @@ SuggestedPage.defaultProps = {
   [
     {
       id: 1,
-      pageImg: 'http://static.adweek.com/adweek.com-prod/wp-content/uploads/files/white-house-logo-hed-2016.jpg',
-      pageTitle: 'White House Community',
-      pageDetail: '1,977,224,566 likes. 25,888,456,900 talking about this.',
+      pageImg: 'https://facebook.github.io/react-native/img/opengraph.png',
+      pageTitle: 'React Community',
+      pageDetail: '1,977,566 likes. 25,456,900 talking about this.',
     },
     {
       id: 2,
-      pageImg: 'http://static6.businessinsider.com/image/2837544b221e9b49c4004b00-1190-625/putin-set-to-be-russian-president-again.jpg',
-      pageTitle: 'Putin Fanbase',
+      pageImg: 'http://a.abcnews.com/images/Technology/gty_mark_zuckerberg_ll_111101_wmain.jpg',
+      pageTitle: 'Mark Zuckerberg Fanbase',
       pageDetail: '57,324,666 likes. 909,756,900 talking about this.',
     },
   ],
