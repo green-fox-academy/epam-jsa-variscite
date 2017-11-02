@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 import SearchNav from '../../components/SearchNav';
 import SearchPeople from '../../components/SearchPeople';
 import SearchPost from '../../components/SearchPost';
+import Loading from '../../components/LoadingComponent';
 import HTTP_STATUSES from '../../httpStatuses';
 import formatDate from '../../components/Module/formatDate';
 /* eslint no-magic-numbers: ["error", { "ignoreArrayIndexes": true }]*/
@@ -21,6 +22,7 @@ class SearchPage extends React.Component {
       'searchType': searchObj.type === undefined ? 'people' : searchObj.type,
       'searchInfo': [],
       'errorMessage': null,
+      'isLoading': false,
     };
   }
 
@@ -123,6 +125,8 @@ class SearchPage extends React.Component {
         if (this.handleSearchError(xhr.status)) {
           let searchInfo = [];
 
+          this.setState({isLoading: false});
+
           if (this.state.searchType === 'people') {
             searchInfo = JSON.parse(xhr.response).people;
           } else if (this.state.searchType === 'posts') {
@@ -142,6 +146,7 @@ class SearchPage extends React.Component {
     '/' + this.state.searchText);
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
+    this.setState({isLoading: true});
     xhr.send();
   }
 
@@ -152,7 +157,9 @@ class SearchPage extends React.Component {
   render() {
     let main = null;
 
-    if (this.state.errorMessage !== null) {
+    if (this.state.isLoading) {
+      main = <Loading />;
+    } else if (this.state.errorMessage !== null) {
       main = <h1 className="no-result">{this.state.errorMessage}</h1>;
     } else if (this.state.searchInfo === null) {
       main = <h1 className="no-result">Sorry, we couldn't find anything.</h1>;
@@ -165,7 +172,7 @@ class SearchPage extends React.Component {
     }
 
     return (
-      <div>
+      <div className="search-page">
         <Header isLoggedIn={true}
           user={this.state.userInfo.username}
           searchType={this.state.searchType} />

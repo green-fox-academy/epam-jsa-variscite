@@ -7,9 +7,9 @@ class People extends React.Component {
       <div className="people-container">
         <div className="people-info">
           <img src={this.props.item.userPicURL}/>
-          <Link to={'/profile?=' + this.props.item.username}>{this.props.item.username}</Link>
+          <Link className="user-name" to={'/profile?=' + this.props.item.username}>{this.props.item.username}</Link>
         </div>
-        <button>Add Friend</button>
+        <Link className="more-info" to={'/profile?=' + this.props.item.username}>More Info</Link>
       </div>
     );
   }
