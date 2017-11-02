@@ -121,12 +121,13 @@
         width: 90%;
       }
 
-      p {
+      a {
         color: $userblue;
         display: block;
         flex-grow: 1;
         font-size: 1.2em;
         margin-left: .5em;
+        text-decoration: none;
       }
 
       span {

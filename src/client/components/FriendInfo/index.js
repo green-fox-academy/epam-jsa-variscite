@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 class FriendInfo extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class FriendInfo extends React.Component {
     return (
       <div key={this.props.item._id} className="friend-info">
         <img src={this.props.userPicURL} />
-        <p>{this.props.item.username}<span>{this.props.item.numberOfFriends} friends</span></p>
+        <Link className="user-name" to={'/profile?=' + this.props.item.username}>{this.props.item.username}<span>{this.props.item.numberOfFriends} friends</span></Link>
         <button onClick={this.props.onUnfriendClick}>unfriend</button>
       </div>
     );
