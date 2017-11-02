@@ -212,7 +212,7 @@ class FeedPage extends React.Component {
       newPosts.splice(this.state.posts.map(function(post) {
         return post._id;
       }).indexOf(_id), 1);
-      this.setState({posts: newPosts});
+      this.setState({posts: newPosts, isLoading: true});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
         {errorMessage: 'Sorry, you are not authorized, please log in first!'}
@@ -239,6 +239,7 @@ class FeedPage extends React.Component {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
+    this.setState({isLoading: true});
     xhr.send();
   }
 
