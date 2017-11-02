@@ -59,9 +59,11 @@
       width: 100%;
       img.cover-photo {
           height: 9em;
+          background-color: $greycolor;
       }
       img.user-pic {
           display: none;
+          background-color: $greycolor;
       }
   }
 
@@ -137,6 +139,7 @@
       img {
         height: 6em;
         width: 6em;
+        background-color: $greycolor;
       }
 
       button {
