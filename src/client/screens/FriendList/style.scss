@@ -104,6 +104,10 @@
     padding-bottom: 1em;
     width: 100%;
 
+    @media (max-width: 480px) {
+      border: 0;
+    }
+
     .friend-info {
       border: 2px solid $greycolor;
       display: flex;
