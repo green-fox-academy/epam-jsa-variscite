@@ -157,6 +157,10 @@ header {
     }
 
     @media (max-width: 480px) {
+      .other-options{
+        padding: 0;
+      }
+
       .option-button {
         display: none;
       }
@@ -164,8 +168,11 @@ header {
       .img-button {
         display: inline;
         margin: 0;
-
       }
+    }
+
+    @media (max-width: 480px) {
+      padding: 0;
     }
   }
 }
