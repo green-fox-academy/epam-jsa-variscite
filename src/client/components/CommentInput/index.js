@@ -10,6 +10,10 @@ class CommentInput extends React.Component {
     super(props);
     this.state = {userPicURL: this.props.myPicURL};
   }
+
+  componentWillReceiveProps(props) {
+    this.setState({userPicURL: this.props.myPicURL});
+  }
   addComment(event) {
     event.preventDefault();
     let commentContent = {
