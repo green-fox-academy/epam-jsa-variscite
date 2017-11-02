@@ -73,8 +73,7 @@ class FeedPage extends React.Component {
           let posts = JSON.parse(xhr.response).post;
 
           this.formatTimeStamp(posts);
-          this.setState({posts: posts});
-          console.log(posts);
+          this.setState({posts: posts, isLoading: false});
         }
       }
     }.bind(this));
@@ -82,6 +81,7 @@ class FeedPage extends React.Component {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
+    this.setState({isLoading: true});
     xhr.send();
   }
 
@@ -106,7 +106,7 @@ class FeedPage extends React.Component {
         if (this.handleGetPostError(xhr.status)) {
           let userInfo = JSON.parse(xhr.response).info;
 
-          this.setState({'userInfo': userInfo, 'isLoading': false});
+          this.setState({'userInfo': userInfo});
         }
       }
     }.bind(this));
@@ -114,7 +114,6 @@ class FeedPage extends React.Component {
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
-    this.setState({isLoading: true});
     xhr.send();
   }
 
@@ -275,8 +274,8 @@ class FeedPage extends React.Component {
               setImgURL = {this.storePostImgURL.bind(this)}
               userPicURL = {this.state.userInfo.userPicURL}
             />
-            { (postsToRender.length === 0 && this.state.isLoading) ?
-              <Loading /> : (postsToRender.length === 0 && !this.state.isLoading) ?
+            { (this.state.isLoading) ?
+              <Loading /> : (postsToRender.length === 0) ?
                 <p className="no-post">You have not posted anything!</p> : <div className="post-to-render-container">{postsToRender}</div>
             }
           </main>
