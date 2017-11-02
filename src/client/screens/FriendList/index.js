@@ -129,7 +129,7 @@ class FriendListPage extends React.Component {
 
     friendsToRender = friendsToRender.map((item, key) => (
       <FriendInfo key={key} item={item}
-        userPicURL={this.state.userInfo.userPicURL}
+        userPicURL={item.userPicURL}
         onUnfriendClick={() => {
           this.unfriend(event, item._id);
         }}/>
