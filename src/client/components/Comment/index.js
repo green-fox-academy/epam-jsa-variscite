@@ -58,8 +58,11 @@ class Comment extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({myPicURL: this.props.userPicURL});
     this.getAllComments();
+  }
+
+  componentWillReceiveProps() {
+    this.setState({myPicURL: this.props.userPicURL});
   }
 
   render() {
@@ -70,7 +73,6 @@ class Comment extends React.Component {
         <CommentsBox item={item} key={key}/>
       );
     });
-
     return (
       <div className="comment-container">
         <div className="comment-text-container">

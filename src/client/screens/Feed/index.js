@@ -18,7 +18,7 @@ class FeedPage extends React.Component {
     super(props);
     this.state = {
       'posts': [],
-      'userInfo': {username: 'Obama'},
+      'userInfo': {username: ''},
       'isLoggedIn': true,
       'isLoading': false,
       'isSharing': false,

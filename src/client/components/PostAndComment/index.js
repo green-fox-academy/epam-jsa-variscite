@@ -7,7 +7,14 @@ import Comment from '../../components/Comment';
 class PostAndComment extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isInputBoxDisplay: false};
+    this.state = {
+      isInputBoxDisplay: false,
+      t: 1,
+    };
+  }
+
+  componentWillReceiveProps() {
+    this.setState({t: 2});
   }
 
   showInput() {
