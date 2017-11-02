@@ -260,4 +260,12 @@ header {
   li:last-child {
     border: none;
   }
+
+  a {
+    text-decoration: none;
+  }
+
+  a:visited {
+    color: $textgrey;
+  }
 }
