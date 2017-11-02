@@ -28,9 +28,7 @@ class FeedPage extends React.Component {
   }
 
   storePostImgURL(imgURL) {
-    console.log('img');
     this.setState({'postImgURL': imgURL});
-    console.log(this.state.postImgURL);
   }
 
   handleGetPostError(status) {

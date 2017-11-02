@@ -129,6 +129,7 @@ class FriendListPage extends React.Component {
 
     friendsToRender = friendsToRender.map((item, key) => (
       <FriendInfo key={key} item={item}
+        userPicURL={this.state.userInfo.userPicURL}
         onUnfriendClick={() => {
           this.unfriend(event, item._id);
         }}/>
@@ -138,7 +139,7 @@ class FriendListPage extends React.Component {
         <Header isLoggedIn={true} user={this.state.userInfo.username} />
         <div className="photo-container">
           <img className="cover-photo" src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg"/>
-          <img className="user-pic" src="https://www.nbr.co.nz/sites/default/files/blog_post_img/Trump-impact_0.jpg" />
+          <img className="user-pic" src={this.state.userInfo.userPicURL} />
           <ProfileNav />
           <FriendNav />
           <div className="friend-list">
