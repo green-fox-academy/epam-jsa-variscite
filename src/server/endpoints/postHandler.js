@@ -202,9 +202,9 @@ function share(req, res) {
                 .json({'errorType': 'server error'});
               return;
             }
+            findUserFriends(item, req, res);
           });
       });
-      findUserFriends(item, req, res);
     });
   } else {
     res.status(validationResult.status)
