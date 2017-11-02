@@ -201,7 +201,7 @@ class ProfilePage extends React.Component {
           <img className="cover-photo"
             src="http://www.hdfbcover.com/randomcovers/covers/Great-minds-think-alone.jpg" />
           <img className="user-pic"
-            src={this.state.userInfo.userPicURL}
+            src={this.state.profileName.userPicURL}
             onClick={this.openProfileDialog} />
           {this.state.isSelf !== true && this.state.isFriend === false ? <button className="add-friend"
             onClick={this.addFriend.bind(this)}> Add
