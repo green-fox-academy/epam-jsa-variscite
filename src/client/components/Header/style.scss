@@ -227,7 +227,6 @@ header {
 
 .menu {
   background-color: $whitecolor;
-  // border: 3px solid white;
   border: none;
   box-shadow: 0 4px 7px 1px grey;
   float: right;
@@ -236,7 +235,6 @@ header {
   padding: 0;
   position: relative;
   right: 3em;
-  min-width: 780px;
 
   li {
     border-bottom: 1px solid $bordergrey;
