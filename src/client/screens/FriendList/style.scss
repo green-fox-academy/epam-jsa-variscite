@@ -16,7 +16,7 @@
       height: 17em;
   }
 
-  .user-pic {
+  .user-pic-friend {
       width: 7em;
       height: 7em;
       position: absolute;
@@ -24,7 +24,7 @@
       left: 1em;
       border: 1px solid white;
   }
-  .cover-photo, .user-pic:hover {
+  .cover-photo, .user-pic-friend:hover {
     cursor: pointer;
   }
 
@@ -61,7 +61,7 @@
           height: 9em;
           background-color: $greycolor;
       }
-      img.user-pic {
+      img.user-pic-friend {
           display: none;
           background-color: $greycolor;
       }
