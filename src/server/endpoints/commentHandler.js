@@ -79,7 +79,10 @@ function findAllComments(req, res) {
     if (err) {
       console.log(err);
       return;
+    } else if (result[0] === null || result[0] === undefined) {
+      res.status(HTTP_STATUSES.BAD_REQUEST).json({});
     }
+
     res.status(HTTP_STATUSES.OK).json(result[0].comments);
   });
 }
