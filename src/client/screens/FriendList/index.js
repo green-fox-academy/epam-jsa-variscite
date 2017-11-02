@@ -145,7 +145,7 @@ class FriendListPage extends React.Component {
     } else if (friendsToRender.length === 0) {
       content = <p className="no-friend">Start adding more friends!</p>;
     } else {
-      content = <div>{friendsToRender}</div>;
+      content = null;
     }
 
     return (
@@ -158,6 +158,7 @@ class FriendListPage extends React.Component {
           <FriendNav />
           <div className="friend-list">
             {content}
+            {friendsToRender}
           </div>
         </div>
       </div>
