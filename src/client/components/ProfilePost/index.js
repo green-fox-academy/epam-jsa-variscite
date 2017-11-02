@@ -14,7 +14,12 @@ class ProfilePost extends React.Component {
       'username': props.user,
       'posts': [],
       'errorMessage': null,
+      'postImgURL': '',
     };
+  }
+
+  storePostImgURL(imgURL) {
+    this.setState({'postImgURL': imgURL});
   }
 
   handleGetPostError(status) {
@@ -36,18 +41,20 @@ class ProfilePost extends React.Component {
   getAllPosts() {
     let xhr = new XMLHttpRequest();
     let token = window.localStorage.getItem('token');
+
     if (this.state.username === '') {
       return;
     }
     if (this.props.isSelf) {
       xhr.open('GET', '/api/post?author=me');
-    } else{
+    } else {
       xhr.open('GET', '/api/post?username=' + this.state.username);
     }
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleGetPostError(xhr.status)) {
           let posts = JSON.parse(xhr.response).post;
+
           posts.reverse(posts.timeStamp);
           posts = posts.map(function(item, index) {
             let newDate = new Date(item.timeStamp);
@@ -82,8 +89,9 @@ class ProfilePost extends React.Component {
 
     postsToRender = postsToRender.map((item, key) =>
       <PostAndComment item={item} key={key}
-        myName={this.props.user}
-        increaseCommentNum = {() => this.getAllPosts()} />
+        myName={this.props.myName}
+        increaseCommentNum = {() => this.getAllPosts()}
+        userPicURL={this.props.userInfo.userPicURL} />
     );
 
     return (

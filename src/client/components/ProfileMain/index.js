@@ -8,10 +8,9 @@ function ProfileMain(props) {
   return (
     <div className="profile-main">
       <Intro user={props.user}/>
-      <ProfilePost user={props.user} isSelf={props.isSelf}/>
+      <ProfilePost user={props.user} isSelf={props.isSelf} userInfo={props.userInfo} myName={props.myName}/>
     </div>
   );
 }
-
 
 export default ProfileMain;

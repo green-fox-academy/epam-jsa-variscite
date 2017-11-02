@@ -15,6 +15,7 @@ const userHandler = require('./endpoints/userHandler');
 const commentHandler = require('./endpoints/commentHandler');
 const searchHandler = require('./endpoints/searchHandler');
 const friendHandler = require('./endpoints/friendHandler');
+const uploadImgHandler = require('./endpoints/uploadImgHandler');
 const LOCAL_PORT = 8080;
 const PORT = process.env.PORT || LOCAL_PORT;
 const app = express();
@@ -50,6 +51,10 @@ app.get('/api/friend', friendHandler.getFriendsInfo);
 app.put('/api/friend/:username', friendHandler.addFriend);
 
 app.delete('/api/post/:id', postHandler.deletePost);
+
+app.post('/api/profile', jsonParser, userHandler.setProfileImg);
+
+app.get('/sign-s3', uploadImgHandler.uploadImg);
 
 app.delete('/api/friend/:friendId', friendHandler.deleteFriend);
 

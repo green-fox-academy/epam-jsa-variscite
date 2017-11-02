@@ -58,6 +58,7 @@ class Comment extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({myPicURL: this.props.userPicURL});
     this.getAllComments();
   }
 

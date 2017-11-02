@@ -22,8 +22,13 @@ class FeedPage extends React.Component {
       'isLoggedIn': true,
       'isLoading': false,
       'isSharing': false,
+      'postImgURL': '',
       'errorMessage': null,
     };
+  }
+
+  storePostImgURL(imgURL) {
+    this.setState({'postImgURL': imgURL});
   }
 
   handleGetPostError(status) {
@@ -69,6 +74,7 @@ class FeedPage extends React.Component {
 
           this.formatTimeStamp(posts);
           this.setState({posts: posts});
+          console.log(posts);
         }
       }
     }.bind(this));
@@ -120,7 +126,10 @@ class FeedPage extends React.Component {
   addPost(event) {
     event.preventDefault();
 
-    let postContent = {postText: event.target.elements.namedItem('input').value};
+    let postContent = {
+      postText: event.target.elements.namedItem('input').value,
+      imgURL: this.state.postImgURL,
+    };
 
     if (postContent.postText.length > MIN_LEN) {
       this.sendPost(postContent);
@@ -242,12 +251,14 @@ class FeedPage extends React.Component {
         onShareClick={() => {
           this.share(event, item);
         }}
+        userPicURL={this.state.userInfo.userPicURL}
         isSharing={this.state.isSharing}
         myName={this.state.userInfo.username}
         deletePost={() => {
           this.deletePost(event, item);
         }}
         increaseCommentNum = {() => this.getAllPosts()}
+
       />
     ));
 
@@ -261,6 +272,8 @@ class FeedPage extends React.Component {
             <AddPost
               errorMessage={this.state.errorMessage}
               onSubmit={this.addPost.bind(this)}
+              setImgURL = {this.storePostImgURL.bind(this)}
+              userPicURL = {this.state.userInfo.userPicURL}
             />
             { (postsToRender.length === 0 && this.state.isLoading) ?
               <Loading /> : (postsToRender.length === 0 && !this.state.isLoading) ?

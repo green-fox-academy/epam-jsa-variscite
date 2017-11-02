@@ -48,6 +48,7 @@ function collectData(req) {
     token: req.header('Authorization'),
     postText: req.body.postText,
     username: '',
+    postPicURL: req.body.imgURL,
   };
 }
 
@@ -223,6 +224,7 @@ function createNewPost(req, res) {
 
       usersCollection.findUsername(item.userId, (result) => {
         postInfo.username = result.username;
+        postInfo.userPicURL = result.userPicURL;
         newPostHandler(req, res, postInfo);
       });
     });

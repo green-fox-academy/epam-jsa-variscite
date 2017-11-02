@@ -6,6 +6,10 @@ const MIN_LEN = 2;
 const ENTER_KEY_CODE = 13;
 
 class CommentInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {userPicURL: this.props.myPicURL};
+  }
   addComment(event) {
     event.preventDefault();
     let commentContent = {
@@ -74,7 +78,7 @@ class CommentInput extends React.Component {
   render() {
     return (
       <div className="comment-input">
-        <img className="user-pic" src={this.props.myPicURL} />
+        <img className="user-pic" src={this.state.userPicURL} />
         <textarea onKeyPress={this.keyPressHandler.bind(this)}
           id="comment-input" required name="input"
           placeholder="Write a comment" ref={(input) => {

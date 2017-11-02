@@ -182,6 +182,41 @@ function findUsername(id, callback) {
   });
 }
 
+function insertProfileImg(db, id, req, res) {
+  let objectId = new ObjectId(id);
+
+  console.log(id);
+  db.collection('posts').updateMany({userId: id}, {$set: {'userPicURL': req.body.imgURL}}, function(err) {
+    if (err) {
+      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+      console.log('Couldn\'t update the field in the db', err);
+      return;
+    }
+    console.log('good');
+    // res.json(); // ????
+  });
+
+  db.collection('users').update({_id: objectId}, {$set: {'userPicURL': req.body.imgURL}}, function(err) {
+    if (err) {
+      res.status(HTTP_STATUSES.SERVER_ERROR).json({errorType: 'serverError'});
+      console.log('Couldn\'t update the field in the db', err);
+      return;
+    }
+    res.json();
+  });
+}
+
+function updateProfileImg(id, req, res) {
+  console.log('2: ', req.body.imgURL);
+  MongoClient.connect(url, (err, db) => {
+    if (err !== null) {
+      console.log('[MONGO ERROR] Unable to connect to db: ', err);
+      return;
+    }
+    insertProfileImg(db, id, req, res);
+  });
+}
+
 function findUsers(idArray, callback) {
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
@@ -228,4 +263,5 @@ module.exports = {
   retrieveUsersByUsername: retrieveUsersByUsername,
   findUsers: findUsers,
   retrieveUserByUsername: retrieveUserByUsername,
+  updateProfileImg: updateProfileImg,
 };
