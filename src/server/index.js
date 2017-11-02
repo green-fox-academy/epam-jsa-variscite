@@ -48,6 +48,8 @@ app.get('/api/search/:type/:searchText', jsonParser, searchHandler.search);
 
 app.get('/api/friend', friendHandler.getFriendsInfo);
 
+app.put('/api/friend/:username', friendHandler.addFriend);
+
 app.delete('/api/post/:id', postHandler.deletePost);
 
 app.post('/api/profile', jsonParser, userHandler.setProfileImg);

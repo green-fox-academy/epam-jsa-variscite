@@ -16,10 +16,14 @@ class ProfilePage extends React.Component {
       'userInfo': {username: ''},
       'isLoggedIn': true,
       'profileImgURL': '',
+      'profileName': {username: ''},
+      'isSelf': true,
+      'isFriend': false,
       'errorMessage': null,
     };
     this.handleProfileImgSubmit = this.handleProfileImgSubmit.bind(this);
   }
+
   handleGetUserInfoError(status) {
     let errorMessage = null;
     let pass = true;
@@ -31,6 +35,8 @@ class ProfilePage extends React.Component {
     } else if (status === HTTP_STATUSES.SERVER_ERROR) {
       pass = false;
       errorMessage = 'Cannot connect to the database, please try again later!';
+    } else if (status === HTTP_STATUSES.BAD_REQUEST) {
+      errorMessage = 'Sorry, No Such User!';
     }
     this.setState({'errorMessage': errorMessage});
     return pass;
@@ -53,10 +59,59 @@ class ProfilePage extends React.Component {
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader('Authorization', token);
     xhr.send();
+    return;
+  }
+
+  getProfileInfo() {
+    let xhr = new XMLHttpRequest();
+    let token = window.localStorage.getItem('token');
+
+    if (window.location.href.split('?')[1] !== undefined) {
+      let profileName = window.location.href.split('?')[1].split('=')[1];
+
+      this.setState({isSelf: false});
+      xhr.open('GET', '/api/user?username=' + profileName);
+    } else {
+      xhr.open('GET', '/api/user');
+    }
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (this.handleGetUserInfoError(xhr.status)) {
+          let profileName = JSON.parse(xhr.response).info;
+
+          this.setState({profileName: profileName, isFriend: profileName.isFriend});
+        }
+      }
+    }.bind(this));
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', token);
+    xhr.send();
+    return;
+  }
+
+  addFriend(event) {
+    let xhr = new XMLHttpRequest();
+    let token = window.localStorage.getItem('token');
+
+    xhr.addEventListener('readystatechange', function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (this.handleGetUserInfoError(xhr.status)) {
+          this.setState({isFriend: true});
+        }
+      }
+    }.bind(this));
+    xhr.open('PUT', '/api/friend/' + this.state.profileName.username);
+    xhr.setRequestHeader('Accept', 'application/json');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('Authorization', token);
+    xhr.send();
   }
   componentDidMount() {
     this.getUserInfo();
+    this.getProfileInfo();
   }
+
   getSignedRequest(file) {
     return fetch(`/sign-s3?fileName=${file.name}&fileType=${file.type}`)
       .then((response) => {
@@ -148,12 +203,15 @@ class ProfilePage extends React.Component {
           <img className="user-pic"
             src={this.state.userInfo.userPicURL}
             onClick={this.openProfileDialog} />
+          {this.state.isSelf !== true && this.state.isFriend === false ? <button className="add-friend"
+            onClick={this.addFriend.bind(this)}> Add
+          </button> : null}
           <Upload {...profileProps} className="upload-profile-dialog">
             <div>upload</div>
           </Upload>
           <ProfileNav />
         </div>
-        <ProfileMain user={this.state.userInfo.username}
+        <ProfileMain myName={this.state.userInfo.username} user={this.state.profileName.username} isSelf={this.state.isSelf}
           userInfo={this.state.userInfo}/>
       </div>
     );

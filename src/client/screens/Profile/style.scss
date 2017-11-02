@@ -170,7 +170,6 @@
 .profile-post {
     .post-comment-container {
         position: relative;
-        top: -30px;
     }
     .post-container {
         margin-top: .5em;
@@ -182,4 +181,16 @@
         color: $fontcolor;
         text-align: center;
       }
+}
+
+.add-friend {
+  background-color: $bluecolor;
+  border: 0;
+  bottom: 4rem;
+  color: $whitecolor;
+  font-size: 1rem;
+  height: 1.5rem;
+  padding: 0 .5rem;
+  position: absolute;
+  right: 1.5rem;
 }
