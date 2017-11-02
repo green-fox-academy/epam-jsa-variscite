@@ -3,6 +3,7 @@ import CommentInfo from '../CommentInfo/';
 
 class CommentsBox extends React.Component {
   render() {
+    console.log(this.props.item.userPicURL);
     return (
       <div className="comment-box">
         <img className="user-pic" src={this.props.item.userPicURL} />
