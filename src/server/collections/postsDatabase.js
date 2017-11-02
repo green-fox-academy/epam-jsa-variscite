@@ -123,6 +123,9 @@ function likePost(id, userName, callback) {
           console.log('Couldn\'t get connect to the db', err);
           callback(null);
           return;
+        } else if (element === null) {
+          callback(null);
+          return;
         } else if (element.likes.includes(userName)) {
           let index = element.likes.indexOf(userName);
           let numOfItemToDelete = 1;
