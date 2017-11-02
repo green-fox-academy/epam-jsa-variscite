@@ -7,9 +7,11 @@
   img {
     left: 4%;
     position: relative;
-    width: 12%;
+    width: 90px;
+    height: 90px;
     z-index: 10;
     border: 1px solid $whitecolor;
+    background-color: $greycolor;
   }
 
   form {
