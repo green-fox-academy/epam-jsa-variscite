@@ -204,7 +204,6 @@ function insertProfileImg(db, id, req, res) {
 }
 
 function updateProfileImg(id, req, res) {
-  console.log('2: ', req.body.imgURL);
   MongoClient.connect(url, (err, db) => {
     if (err !== null) {
       console.log('[MONGO ERROR] Unable to connect to db: ', err);
