@@ -11,22 +11,22 @@ class SearchNav extends React.Component {
           to={'/search?type=posts&q=' + this.props.query}>Posts</Link>
         <Link to={'#'} onClick={function(event) {
           event.preventDefault();
-        }}>Photos</Link>
+        }} className='hide-mobile'>Photos</Link>
         <Link to={'#'} onClick={function(event) {
           event.preventDefault();
-        }}>Videos</Link>
+        }} className='hide-mobile'>Videos</Link>
         <Link to={'#'} onClick={function(event) {
           event.preventDefault();
-        }}>Pages</Link>
+        }} className='hide-mobile'>Pages</Link>
         <Link to={'#'} onClick={function(event) {
           event.preventDefault();
-        }}>Group</Link>
+        }} className='hide-mobile'>Group</Link>
         <Link to={'#'} onClick={function(event) {
           event.preventDefault();
-        }}>Apps</Link>
+        }} className='hide-mobile'>Apps</Link>
         <Link to={'#'} onClick={function(event) {
           event.preventDefault();
-        }}>Events</Link>
+        }} className='hide-mobile'>Events</Link>
       </nav>
     );
   }
