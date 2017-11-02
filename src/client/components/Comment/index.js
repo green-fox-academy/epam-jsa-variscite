@@ -62,7 +62,6 @@ class Comment extends React.Component {
   }
 
   componentWillReceiveProps() {
-    console.log('vmi');
     this.setState({myPicURL: this.props.userPicURL});
   }
 
@@ -74,7 +73,6 @@ class Comment extends React.Component {
         <CommentsBox item={item} key={key}/>
       );
     });
-    console.log('render:', this.state.myPicURL);
     return (
       <div className="comment-container">
         <div className="comment-text-container">

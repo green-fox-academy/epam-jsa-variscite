@@ -74,7 +74,6 @@ class FeedPage extends React.Component {
 
           this.formatTimeStamp(posts);
           this.setState({posts: posts});
-          console.log(posts);
         }
       }
     }.bind(this));
