@@ -125,6 +125,8 @@ class SearchPage extends React.Component {
         if (this.handleSearchError(xhr.status)) {
           let searchInfo = [];
 
+          this.setState({isLoading: false});
+
           if (this.state.searchType === 'people') {
             searchInfo = JSON.parse(xhr.response).people;
           } else if (this.state.searchType === 'posts') {
@@ -135,7 +137,6 @@ class SearchPage extends React.Component {
             this.setState({'searchInfo': null});
           } else {
             this.setState({'searchInfo': searchInfo});
-            this.setState({isLoading: false});
           }
         }
       }
