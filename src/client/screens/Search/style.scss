@@ -143,3 +143,11 @@
 .search-page > .loading {
     margin: 20% 50%;
 }
+
+.loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    transform: translateY(-50%);
+}

@@ -7,6 +7,7 @@ import ProfileNav from '../../components/ProfileNav';
 import FriendNav from '../../components/FriendNav';
 import FriendInfo from '../../components/FriendInfo';
 import HTTP_STATUSES from '../../httpStatuses';
+import Loader from 'halogen/ScaleLoader';
 
 class FriendListPage extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class FriendListPage extends React.Component {
       'userInfo': {username: ''},
       'isLoggedIn': true,
       'friendsInfo': [],
+      'isLoading': false,
     };
   }
   handleGetUserInfoError(status) {
@@ -63,7 +65,7 @@ class FriendListPage extends React.Component {
       pass = false;
       errorMessage = 'Cannot connect to the database, please try again later!';
     }
-    this.setState({'errorMessage': errorMessage});
+    this.setState({'errorMessage': errorMessage, 'isLoading': false});
     return pass;
   }
 
@@ -71,10 +73,11 @@ class FriendListPage extends React.Component {
     let xhr = new XMLHttpRequest();
     let token = window.localStorage.getItem('token');
 
+    this.setState({isLoading: true});
     xhr.addEventListener('readystatechange', function() {
       if (xhr.readyState === XMLHttpRequest.DONE) {
         if (this.handleGetFriendsInfoError(xhr.status)) {
-          this.setState({friendsInfo: JSON.parse(xhr.response).friends});
+          this.setState({friendsInfo: JSON.parse(xhr.response).friends, isLoading: false});
         }
       }
     }.bind(this));
@@ -134,6 +137,17 @@ class FriendListPage extends React.Component {
           this.unfriend(event, item._id);
         }}/>
     ));
+
+    let content = null;
+
+    if (this.state.isLoading) {
+      content = <Loader color="#4a90e2" className="friend-loader"/>;
+    } else if (friendsToRender.length === 0) {
+      content = <p className="no-friend">Start adding more friends!</p>;
+    } else {
+      content = <div>{friendsToRender}</div>;
+    }
+
     return (
       <div>
         <Header isLoggedIn={true} user={this.state.userInfo.username} />
@@ -143,7 +157,7 @@ class FriendListPage extends React.Component {
           <ProfileNav />
           <FriendNav />
           <div className="friend-list">
-            {friendsToRender}
+            {content}
           </div>
         </div>
       </div>

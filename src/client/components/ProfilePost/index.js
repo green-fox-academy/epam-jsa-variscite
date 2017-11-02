@@ -4,6 +4,7 @@ import React from 'react';
 import PostAndComment from '../PostAndComment';
 import HTTP_STATUSES from '../../httpStatuses';
 import formatDate from '../../components/Module/formatDate';
+import Loader from 'halogen/ScaleLoader';
 
 const MIN_LEN = 2;
 
@@ -15,6 +16,7 @@ class ProfilePost extends React.Component {
       'posts': [],
       'errorMessage': null,
       'postImgURL': '',
+      'isLoading': false,
     };
   }
 
@@ -42,6 +44,8 @@ class ProfilePost extends React.Component {
     let xhr = new XMLHttpRequest();
     let token = window.localStorage.getItem('token');
 
+    this.setState({isLoading: true});
+
     if (this.state.username === '') {
       return;
     }
@@ -62,7 +66,7 @@ class ProfilePost extends React.Component {
             item.timeInDate = formatDate(newDate);
             return item;
           });
-          this.setState({posts: posts});
+          this.setState({posts: posts, isLoading: false});
         }
       }
     }.bind(this));
@@ -91,7 +95,7 @@ class ProfilePost extends React.Component {
       newPosts.splice(this.state.posts.map(function(post) {
         return post._id;
       }).indexOf(_id), 1);
-      this.setState({posts: newPosts});
+      this.setState({posts: newPosts, isLoading: false});
     } else if (xhr.status === HTTP_STATUSES.UNAUTHORIZED) {
       this.setState(
         {errorMessage: 'Sorry, you are not authorized, please log in first!'}
@@ -135,10 +139,19 @@ class ProfilePost extends React.Component {
       />
     );
 
+    let content = null;
+
+    if (this.state.isLoading) {
+      content = <Loader color="#4a90e2" className="profile-loader"/>;
+    } else if (postsToRender.length === 0) {
+      content = <p className="no-post">This user has not posted anything!</p>;
+    } else {
+      content = <div>{postsToRender}</div>;
+    }
+
     return (
       <div className="profile-post">
-        {(postsToRender.length === 0) ? <p className="no-post">This user has not posted anything!</p> : <div>{postsToRender}</div>
-        }
+        {content}
       </div>
     );
   }
